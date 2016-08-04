@@ -10,6 +10,9 @@ module.exports = new Promise((resolve, reject) => {
 
         var v1ProductRouter = require('../src/routers/v1/core/product-router');
         v1ProductRouter.applyRoutes(server);
+        
+        var v1BuyerRouter = require('../src/routers/v1/core/buyer-router');
+        v1BuyerRouter.applyRoutes(server);
 
         server.listen(process.env.PORT, process.env.IP);
         console.log(`server created at ${process.env.IP}:${process.env.PORT}`);
