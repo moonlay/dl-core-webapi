@@ -1,4 +1,4 @@
-function test (name, path) {
+function test(name, path) {
     describe(name, function () {
         require(path);
     })
@@ -17,5 +17,8 @@ before('initialize server', function (done) {
 
 
 
-
-test("/v1/core/products", "./routers/product-route-test");
+describe('@dl-core-webapi', function () {
+    this.timeout(2 * 60000);
+    test("/v1/core/products", "./routers/product-route-test");
+    test("/v1/core/buyers", "./routers/buyer-route-test");
+});
