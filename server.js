@@ -8,7 +8,10 @@ server.use(restify.bodyParser());
 server.use(restify.CORS());
 
 var v1ProductRouter = require('./src/routers/v1/core/product-router');
-v1ProductRouter.applyRoutes(server); 
+v1ProductRouter.applyRoutes(server);
+
+var v1SupplierRouter = require('./src/routers/v1/core/supplier-router');
+v1SupplierRouter.applyRoutes(server); 
 
 server.listen(process.env.PORT, process.env.IP);
 console.log(`server created at ${process.env.IP}:${process.env.PORT}`)

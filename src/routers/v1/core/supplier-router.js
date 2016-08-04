@@ -1,13 +1,13 @@
 var Router = require('restify-router').Router;
 var router = new Router();
 var db = require("../../../db");
-var ProductManager = require("dl-module").managers.core.ProductManager;
+var SupplierManager = require("dl-module").managers.core.SupplierManager;
 var resultFormatter = require("../../../result-formatter");
 const apiVersion = '1.0.0';
 
-router.get("/v1/core/products", function(request, response, next) {
+router.get("/v1/core/suppliers", function(request, response, next) {
     db.get().then(db => {
-            var manager = new ProductManager(db, {
+            var manager = new SupplierManager(db, {
                 username: 'router'
             });
 
@@ -25,12 +25,11 @@ router.get("/v1/core/products", function(request, response, next) {
             var error = resultFormatter.fail(apiVersion, 400, e);
             response.send(400, error);
         })
-})
+});
 
-
-router.get('/v1/core/products/:id', (request, response, next) => {
+router.get("/v1/care/suppliers/:id", function(request, response, next) {
     db.get().then(db => {
-        var manager = new ProductManager(db, {
+        var manager = new SupplierManager(db, {
             username: 'router'
         });
 
@@ -45,13 +44,12 @@ router.get('/v1/core/products/:id', (request, response, next) => {
                 var error = resultFormatter.fail(apiVersion, 400, e);
                 response.send(400, error);
             })
-
     })
 });
 
-router.post('/v1/core/products', (request, response, next) => {
+router.post('/v1/core/suppliers', (request, response, next) => {
     db.get().then(db => {
-        var manager = new ProductManager(db, {
+        var manager = new SupplierManager(db, {
             username: 'router'
         });
 
@@ -71,9 +69,9 @@ router.post('/v1/core/products', (request, response, next) => {
     })
 });
 
-router.put('/v1/core/products/:id', (request, response, next) => {
+router.put('/v1/core/suppliers/:id', (request, response, next) => {
     db.get().then(db => {
-        var manager = new ProductManager(db, {
+        var manager = new SupplierManager(db, {
             username: 'router'
         });
 
@@ -93,9 +91,9 @@ router.put('/v1/core/products/:id', (request, response, next) => {
     })
 });
 
-router.del('/v1/core/products/:id', (request, response, next) => {
+router.del('/v1/core/suppliers/:id', (request, response, next) => {
     db.get().then(db => {
-        var manager = new ProductManager(db, {
+        var manager = new SupplierManager(db, {
             username: 'router'
         });
 
@@ -113,7 +111,5 @@ router.del('/v1/core/products/:id', (request, response, next) => {
             })
     })
 });
-
-
 
 module.exports = router;
