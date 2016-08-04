@@ -4,7 +4,7 @@ var uri = `${process.env.IP}:${process.env.PORT}`;
 
 it('#01. Should be able to get list', function (done) {
     request(uri)
-        .get('/v1/core/products')
+        .get('/v1/core/buyers')
         .expect(200)
         .end(function (err, response) {
             if (err)
