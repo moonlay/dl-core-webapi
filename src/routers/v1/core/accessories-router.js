@@ -1,41 +1,39 @@
 var Router = require('restify-router').Router;
 var router = new Router();
 var db = require("../../../db");
-var ProductManager = require("dl-module").managers.core.ProductManager;
+var AccessoriesManager = require("dl-module").managers.core.AccessoriesManager;
 var resultFormatter = require("../../../result-formatter");
 const apiVersion = '1.0.0';
 
-router.get("/v1/core/products", function(request, response, next) {
-    db.get().then(db => {
-            var manager = new ProductManager(db, {
-                username: 'router'
-            });
+router.get("v1/core/accessories", function (request, response, next) {
+     db.get().then(db=> {
+          var manager = new AccessoriesManager(db, {
+            username: 'router'
+        });
 
-            var query = request.query;
-            manager.read(query)
+        var query = request.query;
+         manager.read(query)
             .then(docs => {
-                    var result = resultFormatter.ok(apiVersion, 200, docs);
-                    response.send(200, result);
-                })
-                .catch(e => {
-                    response.send(500, "gagal ambil data");
-                })
-        })
-        .catch(e => {
+                var result = resultFormatter.ok(apiVersion, 200, docs);
+                response.send(200, result);
+            })
+            .catch(e => {
+                response.send(500, "gagal ambil data");
+            })
+     })
+     .catch(e => {
             var error = resultFormatter.fail(apiVersion, 400, e);
             response.send(400, error);
         })
 })
 
-
-router.get('/v1/core/products/:id', (request, response, next) => {
+router.get('/v1/core/accessories/:id', (request, response, next) => {
     db.get().then(db => {
-        var manager = new ProductManager(db, {
+        var manager = new AccessoriesManager(db, {
             username: 'router'
         });
 
         var id = request.params.id;
-
         manager.getById(id)
             .then(doc => {
                 var result = resultFormatter.ok(apiVersion, 200, doc);
@@ -45,13 +43,12 @@ router.get('/v1/core/products/:id', (request, response, next) => {
                 var error = resultFormatter.fail(apiVersion, 400, e);
                 response.send(400, error);
             })
-
     })
 });
 
-router.post('/v1/core/products', (request, response, next) => {
+router.post('/v1/core/accessories', (request, response, next) => {
     db.get().then(db => {
-        var manager = new ProductManager(db, {
+        var manager = new AccessoriesManager(db, {
             username: 'router'
         });
 
@@ -67,13 +64,13 @@ router.post('/v1/core/products', (request, response, next) => {
                 var error = resultFormatter.fail(apiVersion, 400, e);
                 response.send(400, error);
             })
-
     })
 });
 
-router.put('/v1/core/products/:id', (request, response, next) => {
+
+router.put('/v1/core/accessories/:id', (request, response, next) => {
     db.get().then(db => {
-        var manager = new ProductManager(db, {
+        var manager = new AccessoriesManager(db, {
             username: 'router'
         });
 
@@ -93,9 +90,9 @@ router.put('/v1/core/products/:id', (request, response, next) => {
     })
 });
 
-router.del('/v1/core/products/:id', (request, response, next) => {
+router.del('/v1/core/accessories/:id', (request, response, next) => {
     db.get().then(db => {
-        var manager = new ProductManager(db, {
+        var manager = new AccessoriesManager(db, {
             username: 'router'
         });
 
@@ -113,7 +110,5 @@ router.del('/v1/core/products/:id', (request, response, next) => {
             })
     })
 });
-
-
 
 module.exports = router;
