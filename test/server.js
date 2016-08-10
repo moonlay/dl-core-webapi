@@ -16,10 +16,12 @@ module.exports = new Promise((resolve, reject) => {
         
         var v1FabricRouter = require('../src/routers/v1/core/fabric-router');
         v1FabricRouter.applyRoutes(server);
+        
+        var v1SparepartRouter = require('../src/routers/v1/core/sparepart-router');
+        v1SparepartRouter.applyRoutes(server);
 
         var v1AccessoriesRouter = require('../src/routers/v1/core/accessories-router');
         v1AccessoriesRouter.applyRoutes(server);
-
         server.listen(process.env.PORT, process.env.IP);
         console.log(`server created at ${process.env.IP}:${process.env.PORT}`);
         resolve(`${process.env.IP}:${process.env.PORT}`);
