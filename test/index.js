@@ -21,4 +21,5 @@ describe('@dl-core-webapi', function () {
     this.timeout(2 * 60000);
     test("/v1/core/products", "./routers/product-route-test");
     test("/v1/core/buyers", "./routers/buyer-route-test");
+    test("/v1/core/textiles", "./routers/textile-route-test");
 });
