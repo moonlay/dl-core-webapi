@@ -19,6 +19,7 @@ before('initialize server', function (done) {
 
 describe('@dl-core-webapi', function () {
     this.timeout(2 * 60000);
-    test("/v1/core/buyers", "./routers/buyer-route-test");
-    test("/v1/core/fabrics", "./routers/fabric-route-test");
+    // test("/v1/core/buyers", "./routers/buyer-route-test");
+    // test("/v1/core/fabrics", "./routers/fabric-route-test");
+    test("/v1/core/spareparts", "./routers/sparepart-route-test");
 });
