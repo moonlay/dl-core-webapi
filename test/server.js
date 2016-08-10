@@ -11,6 +11,9 @@ module.exports = new Promise((resolve, reject) => {
         var v1BuyerRouter = require('../src/routers/v1/core/buyer-router');
         v1BuyerRouter.applyRoutes(server);
 
+        var v1TextileRouter = require('../src/routers/v1/core/textile-router');
+        v1TextileRouter.applyRoutes(server);
+        
         var v1FabricRouter = require('../src/routers/v1/core/fabric-router');
         v1FabricRouter.applyRoutes(server);
 
