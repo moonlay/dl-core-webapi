@@ -1,13 +1,13 @@
 var Router = require('restify-router').Router;
 var router = new Router();
 var db = require("../../../db");
-var BuyerManager = require("dl-module").managers.core.BuyerManager;
+var ProductManager = require("dl-module").managers.core.ProductManager;
 var resultFormatter = require("../../../result-formatter");
 const apiVersion = '1.0.0';
 
-router.get("/v1/core/buyers", function(request, response, next) {
+router.get("/v1/core/products", function(request, response, next) {
     db.get().then(db => {
-            var manager = new BuyerManager(db, {
+            var manager = new ProductManager(db, {
                 username: 'router'
             });
 
@@ -28,9 +28,9 @@ router.get("/v1/core/buyers", function(request, response, next) {
 })
 
 
-router.get('/v1/core/buyers/:id', (request, response, next) => {
+router.get('/v1/core/products/:id', (request, response, next) => {
     db.get().then(db => {
-        var manager = new BuyerManager(db, {
+        var manager = new ProductManager(db, {
             username: 'router'
         });
 
@@ -49,9 +49,9 @@ router.get('/v1/core/buyers/:id', (request, response, next) => {
     })
 });
 
-router.post('/v1/core/buyers', (request, response, next) => {
+router.post('/v1/core/products', (request, response, next) => {
     db.get().then(db => {
-        var manager = new BuyerManager(db, {
+        var manager = new ProductManager(db, {
             username: 'router'
         });
 
@@ -71,9 +71,9 @@ router.post('/v1/core/buyers', (request, response, next) => {
     })
 });
 
-router.put('/v1/core/buyers/:id', (request, response, next) => {
+router.put('/v1/core/products/:id', (request, response, next) => {
     db.get().then(db => {
-        var manager = new BuyerManager(db, {
+        var manager = new ProductManager(db, {
             username: 'router'
         });
 
@@ -93,9 +93,9 @@ router.put('/v1/core/buyers/:id', (request, response, next) => {
     })
 });
 
-router.del('/v1/core/buyers/:id', (request, response, next) => {
+router.del('/v1/core/products/:id', (request, response, next) => {
     db.get().then(db => {
-        var manager = new BuyerManager(db, {
+        var manager = new ProductManager(db, {
             username: 'router'
         });
 

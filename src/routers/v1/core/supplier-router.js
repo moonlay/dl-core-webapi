@@ -27,7 +27,7 @@ router.get("/v1/core/suppliers", function(request, response, next) {
         })
 });
 
-router.get("/v1/care/suppliers/:id", function(request, response, next) {
+router.get("/v1/core/suppliers/:id", (request, response, next) =>{
     db.get().then(db => {
         var manager = new SupplierManager(db, {
             username: 'router'

@@ -10,6 +10,9 @@ module.exports = new Promise((resolve, reject) => {
 
         var v1BuyerRouter = require('../src/routers/v1/core/buyer-router');
         v1BuyerRouter.applyRoutes(server);
+        
+        var v1SupplierRouter = require('../src/routers/v1/core/supplier-router');
+        v1SupplierRouter.applyRoutes(server);
 
         var v1TextileRouter = require('../src/routers/v1/core/textile-router');
         v1TextileRouter.applyRoutes(server);
