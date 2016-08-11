@@ -14,7 +14,7 @@ function getData() {
     buyer.name = `name[${code}]`;
     buyer.contact = 'phone[${code}]';
     buyer.address = 'Solo [${code}]';
-    buyer.tempo = `tempo for [${code}]`;
+    buyer.tempo = 0;
 
     return buyer;
 }
