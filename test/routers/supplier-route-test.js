@@ -48,7 +48,6 @@ it('#01. Should be able to get list', function (done) {
                
             }
         });
-
 });
 
 var createdData;

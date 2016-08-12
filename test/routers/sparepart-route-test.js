@@ -32,6 +32,7 @@ function getData() {
     sparepart.name = `name[${code}]`;
     sparepart.description = `description [${code}]`;
     sparepart.UoM = uom;
+    
     return sparepart;
 }
 
@@ -51,3 +52,44 @@ it('#01. Should be able to get list', function (done) {
             }
         });
 })
+
+it('#02. should success when create new data', function (done) {
+    var data = getData();
+    
+    request(uri).post('/v1/core/spareparts')
+        .send(data)
+        .end(function (err, res) {
+            if (err) {
+                done(err);
+            } else {
+                done();
+
+            }
+        });
+});
+
+var createdData;
+var createdId;
+it(`#03. should success when update created data`, function (done) {
+    request(uri).put('/v1/core/spareparts')
+        .send({ name: 'Manny', code: 'cat' })
+        .end(function (err, res) {
+            if (err) {
+                done(err);
+            } else {
+                done();
+            }
+        });
+});
+
+it("#04. should success when delete data", function(done) {
+    request(uri).del('/v1/core/spareparts/:id')
+    .query({_id:createdId})
+    .end(function (err, res) {
+            if (err) {
+                done(err);
+            } else {
+                done();
+            }
+        });
+});
