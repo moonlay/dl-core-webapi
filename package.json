@@ -27,5 +27,8 @@
     "mocha": "^3.0.0",
     "should": "^10.0.0",
     "supertest": "^2.0.0"
+  },
+  "directories": {
+    "test": "test"
   }
 }

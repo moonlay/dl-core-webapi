@@ -3,25 +3,25 @@ var request = require('supertest');
 var uri = `${process.env.IP}:${process.env.PORT}`;
 
 function getData() {
-    var Buyer = require('dl-models').core.Buyer;
-    var buyer = new Buyer();
+    var Supplier = require('dl-models').core.Supplier;
+    var supplier = new Supplier();
 
     var now = new Date();
     var stamp = now / 1000 | 0;
     var code = stamp.toString(36);
 
-    buyer.code = code;
-    buyer.name = `name[${code}]`;
-    buyer.contact = 'phone[${code}]';
-    buyer.address = 'Solo [${code}]';
-    buyer.tempo = 0;
+    supplier.code = code;
+    supplier.name = `name[${code}]`;
+    supplier.contact = 'phone[${code}]';
+    supplier.address = 'Solo [${code}]';
+    supplier.import = true;
 
-    return buyer;
+    return supplier;
 }
 
 it('#01. Should be able to get list', function (done) {
     request(uri)
-        .get('/v1/core/buyers')
+        .get('/v1/core/suppliers')
         .expect(200)
         .end(function (err, response) {
             if (err)
@@ -38,7 +38,7 @@ it('#01. Should be able to get list', function (done) {
 
  it('#02. should success when create new data', function (done) {
     var data=getData();
-    request(uri).post('/v1/core/buyers')
+    request(uri).post('/v1/core/suppliers')
         .send(data)
         .end(function (err, res) {
             if (err) {
@@ -52,7 +52,7 @@ it('#01. Should be able to get list', function (done) {
 });
 
 var createdData;
-
+var createdId;
 it(`#03. should success when update created data`, function(done) {
     
     // createdData.code += '[updated]';
@@ -62,7 +62,7 @@ it(`#03. should success when update created data`, function(done) {
     // createdData.address += '[updated]';
     // createdData.local += '[updated]';
     
-    request(uri).put('/v1/core/buyers')
+    request(uri).put('/v1/core/suppliers')
         .send({ name: 'Manny', code: 'cat' })
         .end(function (err, res) {
             if (err) {
@@ -73,9 +73,9 @@ it(`#03. should success when update created data`, function(done) {
         });
         });
 
-var createdId;
+
 it("#04. should success when delete data", function(done) {
-    request(uri).del('/v1/core/buyers/:id')
+    request(uri).del('/v1/core/suppliers/:id')
     .query({_id:createdId})
     .end(function (err, res) {
             if (err) {
