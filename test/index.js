@@ -25,4 +25,5 @@ describe('@dl-core-webapi', function () {
     test("/v1/core/textiles", "./routers/textile-route-test");
     test("/v1/core/fabrics", "./routers/fabric-route-test");
     test("/v1/core/accessories", "./routers/accessories-route-test");
+    test("/v1/core/uoms", "./routers/UoM-route-test");
 });
