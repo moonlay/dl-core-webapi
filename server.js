@@ -7,7 +7,6 @@ server.use(restify.queryParser());
 server.use(restify.bodyParser());
 server.use(restify.CORS());
 
-
 var v1BuyerRouter=require('./src/routers/v1/core/buyer-router');
 v1BuyerRouter.applyRoutes(server); 
 
@@ -20,6 +19,7 @@ v1TextileRouter.applyRoutes(server)
 
 var v1FabricRouter = require('./src/routers/v1/core/fabric-router');
 v1FabricRouter.applyRoutes(server);
+
 var v1AccessoriesRouter = require('./src/routers/v1/core/accessories-router');
 v1AccessoriesRouter.applyRoutes(server);
 
