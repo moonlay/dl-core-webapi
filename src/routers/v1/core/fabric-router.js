@@ -27,7 +27,7 @@ router.get("/v1/core/fabrics", function(request, response, next) {
         })
 });
 
-router.get("/v1/care/fabrics/:id", function(request, response, next) {
+router.get("/v1/core/fabrics/:id", function(request, response, next) {
     db.get().then(db => {
         var manager = new FabricManager(db, {
             username: 'router'
