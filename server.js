@@ -7,7 +7,6 @@ server.use(restify.queryParser());
 server.use(restify.bodyParser());
 server.use(restify.CORS());
 
-
 var v1BuyerRouter=require('./src/routers/v1/core/buyer-router');
 v1BuyerRouter.applyRoutes(server); 
 
@@ -20,11 +19,16 @@ v1TextileRouter.applyRoutes(server)
 
 var v1FabricRouter = require('./src/routers/v1/core/fabric-router');
 v1FabricRouter.applyRoutes(server);
+
 var v1AccessoriesRouter = require('./src/routers/v1/core/accessories-router');
 v1AccessoriesRouter.applyRoutes(server);
 
 var v1SparepartRouter = require('./src/routers/v1/core/sparepart-router');
 v1SparepartRouter.applyRoutes(server);
+
+var v1UoMRouter = require('./src/routers/v1/core/UoM-router');
+v1UoMRouter.applyRoutes(server);
+
 
 server.listen(process.env.PORT, process.env.IP);
 console.log(`server created at ${process.env.IP}:${process.env.PORT}`)
