@@ -14,6 +14,7 @@ function getData() {
     supplier.name = `name[${code}]`;
     supplier.contact = 'phone[${code}]';
     supplier.address = 'Solo [${code}]';
+    supplier.PIC = 'PIC [${code}]';
     supplier.import = true;
 
     return supplier;
