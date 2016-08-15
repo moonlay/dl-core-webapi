@@ -28,6 +28,9 @@ module.exports = new Promise((resolve, reject) => {
 
         var v1UoMRouter = require('../src/routers/v1/core/UoM-router');
         v1UoMRouter.applyRoutes(server);
+        
+        var v1GeneralMerchandiseRouter = require('../src/routers/v1/core/general-merchandise-router');
+        v1GeneralMerchandiseRouter.applyRoutes(server);
 
         server.listen(process.env.PORT, process.env.IP);
         console.log(`server created at ${process.env.IP}:${process.env.PORT}`);
