@@ -55,12 +55,12 @@ var createdData;
 
 it(`#03. should success when update created data`, function(done) {
     
-    // createdData.code += '[updated]';
-    // createdData.name += '[updated]';
+    // createdData.RONo += '[updated]';
+    // createdData.ReffPONo += '[updated]';
+    // createdData.PONo += '[updated]';
+    // createdData.termOfPayment += '[updated]';
+    // createdData.PODLNo += '[updated]';
     // createdData.description += '[updated]';
-    // createdData.phone += '[updated]';
-    // createdData.address += '[updated]';
-    // createdData.local += '[updated]';
     
     request(uri).put('/v1/core/buyers')
         .send({ name: 'Manny', code: 'cat' })

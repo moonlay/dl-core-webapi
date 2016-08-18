@@ -27,4 +27,5 @@ describe('@dl-core-webapi', function () {
     test("/v1/core/accessories", "./routers/accessories-route-test");
     test("/v1/core/uoms", "./routers/UoM-route-test");
     test("/v1/core/generalmerchandise", "./routers/general-merchandise-route-test");
+    test("/v1/po/garmentgenerals", "./routers/po-garment-general-route-test");
 });
