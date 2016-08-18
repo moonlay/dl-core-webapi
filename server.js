@@ -32,5 +32,8 @@ v1UoMRouter.applyRoutes(server);
 var v1GeneralMerchandiseRouter = require('./src/routers/v1/core/general-merchandise-router');
 v1GeneralMerchandiseRouter.applyRoutes(server);
 
+var v1POGarmentGeneralRouter = require('./src/routers/v1/po/po-garment-general-router');
+v1POGarmentGeneralRouter.applyRoutes(server);
+
 server.listen(process.env.PORT, process.env.IP);
 console.log(`server created at ${process.env.IP}:${process.env.PORT}`)
