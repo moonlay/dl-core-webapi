@@ -55,15 +55,15 @@ var createdData;
 
 it(`#03. should success when update created data`, function(done) {
     
-    createdData.RONo += '[updated]';
-    createdData.ReffPONo += '[updated]';
-    createdData.PONo += '[updated]';
-    createdData.termOfPayment += '[updated]';
-    createdData.PODLNo += '[updated]';
-    createdData.description += '[updated]';
+    // createdData.RONo += '[updated]';
+    // createdData.ReffPONo += '[updated]';
+    // createdData.PONo += '[updated]';
+    // createdData.termOfPayment += '[updated]';
+    // createdData.PODLNo += '[updated]';
+    // createdData.description += '[updated]';
     
     request(uri).put('/v1/core/buyers')
-        .send(createdData)
+        .send({ name: 'Manny', code: 'cat' })
         .end(function (err, res) {
             if (err) {
                 done(err);
