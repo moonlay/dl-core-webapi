@@ -17,7 +17,7 @@ function getData() {
     var poGarmentGeneral = new POGarmentGeneral();
     poGarmentGeneral.RONo = '1' + code + stamp;
     poGarmentGeneral.RefPONo = '2' + code + stamp;
-    poGarmentGeneral.PONo = '3' + code + stamp;
+    // poGarmentGeneral.PONo = '3' + code + stamp;
     poGarmentGeneral.ppn = 10;
     poGarmentGeneral.deliveryDate = new Date();
     poGarmentGeneral.termOfPayment = 'Tempo 2 bulan';
@@ -79,8 +79,10 @@ it('#01. Should be able to get list', function (done) {
         .get('/v1/po/garmentgenerals')
         .expect(200)
         .end(function (err, response) {
-            if (err)
+            if (err) {
+                console.log(err);
                 done(err);
+            }
             else {
                 var result = response.body;
                 result.should.have.property("apiVersion");
@@ -91,6 +93,25 @@ it('#01. Should be able to get list', function (done) {
         });
 })
 
+it('#02. Should be able to get all podl list', function (done) {
+    request(uri)
+        .get('/v1/po/garmentgenerals/podl')
+        .expect(200)
+        .end(function (err, response) {
+            if (err) {
+                done(err);
+            }
+            else {
+                var result = response.body;
+                result.should.have.property("apiVersion");
+                result.should.have.property('data');
+                result.data.should.instanceOf(Array);
+                done();
+            }
+        });
+})
+
+var createdId;
 it('#02. should success when create new data', function (done) {
     var data = getData();
     
@@ -100,6 +121,8 @@ it('#02. should success when create new data', function (done) {
             if (err) {
                 done(err);
             } else {
+                var result = res.headers;
+                createdId = result['location']
                 done();
 
             }
@@ -107,7 +130,6 @@ it('#02. should success when create new data', function (done) {
 });
 
 var createdData;
-var createdId;
 it(`#03. should success when update created data`, function (done) {
     request(uri).put('/v1/po/garmentgenerals')
         .send({ RONo: 'RO01234567890', description: 'updated description' })
@@ -120,14 +142,14 @@ it(`#03. should success when update created data`, function (done) {
         });
 });
 
-it("#04. should success when delete data", function(done) {
-    request(uri).del('/v1/po/garmentgenerals/:id')
-    .query({_id:createdId})
-    .end(function (err, res) {
-            if (err) {
-                done(err);
-            } else {
-                done();
-            }
-        });
-});
+// it("#04. should success when delete data", function(done) {
+//     request(uri).del('/v1/po/garmentgenerals/:id')
+//     .query({_id:createdId})
+//     .end(function (err, res) {
+//             if (err) {
+//                 done(err);
+//             } else {
+//                 done();
+//             }
+//         });
+// });
