@@ -1,13 +1,13 @@
 var Router = require('restify-router').Router;
 var router = new Router();
 var db = require("../../../db");
-var POTextileJobOrderManager = require("dl-module").managers.po.POTextileJobOrderManager;
+var POTextileGeneralATKManager = require("dl-module").managers.po.POTextileGeneralATK;
 var resultFormatter = require("../../../result-formatter");
 const apiVersion = '1.0.0';
-
-router.get("/v1/po/textilejoborders/podl", function(request, response, next) {
+ 
+router.get("/v1/po/textilegeneralatks/podl", function(request, response, next) {
     db.get().then(db => {
-            var manager = new POTextileJobOrderManager(db, {
+            var manager = new POTextileGeneralATKManager(db, {
                 username: 'router'
             });
 
@@ -27,9 +27,9 @@ router.get("/v1/po/textilejoborders/podl", function(request, response, next) {
         })
 })
 
-router.get('/v1/po/textilejoborders/podl/:id', (request, response, next) => {
+router.get('/v1/po/textilegeneralatks/podl/:id', (request, response, next) => {
     db.get().then(db => {
-        var manager = new POTextileJobOrderManager(db, {
+        var manager = new POTextileGeneralATKManager(db, {
             username: 'router'
         });
 
@@ -48,9 +48,9 @@ router.get('/v1/po/textilejoborders/podl/:id', (request, response, next) => {
     })
 });
 
-router.post('/v1/po/textilejoborders/podl', (request, response, next) => {
+router.post('/v1/po/textilegeneralatks/podl', (request, response, next) => {
     db.get().then(db => {
-        var manager = new POTextileJobOrderManager(db, {
+        var manager = new POTextileGeneralATKManager(db, {
             username: 'router'
         });
 
@@ -69,9 +69,10 @@ router.post('/v1/po/textilejoborders/podl', (request, response, next) => {
 
     })
 });
-router.get("/v1/po/textilejoborders", function(request, response, next) {
+
+router.get("/v1/po/textilegeneralatks", function(request, response, next) {
     db.get().then(db => {
-            var manager = new POTextileJobOrderManager(db, {
+            var manager = new POTextileGeneralATKManager(db, {
                 username: 'router'
             });
 
@@ -91,9 +92,10 @@ router.get("/v1/po/textilejoborders", function(request, response, next) {
         })
 })
 
-router.get('/v1/po/textilejoborders/:id', (request, response, next) => {
+
+router.get('/v1/po/textilegeneralatks/:id', (request, response, next) => {
     db.get().then(db => {
-        var manager = new POTextileJobOrderManager(db, {
+        var manager = new POTextileGeneralATKManager(db, {
             username: 'router'
         });
 
@@ -112,9 +114,9 @@ router.get('/v1/po/textilejoborders/:id', (request, response, next) => {
     })
 });
 
-router.post('/v1/po/textilejoborders', (request, response, next) => {
+router.post('/v1/po/textilegeneralatks', (request, response, next) => {
     db.get().then(db => {
-        var manager = new POTextileJobOrderManager(db, {
+        var manager = new POTextileGeneralATKManager(db, {
             username: 'router'
         });
 
@@ -122,7 +124,7 @@ router.post('/v1/po/textilejoborders', (request, response, next) => {
 
         manager.create(data)
             .then(docId => {
-                response.header('Location', `v1/po/garmentgenerals/${docId.toString()}`);
+                response.header('Location', `${docId.toString()}`);
                 var result = resultFormatter.ok(apiVersion, 201);
                 response.send(201, result);
             })
@@ -134,9 +136,9 @@ router.post('/v1/po/textilejoborders', (request, response, next) => {
     })
 });
 
-router.put('/v1/po/textilejoborders/:id', (request, response, next) => {
+router.put('/v1/po/textilegeneralatks/:id', (request, response, next) => {
     db.get().then(db => {
-        var manager = new POTextileJobOrderManager(db, {
+        var manager = new POTextileGeneralATKManager(db, {
             username: 'router'
         });
 
@@ -156,9 +158,9 @@ router.put('/v1/po/textilejoborders/:id', (request, response, next) => {
     })
 });
 
-router.del('/v1/po/textilejoborders/:id', (request, response, next) => {
+router.del('/v1/po/textilegeneralatks/:id', (request, response, next) => {
     db.get().then(db => {
-        var manager = new POTextileJobOrderManager(db, {
+        var manager = new POTextileGeneralATKManager(db, {
             username: 'router'
         });
 
@@ -176,4 +178,5 @@ router.del('/v1/po/textilejoborders/:id', (request, response, next) => {
             })
     })
 });
+
 module.exports = router;
