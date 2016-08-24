@@ -1,13 +1,13 @@
 var Router = require('restify-router').Router;
 var router = new Router();
 var db = require("../../../db");
-var POGarmentSparepartManager = require("dl-module").managers.po.POGarmentSparepart;
+var POGarmentFabricManager = require("dl-module").managers.po.POGarmentFabric;
 var resultFormatter = require("../../../result-formatter");
 const apiVersion = '1.0.0';
  
-router.get("/v1/po/garmentspareparts/podl", function(request, response, next) {
+router.get("/v1/po/garmentfabrics/podl", function(request, response, next) {
     db.get().then(db => {
-            var manager = new POGarmentSparepartManager(db, {
+            var manager = new POGarmentFabricManager(db, {
                 username: 'router'
             });
 
@@ -27,9 +27,9 @@ router.get("/v1/po/garmentspareparts/podl", function(request, response, next) {
         })
 })
 
-router.get('/v1/po/garmentspareparts/podl/:id', (request, response, next) => {
+router.get('/v1/po/garmentfabrics/podl/:id', (request, response, next) => {
     db.get().then(db => {
-        var manager = new POGarmentSparepartManager(db, {
+        var manager = new POGarmentFabricManager(db, {
             username: 'router'
         });
 
@@ -48,9 +48,9 @@ router.get('/v1/po/garmentspareparts/podl/:id', (request, response, next) => {
     })
 });
 
-router.post('/v1/po/garmentspareparts/podl', (request, response, next) => {
+router.post('/v1/po/garmentfabrics/podl', (request, response, next) => {
     db.get().then(db => {
-        var manager = new POGarmentSparepartManager(db, {
+        var manager = new POGarmentFabricManager(db, {
             username: 'router'
         });
 
@@ -70,9 +70,9 @@ router.post('/v1/po/garmentspareparts/podl', (request, response, next) => {
     })
 });
 
-router.get("/v1/po/garmentspareparts", function(request, response, next) {
+router.get("/v1/po/garmentfabrics", function(request, response, next) {
     db.get().then(db => {
-            var manager = new POGarmentSparepartManager(db, {
+            var manager = new POGarmentFabricManager(db, {
                 username: 'router'
             });
 
@@ -93,9 +93,9 @@ router.get("/v1/po/garmentspareparts", function(request, response, next) {
 })
 
 
-router.get('/v1/po/garmentspareparts/:id', (request, response, next) => {
+router.get('/v1/po/garmentfabrics/:id', (request, response, next) => {
     db.get().then(db => {
-        var manager = new POGarmentSparepartManager(db, {
+        var manager = new POGarmentFabricManager(db, {
             username: 'router'
         });
 
@@ -114,9 +114,9 @@ router.get('/v1/po/garmentspareparts/:id', (request, response, next) => {
     })
 });
 
-router.post('/v1/po/garmentspareparts', (request, response, next) => {
+router.post('/v1/po/garmentfabrics', (request, response, next) => {
     db.get().then(db => {
-        var manager = new POGarmentSparepartManager(db, {
+        var manager = new POGarmentFabricManager(db, {
             username: 'router'
         });
 
@@ -136,9 +136,9 @@ router.post('/v1/po/garmentspareparts', (request, response, next) => {
     })
 });
 
-router.put('/v1/po/garmentspareparts/:id', (request, response, next) => {
+router.put('/v1/po/garmentfabrics/:id', (request, response, next) => {
     db.get().then(db => {
-        var manager = new POGarmentSparepartManager(db, {
+        var manager = new POGarmentFabricManager(db, {
             username: 'router'
         });
 
@@ -158,9 +158,9 @@ router.put('/v1/po/garmentspareparts/:id', (request, response, next) => {
     })
 });
 
-router.del('/v1/po/garmentspareparts/:id', (request, response, next) => {
+router.del('/v1/po/garmentfabrics/:id', (request, response, next) => {
     db.get().then(db => {
-        var manager = new POGarmentSparepartManager(db, {
+        var manager = new POGarmentFabricManager(db, {
             username: 'router'
         });
 
