@@ -166,7 +166,7 @@ router.del('/v1/po/garmentfabrics/:id', (request, response, next) => {
 
         var id = request.params.id;
         var data = request.body;
-
+ 
         manager.delete(data)
             .then(docId => {
                 var result = resultFormatter.ok(apiVersion, 204);
