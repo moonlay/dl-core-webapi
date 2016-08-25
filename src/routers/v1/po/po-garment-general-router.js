@@ -110,7 +110,6 @@ router.get('/v1/po/garmentgenerals/:id', (request, response, next) => {
                 var error = resultFormatter.fail(apiVersion, 400, e);
                 response.send(400, error);
             })
-
     })
 });
 
