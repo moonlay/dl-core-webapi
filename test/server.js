@@ -38,6 +38,9 @@ module.exports = new Promise((resolve, reject) => {
         var v1POGarmentSparepartRouter = require('../src/routers/v1/po/po-garment-sparepart-router');
         v1POGarmentSparepartRouter.applyRoutes(server);
 
+        var v1POTextileSparepartRouter = require('../src/routers/v1/po/po-textile-sparepart-router');
+        v1POTextileSparepartRouter.applyRoutes(server);
+
         var v1POTextileJobOrderRouter = require('../src/routers/v1/po/po-textile-job-order-external-router');
         v1POTextileJobOrderRouter.applyRoutes(server);
 

@@ -35,8 +35,14 @@ v1GeneralMerchandiseRouter.applyRoutes(server);
 var v1POGarmentGeneralRouter = require('./src/routers/v1/po/po-garment-general-router');
 v1POGarmentGeneralRouter.applyRoutes(server);
 
+var v1POGarmentAccessoriesRouter = require('./src/routers/v1/po/po-garment-accessories-router');
+v1POGarmentAccessoriesRouter.applyRoutes(server);
+
 var v1POGarmentSparepartRouter = require('./src/routers/v1/po/po-garment-sparepart-router');
 v1POGarmentSparepartRouter.applyRoutes(server);
+
+var v1POTextileSparepartRouter = require('./src/routers/v1/po/po-textile-sparepart-router');
+v1POTextileSparepartRouter.applyRoutes(server);
 
 var v1POTextileJobOrderRouter = require('./src/routers/v1/po/po-textile-job-order-external-router');
 v1POTextileJobOrderRouter.applyRoutes(server);
