@@ -56,6 +56,9 @@ module.exports = new Promise((resolve, reject) => {
         var v1POTextileGeneralOtherATKRouter = require('../src/routers/v1/po/po-textile-general-other-atk-router');
         v1POTextileGeneralOtherATKRouter.applyRoutes(server);
 
+        var v1POGarmentJobOrderFabricRouter = require('../src/routers/v1/po/po-garment-job-order-fabric-router');
+        v1POGarmentJobOrderFabricRouter.applyRoutes(server);
+
         server.listen(process.env.PORT, process.env.IP);
         console.log(`server created at ${process.env.IP}:${process.env.PORT}`);
         resolve(`${process.env.IP}:${process.env.PORT}`);
