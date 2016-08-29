@@ -48,7 +48,7 @@ module.exports = new Promise((resolve, reject) => {
         v1POGarmentGeneralRouter.applyRoutes(server);
 
         var v1POTextileGeneralATKRouter = require('../src/routers/v1/po/po-textile-general-atk-router');
-        v1POTextileJobOrderRouter.applyRoutes(server);
+        v1POTextileGeneralATKRouter.applyRoutes(server);
 
         var v1POGarmentAccessoriesRouter = require('../src/routers/v1/po/po-garment-accessories-router');
         v1POGarmentAccessoriesRouter.applyRoutes(server);
