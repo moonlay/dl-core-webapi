@@ -79,7 +79,7 @@ function getData() {
 
 it('#01. Should be able to get list', function (done) {
     request(uri)
-        .get('/v1/po/textilegenerlaotheratks')
+        .get('/v1/po/textilegeneralotheratks')
         .expect(200)
         .end(function (err, response) {
             if (err) {
@@ -98,7 +98,7 @@ it('#01. Should be able to get list', function (done) {
 
 it('#02. Should be able to get all podl list', function (done) {
     request(uri)
-        .get('/v1/po/textilegenerlaotheratks/podl')
+        .get('/v1/po/textilegeneralotheratks/podl')
         .expect(200)
         .end(function (err, response) {
             if (err) {
@@ -118,7 +118,7 @@ var createdId;
 it('#03. should success when create new data', function (done) {
     var data = getData();
     
-    request(uri).post('/v1/po/textilegenerlaotheratks')
+    request(uri).post('/v1/po/textilegeneralotheratks')
         .send(data)
         .end(function (err, res) {
             if (err) {
@@ -134,7 +134,7 @@ it('#03. should success when create new data', function (done) {
 
 var createdData;
 it(`#04. should success when update created data`, function (done) {
-    request(uri).put('/v1/po/textilegenerlaotheratks')
+    request(uri).put('/v1/po/textilegeneralotheratks')
         .send({ RONo: 'RO01234567890', description: 'updated description' })
         .end(function (err, res) {
             if (err) {

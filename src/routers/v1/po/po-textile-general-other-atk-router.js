@@ -5,7 +5,7 @@ var POTextileGeneralOtherATKManager = require("dl-module").managers.po.POTextile
 var resultFormatter = require("../../../result-formatter");
 const apiVersion = '1.0.0';
  
-router.get("/v1/po/textilegenerlaotheratks/podl", function(request, response, next) {
+router.get("/v1/po/textilegeneralotheratks/podl", function(request, response, next) {
     db.get().then(db => {
             var manager = new POTextileGeneralOtherATKManager(db, {
                 username: 'router'
@@ -27,7 +27,7 @@ router.get("/v1/po/textilegenerlaotheratks/podl", function(request, response, ne
         })
 })
 
-router.get('/v1/po/textilegenerlaotheratks/podl/:id', (request, response, next) => {
+router.get('/v1/po/textilegeneralotheratks/podl/:id', (request, response, next) => {
     db.get().then(db => {
         var manager = new POTextileGeneralOtherATKManager(db, {
             username: 'router'
@@ -48,7 +48,7 @@ router.get('/v1/po/textilegenerlaotheratks/podl/:id', (request, response, next) 
     })
 });
 
-router.post('/v1/po/textilegenerlaotheratks/podl', (request, response, next) => {
+router.post('/v1/po/textilegeneralotheratks/podl', (request, response, next) => {
     db.get().then(db => {
         var manager = new POTextileGeneralOtherATKManager(db, {
             username: 'router'
@@ -70,7 +70,7 @@ router.post('/v1/po/textilegenerlaotheratks/podl', (request, response, next) => 
     })
 });
 
-router.get("/v1/po/textilegenerlaotheratks", function(request, response, next) {
+router.get("/v1/po/textilegeneralotheratks", function(request, response, next) {
     db.get().then(db => {
             var manager = new POTextileGeneralOtherATKManager(db, {
                 username: 'router'
@@ -93,7 +93,7 @@ router.get("/v1/po/textilegenerlaotheratks", function(request, response, next) {
 })
 
 
-router.get('/v1/po/textilegenerlaotheratks/:id', (request, response, next) => {
+router.get('/v1/po/textilegeneralotheratks/:id', (request, response, next) => {
     db.get().then(db => {
         var manager = new POTextileGeneralOtherATKManager(db, {
             username: 'router'
@@ -114,7 +114,7 @@ router.get('/v1/po/textilegenerlaotheratks/:id', (request, response, next) => {
     })
 });
 
-router.post('/v1/po/textilegenerlaotheratks', (request, response, next) => {
+router.post('/v1/po/textilegeneralotheratks', (request, response, next) => {
     db.get().then(db => {
         var manager = new POTextileGeneralOtherATKManager(db, {
             username: 'router'
@@ -136,7 +136,7 @@ router.post('/v1/po/textilegenerlaotheratks', (request, response, next) => {
     })
 });
 
-router.put('/v1/po/textilegenerlaotheratks/:id', (request, response, next) => {
+router.put('/v1/po/textilegeneralotheratks/:id', (request, response, next) => {
     db.get().then(db => {
         var manager = new POTextileGeneralOtherATKManager(db, {
             username: 'router'
@@ -158,7 +158,7 @@ router.put('/v1/po/textilegenerlaotheratks/:id', (request, response, next) => {
     })
 });
 
-router.del('/v1/po/textilegenerlaotheratks/:id', (request, response, next) => {
+router.del('/v1/po/textilegeneralotheratks/:id', (request, response, next) => {
     db.get().then(db => {
         var manager = new POTextileGeneralOtherATKManager(db, {
             username: 'router'
