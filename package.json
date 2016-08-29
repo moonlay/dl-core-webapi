@@ -8,16 +8,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/moonlay/dl-core-webapi.git"
+    "url": "git+https://github.com/danliris/dl-core-webapi.git"
   },
   "author": "Moonlay",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/moonlay/dl-core-webapi/issues"
+    "url": "https://github.com/danliris/dl-core-webapi/issues"
   },
-  "homepage": "https://github.com/moonlay/dl-core-webapi#readme",
+  "homepage": "https://github.com/danliris/dl-core-webapi#readme",
   "dependencies": {
-    "dl-module": "git+https://github.com/moonlay/dl-module.git",
+    "dl-module": "git+https://github.com/danliris/dl-module.git",
     "mongo-factory": "^1.0.0",
     "mongodb": "^2.2.5",
     "restify": "^4.1.1",
