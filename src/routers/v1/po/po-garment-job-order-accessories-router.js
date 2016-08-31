@@ -1,13 +1,13 @@
 var Router = require('restify-router').Router;
 var router = new Router();
 var db = require("../../../db");
-var POGarmentJobOrderFabric = require("dl-module").managers.po.POGarmentJobOrderAccessories;
+var POGarmentJobOrderAccessoriesManager = require("dl-module").managers.po.POGarmentJobOrderAccessoriesManager;
 var resultFormatter = require("../../../result-formatter");
 const apiVersion = '1.0.0';
- 
-router.get("/v1/po/garmentjoborderaccessories/podl", function(request, response, next) {
+
+router.get("/v1/po/poGarmentJobOrderAccessoriess/podl", function(request, response, next) {
     db.get().then(db => {
-            var manager = new POGarmentJobOrderAccessories(db, {
+            var manager = new POGarmentJobOrderAccessoriesManager(db, {
                 username: 'router'
             });
 
@@ -27,9 +27,9 @@ router.get("/v1/po/garmentjoborderaccessories/podl", function(request, response,
         })
 })
 
-router.get('/v1/po/garmentjoborderaccessories/podl/:id', (request, response, next) => {
+router.get('/v1/po/poGarmentJobOrderAccessoriess/podl/:id', (request, response, next) => {
     db.get().then(db => {
-        var manager = new POGarmentJobOrderAccessories(db, {
+        var manager = new POGarmentJobOrderAccessoriesManager(db, {
             username: 'router'
         });
 
@@ -48,9 +48,9 @@ router.get('/v1/po/garmentjoborderaccessories/podl/:id', (request, response, nex
     })
 });
 
-router.post('/v1/po/garmentjoborderaccessories/podl', (request, response, next) => {
+router.post('/v1/po/poGarmentJobOrderAccessoriess/podl', (request, response, next) => {
     db.get().then(db => {
-        var manager = new POGarmentJobOrderAccessories(db, {
+        var manager = new POGarmentJobOrderAccessoriesManager(db, {
             username: 'router'
         });
 
@@ -70,9 +70,9 @@ router.post('/v1/po/garmentjoborderaccessories/podl', (request, response, next) 
     })
 });
 
-router.get("/v1/po/garmentjoborderaccessories", function(request, response, next) {
+router.get("/v1/po/poGarmentJobOrderAccessoriess", function(request, response, next) {
     db.get().then(db => {
-            var manager = new POGarmentJobOrderAccessories(db, {
+            var manager = new POGarmentJobOrderAccessoriesManager(db, {
                 username: 'router'
             });
 
@@ -93,9 +93,9 @@ router.get("/v1/po/garmentjoborderaccessories", function(request, response, next
 })
 
 
-router.get('/v1/po/garmentjoborderaccessories/:id', (request, response, next) => {
+router.get('/v1/po/poGarmentJobOrderAccessoriess/:id', (request, response, next) => {
     db.get().then(db => {
-        var manager = new POGarmentJobOrderAccessories(db, {
+        var manager = new POGarmentJobOrderAccessoriesManager(db, {
             username: 'router'
         });
 
@@ -114,9 +114,9 @@ router.get('/v1/po/garmentjoborderaccessories/:id', (request, response, next) =>
     })
 });
 
-router.post('/v1/po/garmentjoborderaccessories', (request, response, next) => {
+router.post('/v1/po/poGarmentJobOrderAccessoriess', (request, response, next) => {
     db.get().then(db => {
-        var manager = new POGarmentJobOrderAccessories(db, {
+        var manager = new POGarmentJobOrderAccessoriesManager(db, {
             username: 'router'
         });
 
@@ -136,9 +136,9 @@ router.post('/v1/po/garmentjoborderaccessories', (request, response, next) => {
     })
 });
 
-router.put('/v1/po/garmentjoborderaccessories/:id', (request, response, next) => {
+router.put('/v1/po/poGarmentJobOrderAccessoriess/:id', (request, response, next) => {
     db.get().then(db => {
-        var manager = new POGarmentJobOrderAccessories(db, {
+        var manager = new POGarmentJobOrderAccessoriesManager(db, {
             username: 'router'
         });
 
@@ -158,15 +158,16 @@ router.put('/v1/po/garmentjoborderaccessories/:id', (request, response, next) =>
     })
 });
 
-router.del('/v1/po/garmentjoborderaccessories/:id', (request, response, next) => {
+
+router.del('/v1/po/poGarmentJobOrderAccessoriess/:id', (request, response, next) => {
     db.get().then(db => {
-        var manager = new POGarmentJobOrderAccessories(db, {
+        var manager = new POGarmentJobOrderAccessoriesManager(db, {
             username: 'router'
         });
 
         var id = request.params.id;
         var data = request.body;
- 
+        
         manager.delete(data)
             .then(docId => {
                 var result = resultFormatter.ok(apiVersion, 204);
@@ -180,4 +181,3 @@ router.del('/v1/po/garmentjoborderaccessories/:id', (request, response, next) =>
 });
 
 module.exports = router;
-

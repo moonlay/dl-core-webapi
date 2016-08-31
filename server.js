@@ -38,6 +38,9 @@ v1POGarmentGeneralRouter.applyRoutes(server);
 var v1POGarmentAccessoriesRouter = require('./src/routers/v1/po/po-garment-accessories-router');
 v1POGarmentAccessoriesRouter.applyRoutes(server);
 
+var v1POGarmentJobOrderAccessoriesRouter = require('./src/routers/v1/po/po-garment-job-order-accessories-router');
+v1POGarmentJobOrderAccessoriesRouter.applyRoutes(server);
+
 var v1POGarmentSparepartRouter = require('./src/routers/v1/po/po-garment-sparepart-router');
 v1POGarmentSparepartRouter.applyRoutes(server);
 
