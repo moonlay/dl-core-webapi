@@ -30,6 +30,9 @@ describe('@dl-core-webapi', function () {
     test("/v1/po/garmentgenerals", "./routers/po-garment-general-router-test");
     test("/v1/po/garmentspareparts", "./routers/po-garment-sparepart-router-test");
     test("/v1/po/textilejoborders", "./routers/po-textile-job-order-external-router-test");
+    test("/v1/po/textilespareparts", "./routers/po-textile-sparepart-router-test");
     test("/v1/po/garmentfabrics", "./routers/po-garment-fabric-router-test");
-    
+    test("/v1/po/garmentaccessories", "./routers/po-garment-accessories-router-test");
+    test("/v1/po/textilegeneralatk", "./routers/po-textile-general-atk-router-test");
+    test("/v1/po/textilegeneralotheratk", "./routers/po-textile-general-other-atk-router-test");
 });

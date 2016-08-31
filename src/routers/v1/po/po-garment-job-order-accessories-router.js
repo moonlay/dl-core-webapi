@@ -158,6 +158,7 @@ router.put('/v1/po/poGarmentJobOrderAccessoriess/:id', (request, response, next)
     })
 });
 
+
 router.del('/v1/po/poGarmentJobOrderAccessoriess/:id', (request, response, next) => {
     db.get().then(db => {
         var manager = new POGarmentJobOrderAccessoriesManager(db, {
@@ -166,7 +167,7 @@ router.del('/v1/po/poGarmentJobOrderAccessoriess/:id', (request, response, next)
 
         var id = request.params.id;
         var data = request.body;
-
+        
         manager.delete(data)
             .then(docId => {
                 var result = resultFormatter.ok(apiVersion, 204);

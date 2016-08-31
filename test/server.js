@@ -38,15 +38,27 @@ module.exports = new Promise((resolve, reject) => {
         var v1POGarmentSparepartRouter = require('../src/routers/v1/po/po-garment-sparepart-router');
         v1POGarmentSparepartRouter.applyRoutes(server);
 
+        var v1POTextileSparepartRouter = require('../src/routers/v1/po/po-textile-sparepart-router');
+        v1POTextileSparepartRouter.applyRoutes(server);
+
         var v1POTextileJobOrderRouter = require('../src/routers/v1/po/po-textile-job-order-external-router');
         v1POTextileJobOrderRouter.applyRoutes(server);
 
         var v1POGarmentGeneralRouter = require('../src/routers/v1/po/po-garment-fabric-router');
         v1POGarmentGeneralRouter.applyRoutes(server);
-        
-        var v1POTextileJobOrderRouter = require('../src/routers/v1/po/po-textile-general-atk-router');
-        v1POTextileJobOrderRouter.applyRoutes(server);
-        
+
+        var v1POTextileGeneralATKRouter = require('../src/routers/v1/po/po-textile-general-atk-router');
+        v1POTextileGeneralATKRouter.applyRoutes(server);
+
+        var v1POGarmentAccessoriesRouter = require('../src/routers/v1/po/po-garment-accessories-router');
+        v1POGarmentAccessoriesRouter.applyRoutes(server);
+
+        var v1POTextileGeneralOtherATKRouter = require('../src/routers/v1/po/po-textile-general-other-atk-router');
+        v1POTextileGeneralOtherATKRouter.applyRoutes(server);
+
+        var v1POGarmentJobOrderFabricRouter = require('../src/routers/v1/po/po-garment-job-order-fabric-router');
+        v1POGarmentJobOrderFabricRouter.applyRoutes(server);
+
         server.listen(process.env.PORT, process.env.IP);
         console.log(`server created at ${process.env.IP}:${process.env.PORT}`);
         resolve(`${process.env.IP}:${process.env.PORT}`);
