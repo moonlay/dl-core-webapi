@@ -65,8 +65,5 @@ v1POTextileGeneralOtherATKRouter.applyRoutes(server);
 var v1POGarmentJobOrderFabricRouter = require('./src/routers/v1/po/po-garment-job-order-fabric-router');
 v1POGarmentJobOrderFabricRouter.applyRoutes(server);
 
-var v1POGarmentJobOrderAccessoriesRouter = require('./src/routers/v1/po/po-garment-job-order-accessories-router');
-v1POGarmentJobOrderAccessoriesRouter.applyRoutes(server);
-
 server.listen(process.env.PORT, process.env.IP);
 console.log(`server created at ${process.env.IP}:${process.env.PORT}`)
