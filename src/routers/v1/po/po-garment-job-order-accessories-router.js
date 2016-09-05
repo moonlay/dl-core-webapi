@@ -70,7 +70,7 @@ router.post('/v1/po/garmentjoborderaccessories/podl', (request, response, next) 
     })
 });
 
-router.post('/v1/po/garmentjoborderaccessories/split', (request, response, next) => {
+router.post('/v1/po/split/garmentjoborderaccessories', (request, response, next) => {
     db.get().then(db => {
         var manager = new POGarmentJobOrderAccessoriesManager(db, {
             username: 'router'
