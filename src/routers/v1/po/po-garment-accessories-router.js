@@ -5,7 +5,7 @@ var POGarmentAccessoriesManager = require("dl-module").managers.po.POGarmentAcce
 var resultFormatter = require("../../../result-formatter");
 const apiVersion = '1.0.0';
 
-router.get("/v1/po/poGarmentAccessoriess/podl", function(request, response, next) {
+router.get("/v1/po/garmentaccessories/podl", function(request, response, next) {
     db.get().then(db => {
             var manager = new POGarmentAccessoriesManager(db, {
                 username: 'router'
@@ -27,7 +27,7 @@ router.get("/v1/po/poGarmentAccessoriess/podl", function(request, response, next
         })
 })
 
-router.get('/v1/po/poGarmentAccessoriess/podl/:id', (request, response, next) => {
+router.get('/v1/po/garmentaccessories/podl/:id', (request, response, next) => {
     db.get().then(db => {
         var manager = new POGarmentAccessoriesManager(db, {
             username: 'router'
@@ -48,7 +48,7 @@ router.get('/v1/po/poGarmentAccessoriess/podl/:id', (request, response, next) =>
     })
 });
 
-router.post('/v1/po/poGarmentAccessoriess/podl', (request, response, next) => {
+router.post('/v1/po/garmentaccessories/podl', (request, response, next) => {
     db.get().then(db => {
         var manager = new POGarmentAccessoriesManager(db, {
             username: 'router'
@@ -70,7 +70,29 @@ router.post('/v1/po/poGarmentAccessoriess/podl', (request, response, next) => {
     })
 });
 
-router.get("/v1/po/poGarmentAccessoriess", function(request, response, next) {
+router.post('/v1/po/garmentaccessories/split', (request, response, next) => {
+    db.get().then(db => {
+        var manager = new POGarmentAccessoriesManager(db, {
+            username: 'router'
+        });
+
+        var data = request.body;
+
+        manager.split(data)
+            .then(docId => {
+                response.header('Location', `${docId.toString()}`);
+                var result = resultFormatter.ok(apiVersion, 201);
+                response.send(201, result);
+            })
+            .catch(e => {
+                var error = resultFormatter.fail(apiVersion, 400, e);
+                response.send(400, error);
+            })
+
+    })
+});
+
+router.get("/v1/po/garmentaccessories", function(request, response, next) {
     db.get().then(db => {
             var manager = new POGarmentAccessoriesManager(db, {
                 username: 'router'
@@ -93,7 +115,7 @@ router.get("/v1/po/poGarmentAccessoriess", function(request, response, next) {
 })
 
 
-router.get('/v1/po/poGarmentAccessoriess/:id', (request, response, next) => {
+router.get('/v1/po/garmentaccessories/:id', (request, response, next) => {
     db.get().then(db => {
         var manager = new POGarmentAccessoriesManager(db, {
             username: 'router'
@@ -114,7 +136,7 @@ router.get('/v1/po/poGarmentAccessoriess/:id', (request, response, next) => {
     })
 });
 
-router.post('/v1/po/poGarmentAccessoriess', (request, response, next) => {
+router.post('/v1/po/garmentaccessories', (request, response, next) => {
     db.get().then(db => {
         var manager = new POGarmentAccessoriesManager(db, {
             username: 'router'
@@ -136,7 +158,7 @@ router.post('/v1/po/poGarmentAccessoriess', (request, response, next) => {
     })
 });
 
-router.put('/v1/po/poGarmentAccessoriess/:id', (request, response, next) => {
+router.put('/v1/po/garmentaccessories/:id', (request, response, next) => {
     db.get().then(db => {
         var manager = new POGarmentAccessoriesManager(db, {
             username: 'router'
@@ -158,7 +180,7 @@ router.put('/v1/po/poGarmentAccessoriess/:id', (request, response, next) => {
     })
 });
 
-router.del('/v1/po/poGarmentAccessoriess/:id', (request, response, next) => {
+router.del('/v1/po/garmentaccessories/:id', (request, response, next) => {
     db.get().then(db => {
         var manager = new POGarmentAccessoriesManager(db, {
             username: 'router'
