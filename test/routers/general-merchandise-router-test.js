@@ -4,24 +4,12 @@ var uri = `${process.env.IP}:${process.env.PORT}`;
 
 function getData() {
     var GeneralMerchandise = require('dl-models').core.GeneralMerchandise;
-    var UoM = require('dl-models').core.UoM;
-    var UoM_Template = require('dl-models').core.UoM_Template;
+    var Uom = require('dl-models').core.Uom; 
 
     var generalMerchandise = new GeneralMerchandise();
-    var uom_template = new UoM_Template({
-        mainValue: 1,
-        mainUnit: 'M',
-        convertedValue: 1,
-        convertedUnit: 'M'
-    });
-
-    var _uom_units = [];
-    _uom_units.push(uom_template);
-
-    var uom = new UoM({
-        category: 'UoM_Unit_Test',
-        default: uom_template,
-        units: _uom_units
+    
+    var uom = new Uom({
+        unit: 'Meter'
     });
 
     var now = new Date();
@@ -31,7 +19,7 @@ function getData() {
     generalMerchandise.code = code;
     generalMerchandise.name = `name[${code}]`;
     generalMerchandise.description = `description [${code}]`;
-    generalMerchandise.UoM = uom;
+    generalMerchandise.uom = uom;
     return generalMerchandise;
 }
 

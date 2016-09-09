@@ -6,8 +6,7 @@ function getData() {
     var POGarmentJobOrderFabric = require('dl-models').po.POGarmentJobOrderFabric;
     var Supplier = require('dl-models').core.Supplier;
     var Buyer = require('dl-models').core.Buyer;
-    var UoM_Template = require('dl-models').core.UoM_Template;
-    var UoM = require('dl-models').core.UoM;
+    var Uom = require('dl-models').core.Uom;
     var PurchaseOrderItem = require('dl-models').po.PurchaseOrderItem;
     var Product = require('dl-models').core.Product;
     var StandardQualityTestPercentage = require('dl-models').po.StandardQualityTestPercentage;
@@ -51,20 +50,9 @@ function getData() {
         tempo : 0
     });
     
-    var template = new UoM_Template({
-        mainUnit: 'M',
-        mainValue: 1,
-        convertedUnit: 'M',
-        convertedValue: 1
-    });
-
-    var _units = [];
-    _units.push(template);
-
-    var _uom = new UoM({
-        category: `UoM_Unit_Test[${code}]`,
-        default: template,
-        units: _units
+    
+    var uom = new Uom({
+        unit: 'Meter'
     });
 
     var product = new Product({
@@ -72,7 +60,7 @@ function getData() {
         name: 'kain',
         price: 0,
         description: 'kain putih',
-        UoM: _uom,
+        uom: uom,
         detail: {}
     });
 

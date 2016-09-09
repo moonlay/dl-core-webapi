@@ -4,24 +4,12 @@ var uri = `${process.env.IP}:${process.env.PORT}`;
 
 function getData() {
     var Sparepart = require('dl-models').core.Sparepart;
-    var UoM = require('dl-models').core.UoM;
-    var UoM_Template = require('dl-models').core.UoM_Template;
+    var Uom = require('dl-models').core.Uom;
 
     var sparepart = new Sparepart();
-    var uom_template = new UoM_Template({
-        mainValue: 1,
-        mainUnit: 'M',
-        convertedValue: 1,
-        convertedUnit: 'M'
-    });
-
-    var _uom_units = [];
-    _uom_units.push(uom_template);
-
-    var uom = new UoM({
-        category: 'UoM_Unit_Test',
-        default: uom_template,
-        units: _uom_units
+    
+    var uom = new Uom({
+        unit: 'Meter'
     });
 
     var now = new Date();
@@ -31,7 +19,7 @@ function getData() {
     sparepart.code = code;
     sparepart.name = `name[${code}]`;
     sparepart.description = `description [${code}]`;
-    sparepart.UoM = uom;
+    sparepart.uom = uom;
     
     return sparepart;
 }

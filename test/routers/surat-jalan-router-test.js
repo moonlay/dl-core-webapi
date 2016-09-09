@@ -7,14 +7,14 @@ function getData() {
     var PurchaseOrderItem = require('dl-models').po.PurchaseOrderItem;
     var Product = require('dl-models').core.Product;
     var Supplier = require('dl-models').core.Supplier;
-    var UoM = require('dl-models').core.UoM;
+    var Uom = require('dl-models').core.Uom;
     var SuratJalan = require('dl-models').suratJalan.SuratJalan;
     
     var now = new Date();
     var stamp = now / 1000 | 0;
     var code = stamp.toString(36);
 
-    var _uom = new UoM({
+    var uom = new Uom({
         unit: `Meter`
     });
 
@@ -24,7 +24,7 @@ function getData() {
         name: `name[${code}]`,
         price: 1000,
         description: `desc for ${code}`,
-        UoM: _uom
+        uom: uom
     });
 
     var purchaseOrderItem = new PurchaseOrderItem({

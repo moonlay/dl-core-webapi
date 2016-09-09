@@ -5,8 +5,7 @@ var uri = `${process.env.IP}:${process.env.PORT}`;
 function getData() {
     var POTekstilGeneralOtherATK = require('dl-models').po.POTekstilGeneralOtherATK;
     var Supplier = require('dl-models').core.Supplier;
-    var UoM_Template = require('dl-models').core.UoM_Template;
-    var UoM = require('dl-models').core.UoM;
+    var Uom = require('dl-models').core.Uom;
     var PurchaseOrderItem = require('dl-models').po.PurchaseOrderItem;
     var Product = require('dl-models').core.Product;
 
@@ -38,20 +37,9 @@ function getData() {
         local: true
     });
 
-    var template = new UoM_Template({
-        mainUnit: 'M',
-        mainValue: 1,
-        convertedUnit: 'M',
-        convertedValue: 1
-    });
-
-    var _units = [];
-    _units.push(template);
-
-    var _uom = new UoM({
-        category: `UoM_Unit_Test[${code}]`,
-        default: template,
-        units: _units
+    
+    var uom = new Uom({
+        unit: 'Meter'
     });
 
     var product = new Product({
@@ -59,7 +47,7 @@ function getData() {
         name: 'hotline',
         price: 0,
         description: 'hotline123',
-        UoM: _uom,
+        uom: uom,
         detail: {}
     });
 

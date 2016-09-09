@@ -25,7 +25,7 @@ describe('@dl-core-webapi', function () {
     test("/v1/core/textiles", "./routers/textile-router-test");
     test("/v1/core/fabrics", "./routers/fabric-router-test");
     test("/v1/core/accessories", "./routers/accessories-router-test");
-    test("/v1/core/uoms", "./routers/UoM-router-test");
+    test("/v1/core/uoms", "./routers/uom-router-test");
     test("/v1/core/generalmerchandise", "./routers/general-merchandise-router-test");
     test("/v1/po/garmentgenerals", "./routers/po-garment-general-router-test");
     test("/v1/po/garmentspareparts", "./routers/po-garment-sparepart-router-test");
