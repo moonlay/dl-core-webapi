@@ -4,41 +4,27 @@ var uri = `${process.env.IP}:${process.env.PORT}`;
 
 function getData() {
     var Fabric = require('dl-models').core.Fabric;
-    var UoM = require('dl-models').core.UoM;
-    var UoM_Template = require('dl-models').core.UoM_Template;
+    var Uom = require('dl-models').core.Uom; 
+
+    var fabric = new Fabric();
+    
+    var uom = new Uom({
+        unit: 'Meter'
+    });
     
     var now = new Date();
     var stamp = now / 1000 | 0;
     var code = stamp.toString(36);
-    
-    var fabric = new Fabric();
-    // var uom_template = new UoM_Template({
-    //     mainValue: 1,
-    //     mainUnit: 'M',
-    //     convertedValue: 1,
-    //     convertedUnit: 'M'
-    // });
-    // var _uom_units = [];
-    // _uom_units.push(uom_template);
-
-    // var uom = new UoM({
-    //     category: `UoM_Unit_Test[${code}]`,
-    //     default: uom_template,
-    //     units: _uom_units
-    // });
-    var uom = new UoM({
-        unit: `Meter`
-    });
 
     fabric.code = code;
     fabric.name = `name[${code}]`;
     fabric.price = 500;
     fabric.description = `desc for ${code}`;
-    fabric.detail.composition = `composition for ${code}`;
-    fabric.detail.construction = `construction for ${code}`;
-    fabric.detail.yarn = `yarn for ${code}`;
-    fabric.detail.width = 5;
-    fabric.UoM = uom;
+    fabric.composition = `composition [${code}]`;
+    fabric.construction = `construction [${code}]`;
+    fabric.thread = `thread [${code}]`;
+    fabric.width = 0;
+    fabric.uom = uom;
     return fabric;
 }
 it('#01. Should be able to get list', function (done) {

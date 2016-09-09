@@ -3,10 +3,10 @@ var request = require('supertest');
 var uri = `${process.env.IP}:${process.env.PORT}`;
 
 /*function getData() {
-    var UoM = require('dl-models').core.UoM;
-    var UoM_Template = require('dl-models').core.UoM_Template;
+    var Uom = require('dl-models').core.Uom;
+    var uom_Template = require('dl-models').core.Uom_Template;
 
-    var uom_template = new UoM_Template({
+    var uom_template = new Uom_Template({
         mainValue: 1,
         mainUnit: 'M',
         convertedValue: 1,
@@ -20,23 +20,23 @@ var uri = `${process.env.IP}:${process.env.PORT}`;
     var _uom_units = [];
     _uom_units.push(uom_template);
 
-    var uom = new UoM({
-        category: code+'UoM_Unit_Test',
+    var uom = new Uom({
+        category: code+'uom_Unit_Test',
         default: uom_template,
         units: _uom_units
     });
     return uom;
 }*/
 function getData() {
-    var UoM = require('dl-models').core.UoM;
+    var Uom = require('dl-models').core.Uom;
 
-    // var UoM_Template = require('dl-models').core.UoM_Template;
+    // var uom_Template = require('dl-models').core.Uom_Template;
     
     var now = new Date();
     var stamp = now / 1000 | 0;
     var code = stamp.toString(36);
 
-    // var uom_template = new UoM_Template({
+    // var uom_template = new Uom_Template({
     //     mainValue: 1,
     //     mainUnit: 'M',
     //     convertedValue: 1,
@@ -46,12 +46,12 @@ function getData() {
     // var _uom_units = [];
     // _uom_units.push(uom_template);
 
-    // var uom = new UoM({
-    //     category: code+'UoM_Unit_Test',
+    // var uom = new Uom({
+    //     category: code+'uom_Unit_Test',
     //     default: uom_template,
     //     units: _uom_units
     // });
-    var uom = new UoM();
+    var uom = new Uom();
     uom.unit= `Satuan [${code}]`;
     return uom;
 }

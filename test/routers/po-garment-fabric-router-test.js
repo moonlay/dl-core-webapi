@@ -5,7 +5,8 @@ var uri = `${process.env.IP}:${process.env.PORT}`;
 function getData() {
     var POGarmentFabric = require('dl-models').po.POGarmentFabric;
     var Buyer = require('dl-models').core.Buyer;
-    var UoM = require('dl-models').core.UoM;
+    var Supplier = require('dl-models').core.Supplier; 
+    var Uom = require('dl-models').core.Uom;
     var PurchaseOrderItem = require('dl-models').po.PurchaseOrderItem;
     var Product = require('dl-models').core.Product;
 
@@ -24,22 +25,23 @@ function getData() {
     var buyer = new Buyer({
         _id: '123',
         code: '123',
-        name: `name[${code}]`,
-        address: `Solo [${code}]`,
-        contact: `phone[${code}]`,
-        tempo: 0
+        name: 'hot',
+        description: 'hotline',
+        phone: '0812....',
+        address: 'test',
+        local: true
+    }); 
+    
+    var uom = new Uom({
+        unit: 'Meter'
     });
 
-    var _uom = new UoM({
-        unit: `Meter`
-    });
-
-    var product = new Product("fabric", {
-        code: 'FF0001',
-        name: 'kain',
+    var product = new Product ({
+        code: '22',
+        name: 'hotline',
         price: 0,
-        description: 'kain putih',
-        UoM: _uom,
+        description: 'hotline123',
+        uom: uom,
         detail: {}
     });
 

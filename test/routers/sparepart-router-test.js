@@ -4,31 +4,12 @@ var uri = `${process.env.IP}:${process.env.PORT}`;
 
 function getData() {
     var Sparepart = require('dl-models').core.Sparepart;
-    var Sparepart = require('dl-models').core.Sparepart;
-    var UoM = require('dl-models').core.UoM;
-    var UoM_Template = require('dl-models').core.UoM_Template;
-
-    var now = new Date();
-    var stamp = now / 1000 | 0;
-    var code = stamp.toString(36);
+    var Uom = require('dl-models').core.Uom;
 
     var sparepart = new Sparepart();
-    // var uom_template = new UoM_Template({
-    //     mainValue: 1,
-    //     mainUnit: 'M',
-    //     convertedValue: 1,
-    //     convertedUnit: 'M'
-    // });
-    // var _uom_units = [];
-    // _uom_units.push(uom_template);
-
-    // var uom = new UoM({
-    //     category: `UoM_Unit_Test[${code}]`,
-    //     default: uom_template,
-    //     units: _uom_units
-    // });
-    var uom = new UoM({
-        unit: `Meter`
+    
+    var uom = new Uom({
+        unit: 'Meter'
     });
 
     var now = new Date();
@@ -38,9 +19,9 @@ function getData() {
     sparepart.code = code;
     sparepart.name = `name[${code}]`;
     sparepart.description = `description for ${code}`;
-    sparepart.UoM = uom;
     sparepart.price = 50;
-
+    sparepart.description = `description [${code}]`;
+    sparepart.uom = uom;
     return sparepart;
 }
 

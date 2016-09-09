@@ -4,7 +4,8 @@ var uri = `${process.env.IP}:${process.env.PORT}`;
 
 function getData() {
     var POTextileGeneralATK = require('dl-models').po.POTextileGeneralATK;
-    var UoM = require('dl-models').core.UoM;
+    var Supplier = require('dl-models').core.Supplier;
+    var Uom = require('dl-models').core.Uom;
     var PurchaseOrderItem = require('dl-models').po.PurchaseOrderItem;
     var Product = require('dl-models').core.Product;
 
@@ -17,16 +18,16 @@ function getData() {
     poTextileGeneralATK.RefPONo = '2' + code + stamp;
     poTextileGeneralATK.PODLNo = '';
 
-    var _uom = new UoM({
-        unit: `Meter`
+    var uom = new Uom({
+        unit: 'Meter'
     });
-    
-    var product = new Product({
+
+    var product = new Product ({
         code: '22',
         name: 'hotline',
         price: 0,
         description: 'hotline123',
-        UoM: _uom,
+        uom: uom,
         detail: {}
     });
 

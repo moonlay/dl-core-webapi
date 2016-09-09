@@ -26,14 +26,17 @@ module.exports = new Promise((resolve, reject) => {
         var v1AccessoriesRouter = require('../src/routers/v1/core/accessories-router');
         v1AccessoriesRouter.applyRoutes(server);
 
-        var v1UoMRouter = require('../src/routers/v1/core/UoM-router');
-        v1UoMRouter.applyRoutes(server);
+        var v1UomRouter = require('../src/routers/v1/core/uom-router');
+        v1UomRouter.applyRoutes(server);
 
         var v1GeneralMerchandiseRouter = require('../src/routers/v1/core/general-merchandise-router');
         v1GeneralMerchandiseRouter.applyRoutes(server);
 
         var v1POGarmentGeneralRouter = require('../src/routers/v1/po/po-garment-general-router');
         v1POGarmentGeneralRouter.applyRoutes(server);
+        
+        var v1POGarmentFabricRouter = require('../src/routers/v1/po/po-garment-fabric-router');
+        v1POGarmentFabricRouter.applyRoutes(server);
 
         var v1POGarmentSparepartRouter = require('../src/routers/v1/po/po-garment-sparepart-router');
         v1POGarmentSparepartRouter.applyRoutes(server);

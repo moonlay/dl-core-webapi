@@ -5,7 +5,7 @@ var uri = `${process.env.IP}:${process.env.PORT}`;
 function getData() {
     var POTextile = require('dl-models').po.POTextile;
     var Buyer = require('dl-models').core.Buyer;
-    var UoM = require('dl-models').core.UoM;
+    var Uom = require('dl-models').core.Uom;
     var PurchaseOrderItem = require('dl-models').po.PurchaseOrderItem;
     var Product = require('dl-models').core.Product;
 
@@ -24,7 +24,7 @@ function getData() {
     poTextile.staffName = 'staff';
     poTextile.receivedDate = new Date();
 
-    var _uom = new UoM({
+    var uom = new Uom({
         unit: `Meter`
     });
 
@@ -33,7 +33,7 @@ function getData() {
         name: 'kain',
         price: 0,
         description: 'kain putih',
-        UoM: _uom,
+        UoM: uom,
         detail: {}
     });
 

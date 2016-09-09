@@ -4,7 +4,8 @@ var uri = `${process.env.IP}:${process.env.PORT}`;
 
 function getData() {
     var POGarmentGeneral = require('dl-models').po.POGarmentGeneral;
-    var UoM = require('dl-models').core.UoM;
+    var Supplier = require('dl-models').core.Supplier; 
+    var Uom = require('dl-models').core.Uom;
     var PurchaseOrderItem = require('dl-models').po.PurchaseOrderItem;
     var Product = require('dl-models').core.Product;
 
@@ -16,10 +17,19 @@ function getData() {
     poGarmentGeneral.PRNo = '1' + code + stamp;
     poGarmentGeneral.RefPONo = '2' + code + stamp;
     poGarmentGeneral.PODLNo = '';
-    poGarmentGeneral.buyerId = {};
-    
-    var _uom = new UoM({
-        unit: `Meter`
+    poGarmentGeneral.description = 'SP1';
+    poGarmentGeneral.supplierID = {};
+
+    var supplier = new Supplier({
+        code: '123',
+        name: 'hot',
+        description: 'hotline',
+        phone: '0812....',
+        address: 'test',
+        local: true
+    });
+    var uom = new Uom({
+        unit: 'Meter'
     });
 
     var product = new Product("general-merchandiser", {
@@ -27,7 +37,7 @@ function getData() {
         name: 'hotline',
         price: 0,
         description: 'hotline123',
-        UoM: _uom,
+        uom: uom,
         detail: {}
     });
 

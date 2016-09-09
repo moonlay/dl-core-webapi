@@ -4,7 +4,7 @@ var uri = `${process.env.IP}:${process.env.PORT}`;
 
 function getData() {
     var POTextileSparepart = require('dl-models').po.POTextileSparepart;
-    var UoM = require('dl-models').core.UoM;
+    var Uom = require('dl-models').core.Uom;
     var PurchaseOrderItem = require('dl-models').po.PurchaseOrderItem;
     var Product = require('dl-models').core.Product;
 
@@ -17,7 +17,7 @@ function getData() {
     poTextileSparepart.RefPONo = '2' + code + stamp;
     poTextileSparepart.PODLNo = '';
 
-    var _uom = new UoM({
+    var uom = new Uom({
         unit: `Meter`
     });
 
@@ -26,7 +26,7 @@ function getData() {
         name: 'hotline',
         price: 0,
         description: 'hotline123',
-        UoM: _uom,
+        uom: uom,
         detail: {}
     });
 

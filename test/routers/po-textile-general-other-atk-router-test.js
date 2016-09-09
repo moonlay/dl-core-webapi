@@ -4,7 +4,8 @@ var uri = `${process.env.IP}:${process.env.PORT}`;
 
 function getData() {
     var POTekstilGeneralOtherATK = require('dl-models').po.POTekstilGeneralOtherATK;
-    var UoM = require('dl-models').core.UoM;
+    var Supplier = require('dl-models').core.Supplier;
+    var Uom = require('dl-models').core.Uom;
     var PurchaseOrderItem = require('dl-models').po.PurchaseOrderItem;
     var Product = require('dl-models').core.Product;
 
@@ -16,9 +17,24 @@ function getData() {
     poTextileGeneralOtherATK.PRNo = '1' + code + stamp;
     poTextileGeneralOtherATK.RefPONo = '2' + code + stamp;
     poTextileGeneralOtherATK.PODLNo = '';
+    poTextileGeneralOtherATK.description = 'SP1';
+    poTextileGeneralOtherATK.kurs = 13000;
+    poTextileGeneralOtherATK.currency = 'dollar';
+    poTextileGeneralOtherATK.supplierID = {};
 
-    var _uom = new UoM({
-        unit: `Meter`
+    var supplier = new Supplier({
+        _id: '123',
+        code: '123',
+        name: 'Toko Stationery',
+        description: 'hotline',
+        phone: '0812....',
+        address: 'test',
+        local: true
+    });
+
+    
+    var uom = new Uom({
+        unit: 'Meter'
     });
 
     var product = new Product({
@@ -26,7 +42,7 @@ function getData() {
         name: 'hotline',
         price: 0,
         description: 'hotline123',
-        UoM: _uom,
+        uom: uom,
         detail: {}
     });
 

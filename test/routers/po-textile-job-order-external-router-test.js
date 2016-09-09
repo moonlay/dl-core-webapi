@@ -4,8 +4,9 @@ var uri = `${process.env.IP}:${process.env.PORT}`;
 
 function getData() {
     var POTextileJobOrder = require('dl-models').po.POTextileJobOrder;
+    var Supplier  = require('dl-models').core.Supplier;
     var Buyer = require('dl-models').core.Buyer;
-    var UoM = require('dl-models').core.UoM;
+    var Uom = require('dl-models').core.Uom;
     var PurchaseOrderItem = require('dl-models').po.PurchaseOrderItem;
     var Product = require('dl-models').core.Product;
 
@@ -30,9 +31,19 @@ function getData() {
         tempo: 'tempo',
         local: true
     });
+    
+    var supplier = new Supplier({
+        code: '123',
+        name: 'hot',
+        description: 'hotline',
+        contact: '0812....',
+        address: 'test',
+        import: true
+    });
 
-    var _uom = new UoM({
-        unit: `Meter`
+    
+    var uom = new Uom({
+        unit: 'Meter'
     });
 
     var product = new Product({
@@ -40,7 +51,7 @@ function getData() {
         name: 'hotline',
         price: 0,
         description: 'hotline123',
-        UoM: _uom,
+        uom: uom,
         detail: {}
     });
 
