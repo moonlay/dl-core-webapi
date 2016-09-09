@@ -26,7 +26,7 @@ v1AccessoriesRouter.applyRoutes(server);
 var v1SparepartRouter = require('./src/routers/v1/core/sparepart-router');
 v1SparepartRouter.applyRoutes(server);
 
-var v1UoMRouter = require('./src/routers/v1/core/UoM-router');
+var v1UoMRouter = require('./src/routers/v1/core/uom-router');
 v1UoMRouter.applyRoutes(server);
 
 var v1GeneralMerchandiseRouter = require('./src/routers/v1/core/general-merchandise-router');
