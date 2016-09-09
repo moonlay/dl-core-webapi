@@ -68,5 +68,8 @@ v1POGarmentJobOrderFabricRouter.applyRoutes(server);
 var v1POGarmentJobOrderAccessoriesRouter = require('./src/routers/v1/po/po-garment-job-order-accessories-router');
 v1POGarmentJobOrderAccessoriesRouter.applyRoutes(server);
 
+var v1CostCalculationRouter = require('./src/routers/v1/cost-calculation/cost-calculation-router');
+v1CostCalculationRouter.applyRoutes(server);
+
 server.listen(process.env.PORT, process.env.IP);
 console.log(`server created at ${process.env.IP}:${process.env.PORT}`)
