@@ -44,9 +44,6 @@ module.exports = new Promise((resolve, reject) => {
         var v1POTextileJobOrderRouter = require('../src/routers/v1/po/po-textile-job-order-external-router');
         v1POTextileJobOrderRouter.applyRoutes(server);
 
-        var v1POGarmentGeneralRouter = require('../src/routers/v1/po/po-garment-fabric-router');
-        v1POGarmentGeneralRouter.applyRoutes(server);
-
         var v1POTextileGeneralATKRouter = require('../src/routers/v1/po/po-textile-general-atk-router');
         v1POTextileGeneralATKRouter.applyRoutes(server);
 
@@ -61,6 +58,9 @@ module.exports = new Promise((resolve, reject) => {
 
         var v1SuratJalanRouter = require('../src/routers/v1/surat-jalan/surat-jalan-router');
         v1SuratJalanRouter.applyRoutes(server);
+
+        var v1POTextile = require('../src/routers/v1/po/po-textile-router');
+        v1POTextile.applyRoutes(server);
 
         server.listen(process.env.PORT, process.env.IP);
         console.log(`server created at ${process.env.IP}:${process.env.PORT}`);

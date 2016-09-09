@@ -4,8 +4,6 @@ var uri = `${process.env.IP}:${process.env.PORT}`;
 
 function getData() {
     var POTekstilGeneralOtherATK = require('dl-models').po.POTekstilGeneralOtherATK;
-    var Supplier = require('dl-models').core.Supplier;
-    var UoM_Template = require('dl-models').core.UoM_Template;
     var UoM = require('dl-models').core.UoM;
     var PurchaseOrderItem = require('dl-models').po.PurchaseOrderItem;
     var Product = require('dl-models').core.Product;
@@ -15,43 +13,12 @@ function getData() {
     var code = stamp.toString(36);
 
     var poTextileGeneralOtherATK = new POTekstilGeneralOtherATK();
-    poTextileGeneralOtherATK.RONo = '1' + code + stamp;
+    poTextileGeneralOtherATK.PRNo = '1' + code + stamp;
     poTextileGeneralOtherATK.RefPONo = '2' + code + stamp;
-    poTextileGeneralOtherATK.PRNo = '3' + code + stamp;
-    poTextileGeneralOtherATK.ppn = 10;
-    poTextileGeneralOtherATK.deliveryDate = new Date();
-    poTextileGeneralOtherATK.termOfPayment = 'Tempo 2 bulan';
-    poTextileGeneralOtherATK.deliveryFeeByBuyer = true;
     poTextileGeneralOtherATK.PODLNo = '';
-    poTextileGeneralOtherATK.description = 'SP1';
-    poTextileGeneralOtherATK.kurs = 13000;
-    poTextileGeneralOtherATK.currency = 'dollar';
-    poTextileGeneralOtherATK.supplierID = {};
-
-    var supplier = new Supplier({
-        _id: '123',
-        code: '123',
-        name: 'Toko Stationery',
-        description: 'hotline',
-        phone: '0812....',
-        address: 'test',
-        local: true
-    });
-
-    var template = new UoM_Template({
-        mainUnit: 'M',
-        mainValue: 1,
-        convertedUnit: 'M',
-        convertedValue: 1
-    });
-
-    var _units = [];
-    _units.push(template);
 
     var _uom = new UoM({
-        category: `UoM_Unit_Test[${code}]`,
-        default: template,
-        units: _units
+        unit: `Meter`
     });
 
     var product = new Product({
@@ -64,16 +31,21 @@ function getData() {
     });
 
     var productValue = new PurchaseOrderItem({
-        qty: 0,
-        price: 0,
+        quantity: 10,
+        price: 10000,
+        description: 'test desc',
+        dealQuantity: 10,
+        dealMeasurement: 'Meter',
+        defaultQuantity: 1000,
+        defaultMeasurementQuantity: 'Centimeter',
         product: product
     });
 
     var _products = [];
     _products.push(productValue);
 
-    poTextileGeneralOtherATK.supplier = supplier;
     poTextileGeneralOtherATK.items = _products;
+
     return poTextileGeneralOtherATK;
 }
 

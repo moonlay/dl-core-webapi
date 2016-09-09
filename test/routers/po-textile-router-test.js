@@ -3,7 +3,7 @@ var request = require('supertest');
 var uri = `${process.env.IP}:${process.env.PORT}`;
 
 function getData() {
-    var POTextileJobOrder = require('dl-models').po.POTextileJobOrder;
+    var POTextile = require('dl-models').po.POTextile;
     var Buyer = require('dl-models').core.Buyer;
     var UoM = require('dl-models').core.UoM;
     var PurchaseOrderItem = require('dl-models').po.PurchaseOrderItem;
@@ -13,39 +13,31 @@ function getData() {
     var stamp = now / 1000 | 0;
     var code = stamp.toString(36);
 
-    var pOTextileJobOrder = new POTextileJobOrder();
-    pOTextileJobOrder.PRNo = '1' + code + stamp;
-    pOTextileJobOrder.RefPONo = '2' + code + stamp;
-    pOTextileJobOrder.PODLNo = '';
-    pOTextileJobOrder.buyerID = {};
-    pOTextileJobOrder.article = "Test Article";
-
-    var _buyer = new Buyer({
-        _id: '123',
-        code: '123',
-        name: 'hot',
-        description: 'hotline',
-        contact: '0812....',
-        address: 'test',
-        tempo: 'tempo',
-        local: true
-    });
+    var poTextile = new POTextile();
+    poTextile.PRNo = '1' + code + stamp;
+    poTextile.RefPONo = '2' + code + stamp;
+    poTextile.PODLNo = '';
+    poTextile.unit = 'unit';
+    poTextile.PRDate = new Date();
+    poTextile.category = 'category';
+    poTextile.requestDate = new Date();
+    poTextile.staffName = 'staff';
+    poTextile.receivedDate = new Date();
 
     var _uom = new UoM({
         unit: `Meter`
     });
 
-    var product = new Product({
-        code: '22',
-        name: 'hotline',
+    var product = new Product("fabric", {
+        code: 'FF0001',
+        name: 'kain',
         price: 0,
-        description: 'hotline123',
+        description: 'kain putih',
         UoM: _uom,
         detail: {}
     });
 
     var productValue = new PurchaseOrderItem({
-        quantity: 10,
         price: 10000,
         description: 'test desc',
         dealQuantity: 10,
@@ -58,19 +50,20 @@ function getData() {
     var _products = [];
     _products.push(productValue);
 
-    pOTextileJobOrder.buyer = _buyer;
-    pOTextileJobOrder.items = _products;
-    
-    return pOTextileJobOrder;
+    poTextile.items = _products;
+
+    return poTextile;
 }
 
 it('#01. Should be able to get list', function (done) {
     request(uri)
-        .get('/v1/po/textilejoborders')
+        .get('/v1/po/textiles')
         .expect(200)
         .end(function (err, response) {
-            if (err)
+            if (err) {
+                console.log(err);
                 done(err);
+            }
             else {
                 var result = response.body;
                 result.should.have.property("apiVersion");
@@ -81,15 +74,36 @@ it('#01. Should be able to get list', function (done) {
         });
 })
 
+it('#02. Should be able to get all podl list', function (done) {
+    request(uri)
+        .get('/v1/po/textiles/podl')
+        .expect(200)
+        .end(function (err, response) {
+            if (err) {
+                done(err);
+            }
+            else {
+                var result = response.body;
+                result.should.have.property("apiVersion");
+                result.should.have.property('data');
+                result.data.should.instanceOf(Array);
+                done();
+            }
+        });
+})
+
+var createdId;
 it('#02. should success when create new data', function (done) {
     var data = getData();
     
-    request(uri).post('/v1/po/textilejoborders')
+    request(uri).post('/v1/po/textiles')
         .send(data)
         .end(function (err, res) {
             if (err) {
                 done(err);
             } else {
+                var result = res.headers;
+                createdId = result['location']
                 done();
 
             }
@@ -97,10 +111,9 @@ it('#02. should success when create new data', function (done) {
 });
 
 var createdData;
-var createdId;
 it(`#03. should success when update created data`, function (done) {
-    request(uri).put('/v1/po/textilejoborders')
-        .send({ RONo: 'RO01234567890', description: 'updated description' })
+    request(uri).put('/v1/po/textiles')
+        .send({description: 'updated description' })
         .end(function (err, res) {
             if (err) {
                 done(err);
@@ -111,7 +124,7 @@ it(`#03. should success when update created data`, function (done) {
 });
 
 it("#04. should success when delete data", function(done) {
-    request(uri).del('/v1/po/textilejoborders/:id')
+    request(uri).del('/v1/po/textiles/:id')
     .query({_id:createdId})
     .end(function (err, res) {
             if (err) {

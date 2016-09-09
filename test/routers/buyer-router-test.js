@@ -12,11 +12,10 @@ function getData() {
 
     buyer.code = code;
     buyer.name = `name[${code}]`;
-    buyer.contact = 'phone[${code}]';
-    buyer.country = 'country[${code}]';
-    buyer.address = 'Solo [${code}]';
-    buyer.tempo = 0;
-
+    buyer.address = `Solo [${code}]`;
+    buyer.country = `Ireland [${code}]`;
+    buyer.contact = `phone[${code}]`;
+    buyer.tempo= 0;
     return buyer;
 }
 
@@ -55,14 +54,6 @@ it('#01. Should be able to get list', function (done) {
 var createdData;
 
 it(`#03. should success when update created data`, function(done) {
-    
-    // createdData.RONo += '[updated]';
-    // createdData.ReffPONo += '[updated]';
-    // createdData.PONo += '[updated]';
-    // createdData.termOfPayment += '[updated]';
-    // createdData.PODLNo += '[updated]';
-    // createdData.description += '[updated]';
-    
     request(uri).put('/v1/core/buyers')
         .send({ name: 'Manny', code: 'cat' })
         .end(function (err, res) {

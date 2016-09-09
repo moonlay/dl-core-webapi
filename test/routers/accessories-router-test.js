@@ -4,33 +4,38 @@ var uri = `${process.env.IP}:${process.env.PORT}`;
 
 function getData() {
     var Accessories = require('dl-models').core.Accessories;
-    var accessories = new Accessories();
     var UoM = require('dl-models').core.UoM;
     var UoM_Template = require('dl-models').core.UoM_Template;
-
-    var uom_template = new UoM_Template({
-        mainValue: 1,
-        mainUnit: 'M',
-        convertedValue: 1,
-        convertedUnit: 'M'
-    });
-    var _uom_units = [];
-    _uom_units.push(uom_template);
-    
-    var uom = new UoM({
-        category: 'UoM_Unit_Test',
-        default: uom_template,
-        units: _uom_units
-    });
     
     var now = new Date();
     var stamp = now / 1000 | 0;
     var code = stamp.toString(36);
+    
+    var accessories = new Accessories();
+    // var uom_template = new UoM_Template({
+    //     mainValue: 1,
+    //     mainUnit: 'M',
+    //     convertedValue: 1,
+    //     convertedUnit: 'M'
+    // });
+
+    // var _uom_units = [];
+    // _uom_units.push(uom_template);
+    // var uom = new UoM({
+    //     category: `UoM_Unit_Test[${code}]`,
+    //     default: uom_template,
+    //     units: _uom_units
+    // });
+     var uom = new UoM({
+        unit: `Meter`
+    });
 
     accessories.code = code;
     accessories.name = `name[${code}]`;
     accessories.description = `description for ${code}`;
+    accessories.price = 2000;
     accessories.UoM = uom;
+
     return accessories;
 }
 
