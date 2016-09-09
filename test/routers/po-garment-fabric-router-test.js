@@ -4,29 +4,26 @@ var uri = `${process.env.IP}:${process.env.PORT}`;
 
 function getData() {
     var POGarmentFabric = require('dl-models').po.POGarmentFabric;
+    var Buyer = require('dl-models').core.Buyer;
     var Supplier = require('dl-models').core.Supplier; 
     var Uom = require('dl-models').core.Uom;
     var PurchaseOrderItem = require('dl-models').po.PurchaseOrderItem;
     var Product = require('dl-models').core.Product;
-    var StandardQualityTestPercentage = require('dl-models').po.StandardQualityTestPercentage;
 
     var now = new Date();
     var stamp = now / 1000 | 0;
     var code = stamp.toString(36);
 
     var poGarmentFabric = new POGarmentFabric();
-    poGarmentFabric.PRNo = '1' + code + stamp;
-    poGarmentFabric.RONo = '2' + code + stamp;
+    poGarmentFabric.RONo = '1' + code + stamp;
+    poGarmentFabric.PRNo = '2' + code + stamp;
     poGarmentFabric.RefPONo = '3' + code + stamp;
-    poGarmentFabric.ppn = 10;
-    poGarmentFabric.deliveryDate = new Date();
-    poGarmentFabric.termOfPayment = 'Tempo 2 bulan';
-    poGarmentFabric.deliveryFeeByBuyer = true;
+    poGarmentFabric.article = "Test Article";
     poGarmentFabric.PODLNo = '';
-    poGarmentFabric.description = 'SP1';
-    poGarmentFabric.supplierID = {};
+    poGarmentFabric.buyerId = {};
 
-    var supplier = new Supplier({
+    var buyer = new Buyer({
+        _id: '123',
         code: '123',
         name: 'hot',
         description: 'hotline',
@@ -48,27 +45,23 @@ function getData() {
         detail: {}
     });
 
-    var productValue = new PurchaseOrderItem ({
-        qty: 0,
-        price: 0,
+    var productValue = new PurchaseOrderItem({
+        quantity: 10,
+        price: 10000,
+        description: 'test desc',
+        dealQuantity: 10,
+        dealMeasurement: 'Meter',
+        defaultQuantity: 1000,
+        defaultMeasurementQuantity: 'Centimeter',
         product: product
     });
-    
+
     var _products = [];
     _products.push(productValue);
-    
-    var _stdQtyTest = new StandardQualityTestPercentage({
-        shrinkage : 10,
-        wetRubbing : 20,
-        dryRubbing : 30,
-        washing : 40,
-        darkPrespiration : 50,
-        lightMedPrespiration : 60,
-    })
-    
-    poGarmentFabric.standardQuality = _stdQtyTest;
-    poGarmentFabric.supplier = supplier;
+
+    poGarmentFabric.buyer = buyer;
     poGarmentFabric.items = _products;
+    
     return poGarmentFabric;
 }
 

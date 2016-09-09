@@ -14,13 +14,8 @@ function getData() {
     var code = stamp.toString(36);
 
     var pOGarmentSparepart = new POGarmentSparepart();
-    pOGarmentSparepart.RONo = '1' + code + stamp;
-    pOGarmentSparepart.PRNo = '2' + code + stamp;
-    pOGarmentSparepart.PONo = '3' + code + stamp;
-    pOGarmentSparepart.ppn = 10;
-    pOGarmentSparepart.deliveryDate = new Date();
-    pOGarmentSparepart.termOfPayment = 'Tempo 2 bulan';
-    pOGarmentSparepart.deliveryFeeByBuyer = true;
+    pOGarmentSparepart.PRNo = '1' + code + stamp;
+    pOGarmentSparepart.RefPONo = '2' + code + stamp;
     pOGarmentSparepart.PODLNo = '';
     pOGarmentSparepart.description = 'SP1';
     pOGarmentSparepart.supplierID = {};
@@ -40,8 +35,7 @@ function getData() {
         unit: 'Meter'
     });
 
-
-    var product = new Product({
+    var product = new Product("sparepart", {
         code: '22',
         name: 'hotline',
         price: 0,
@@ -51,16 +45,21 @@ function getData() {
     });
 
     var productValue = new PurchaseOrderItem({
-        qty: 0,
-        price: 0,
+        quantity: 10,
+        price: 10000,
+        description: 'test desc',
+        dealQuantity: 10,
+        dealMeasurement: 'Meter',
+        defaultQuantity: 1000,
+        defaultMeasurementQuantity: 'Centimeter',
         product: product
     });
 
     var _products = [];
     _products.push(productValue);
 
-    pOGarmentSparepart.supplier = supplier;
     pOGarmentSparepart.items = _products;
+
     return pOGarmentSparepart;
 }
 

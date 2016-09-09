@@ -3,7 +3,7 @@ var request = require('supertest');
 var uri = `${process.env.IP}:${process.env.PORT}`;
 
 function getData() {
-    var POGarmentJobOrderFabric = require('dl-models').po.POGarmentJobOrderFabric;
+    var POTextile = require('dl-models').po.POTextile;
     var Buyer = require('dl-models').core.Buyer;
     var Uom = require('dl-models').core.Uom;
     var PurchaseOrderItem = require('dl-models').po.PurchaseOrderItem;
@@ -13,25 +13,19 @@ function getData() {
     var stamp = now / 1000 | 0;
     var code = stamp.toString(36);
 
-    var poGarmentJobOrderFabric = new POGarmentJobOrderFabric();
-    poGarmentJobOrderFabric.RONo = '1' + code + stamp;
-    poGarmentJobOrderFabric.PRNo = '2' + code + stamp;
-    poGarmentJobOrderFabric.RefPONo = '3' + code + stamp;
-    poGarmentJobOrderFabric.article = "Test Article";
-    poGarmentJobOrderFabric.PODLNo = '';
-    poGarmentJobOrderFabric.buyerId = {};
+    var poTextile = new POTextile();
+    poTextile.PRNo = '1' + code + stamp;
+    poTextile.RefPONo = '2' + code + stamp;
+    poTextile.PODLNo = '';
+    poTextile.unit = 'unit';
+    poTextile.PRDate = new Date();
+    poTextile.category = 'category';
+    poTextile.requestDate = new Date();
+    poTextile.staffName = 'staff';
+    poTextile.receivedDate = new Date();
 
-    var buyer = new Buyer({
-        _id: '123',
-        name : `name[${code}]`,
-        address : `Solo [${code}]`,
-        contact : `phone[${code}]`,
-        tempo : 0
-    });
-    
-    
     var uom = new Uom({
-        unit: 'Meter'
+        unit: `Meter`
     });
 
     var product = new Product("fabric", {
@@ -39,7 +33,7 @@ function getData() {
         name: 'kain',
         price: 0,
         description: 'kain putih',
-        uom: uom,
+        UoM: uom,
         detail: {}
     });
 
@@ -56,15 +50,14 @@ function getData() {
     var _products = [];
     _products.push(productValue);
 
-    poGarmentJobOrderFabric.buyer = buyer;
-    poGarmentJobOrderFabric.items = _products;
+    poTextile.items = _products;
 
-    return poGarmentJobOrderFabric;
+    return poTextile;
 }
 
 it('#01. Should be able to get list', function (done) {
     request(uri)
-        .get('/v1/po/garmentjoborderfabrics')
+        .get('/v1/po/textiles')
         .expect(200)
         .end(function (err, response) {
             if (err) {
@@ -83,7 +76,7 @@ it('#01. Should be able to get list', function (done) {
 
 it('#02. Should be able to get all podl list', function (done) {
     request(uri)
-        .get('/v1/po/garmentjoborderfabrics/podl')
+        .get('/v1/po/textiles/podl')
         .expect(200)
         .end(function (err, response) {
             if (err) {
@@ -103,7 +96,7 @@ var createdId;
 it('#02. should success when create new data', function (done) {
     var data = getData();
     
-    request(uri).post('/v1/po/garmentjoborderfabrics')
+    request(uri).post('/v1/po/textiles')
         .send(data)
         .end(function (err, res) {
             if (err) {
@@ -119,8 +112,8 @@ it('#02. should success when create new data', function (done) {
 
 var createdData;
 it(`#03. should success when update created data`, function (done) {
-    request(uri).put('/v1/po/garmentjoborderfabrics')
-        .send({ RONo: 'RO01234567890', description: 'updated description' })
+    request(uri).put('/v1/po/textiles')
+        .send({description: 'updated description' })
         .end(function (err, res) {
             if (err) {
                 done(err);
@@ -131,7 +124,7 @@ it(`#03. should success when update created data`, function (done) {
 });
 
 it("#04. should success when delete data", function(done) {
-    request(uri).del('/v1/po/garmentjoborderfabrics/:id')
+    request(uri).del('/v1/po/textiles/:id')
     .query({_id:createdId})
     .end(function (err, res) {
             if (err) {

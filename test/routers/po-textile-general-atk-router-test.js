@@ -14,27 +14,10 @@ function getData() {
     var code = stamp.toString(36);
 
     var poTextileGeneralATK = new POTextileGeneralATK();
-    poTextileGeneralATK.RONo = '1' + code + stamp;
+    poTextileGeneralATK.PRNo = '1' + code + stamp;
     poTextileGeneralATK.RefPONo = '2' + code + stamp;
-    poTextileGeneralATK.PRNo = '3' + code + stamp;
-    poTextileGeneralATK.ppn = 10;
-    poTextileGeneralATK.deliveryDate = new Date();
-    poTextileGeneralATK.termOfPayment = 'Tempo 2 bulan';
-    poTextileGeneralATK.deliveryFeeByBuyer = true;
     poTextileGeneralATK.PODLNo = '';
-    poTextileGeneralATK.description = 'SP1';
-    poTextileGeneralATK.supplierID = {};
 
-    var supplier = new Supplier({
-        code: '123',
-        name: 'hot',
-        description: 'hotline',
-        phone: '0812....',
-        address: 'test',
-        local: true
-    });
-
-    
     var uom = new Uom({
         unit: 'Meter'
     });
@@ -48,17 +31,22 @@ function getData() {
         detail: {}
     });
 
-    var productValue = new PurchaseOrderItem ({
-        qty: 0,
-        price: 0,
+    var productValue = new PurchaseOrderItem({
+        quantity: 10,
+        price: 10000,
+        description: 'test desc',
+        dealQuantity: 10,
+        dealMeasurement: 'Meter',
+        defaultQuantity: 1000,
+        defaultMeasurementQuantity: 'Centimeter',
         product: product
     });
-    
+
     var _products = [];
     _products.push(productValue);
 
-    poTextileGeneralATK.supplier = supplier;
     poTextileGeneralATK.items = _products;
+
     return poTextileGeneralATK;
 }
 

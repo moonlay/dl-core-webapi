@@ -14,13 +14,8 @@ function getData() {
     var code = stamp.toString(36);
 
     var poTextileGeneralOtherATK = new POTekstilGeneralOtherATK();
-    poTextileGeneralOtherATK.RONo = '1' + code + stamp;
+    poTextileGeneralOtherATK.PRNo = '1' + code + stamp;
     poTextileGeneralOtherATK.RefPONo = '2' + code + stamp;
-    poTextileGeneralOtherATK.PRNo = '3' + code + stamp;
-    poTextileGeneralOtherATK.ppn = 10;
-    poTextileGeneralOtherATK.deliveryDate = new Date();
-    poTextileGeneralOtherATK.termOfPayment = 'Tempo 2 bulan';
-    poTextileGeneralOtherATK.deliveryFeeByBuyer = true;
     poTextileGeneralOtherATK.PODLNo = '';
     poTextileGeneralOtherATK.description = 'SP1';
     poTextileGeneralOtherATK.kurs = 13000;
@@ -52,16 +47,21 @@ function getData() {
     });
 
     var productValue = new PurchaseOrderItem({
-        qty: 0,
-        price: 0,
+        quantity: 10,
+        price: 10000,
+        description: 'test desc',
+        dealQuantity: 10,
+        dealMeasurement: 'Meter',
+        defaultQuantity: 1000,
+        defaultMeasurementQuantity: 'Centimeter',
         product: product
     });
 
     var _products = [];
     _products.push(productValue);
 
-    poTextileGeneralOtherATK.supplier = supplier;
     poTextileGeneralOtherATK.items = _products;
+
     return poTextileGeneralOtherATK;
 }
 

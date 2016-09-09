@@ -7,15 +7,16 @@ function getData() {
     var Textile = require('dl-models').core.Textile;
     var Uom = require('dl-models').core.Uom;
 
-    var textile = new Textile();
-    
-    var uom = new Uom({
-        unit: 'Meter'
-    });
     var now = new Date();
     var stamp = now / 1000 | 0;
     var code = stamp.toString(36);
 
+    var textile = new Textile();
+    
+    var uom = new Uom({
+        unit: `Meter`
+    });
+    
     textile.code = code;
     textile.name = `name[${code}]`;
     textile.description = `description for ${code}`;

@@ -6,19 +6,20 @@ function getData() {
     var GeneralMerchandise = require('dl-models').core.GeneralMerchandise;
     var Uom = require('dl-models').core.Uom; 
 
+    var now = new Date();
+    var stamp = now / 1000 | 0;
+    var code = stamp.toString(36);
+
     var generalMerchandise = new GeneralMerchandise();
     
     var uom = new Uom({
         unit: 'Meter'
     });
-
-    var now = new Date();
-    var stamp = now / 1000 | 0;
-    var code = stamp.toString(36);
-
+    
     generalMerchandise.code = code;
     generalMerchandise.name = `name[${code}]`;
-    generalMerchandise.description = `description [${code}]`;
+    generalMerchandise.description = `description for ${code}`;
+    generalMerchandise.price = 50;
     generalMerchandise.uom = uom;
     return generalMerchandise;
 }

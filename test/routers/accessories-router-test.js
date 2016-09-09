@@ -14,10 +14,13 @@ function getData() {
     var now = new Date();
     var stamp = now / 1000 | 0;
     var code = stamp.toString(36);
+    
+    var accessories = new Accessories();
 
     accessories.code = code;
     accessories.name = `name[${code}]`;
     accessories.description = `description for ${code}`;
+    accessories.price = 2000;
     accessories.uom = uom;
     return accessories;
 }

@@ -14,12 +14,8 @@ function getData() {
     var code = stamp.toString(36);
 
     var poGarmentGeneral = new POGarmentGeneral();
-    poGarmentGeneral.RONo = '1' + code + stamp;
+    poGarmentGeneral.PRNo = '1' + code + stamp;
     poGarmentGeneral.RefPONo = '2' + code + stamp;
-    poGarmentGeneral.ppn = 10;
-    poGarmentGeneral.deliveryDate = new Date();
-    poGarmentGeneral.termOfPayment = 'Tempo 2 bulan';
-    poGarmentGeneral.deliveryFeeByBuyer = true;
     poGarmentGeneral.PODLNo = '';
     poGarmentGeneral.description = 'SP1';
     poGarmentGeneral.supplierID = {};
@@ -36,7 +32,7 @@ function getData() {
         unit: 'Meter'
     });
 
-    var product = new Product ({
+    var product = new Product("general-merchandiser", {
         code: '22',
         name: 'hotline',
         price: 0,
@@ -45,17 +41,22 @@ function getData() {
         detail: {}
     });
 
-    var productValue = new PurchaseOrderItem ({
-        qty: 0,
-        price: 0,
+    var productValue = new PurchaseOrderItem({
+        quantity: 10,
+        price: 10000,
+        description : 'test desc',
+        dealQuantity : 10,
+        dealMeasurement : 'Meter',
+        defaultQuantity : 1000,
+        defaultMeasurementQuantity : 'Centimeter',
         product: product
     });
-    
+
     var _products = [];
     _products.push(productValue);
 
-    poGarmentGeneral.supplier = supplier;
     poGarmentGeneral.items = _products;
+    
     return poGarmentGeneral;
 }
 

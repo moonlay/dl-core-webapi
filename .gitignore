@@ -38,3 +38,4 @@ jspm_packages
 
 # Visual Studio
 .vscode
+test/routers/po-textile-sparepart-router-test.js

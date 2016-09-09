@@ -11,13 +11,15 @@ function getData() {
     var uom = new Uom({
         unit: 'Meter'
     });
-
+    
     var now = new Date();
     var stamp = now / 1000 | 0;
     var code = stamp.toString(36);
 
     fabric.code = code;
     fabric.name = `name[${code}]`;
+    fabric.price = 500;
+    fabric.description = `desc for ${code}`;
     fabric.composition = `composition [${code}]`;
     fabric.construction = `construction [${code}]`;
     fabric.thread = `thread [${code}]`;
@@ -25,7 +27,6 @@ function getData() {
     fabric.uom = uom;
     return fabric;
 }
-
 it('#01. Should be able to get list', function (done) {
     request(uri)
         .get('/v1/core/fabrics')

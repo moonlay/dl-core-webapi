@@ -36,4 +36,5 @@ describe('@dl-core-webapi', function () {
     test("/v1/po/textilegeneralatk", "./routers/po-textile-general-atk-router-test");
     test("/v1/po/textilegeneralotheratk", "./routers/po-textile-general-other-atk-router-test");
     test("/v1/suratjalan", "./routers/surat-jalan-router-test");
+    test("/v1/po/textile", "./routers/po-textile-router-test");
 });
