@@ -34,7 +34,7 @@ module.exports = new Promise((resolve, reject) => {
 
         var v1POGarmentGeneralRouter = require('../src/routers/v1/po/po-garment-general-router');
         v1POGarmentGeneralRouter.applyRoutes(server);
-        
+
         var v1POGarmentFabricRouter = require('../src/routers/v1/po/po-garment-fabric-router');
         v1POGarmentFabricRouter.applyRoutes(server);
 
@@ -62,8 +62,26 @@ module.exports = new Promise((resolve, reject) => {
         var v1SuratJalanRouter = require('../src/routers/v1/surat-jalan/surat-jalan-router');
         v1SuratJalanRouter.applyRoutes(server);
 
-        var v1POTextile = require('../src/routers/v1/po/po-textile-router');
+        var v1POTextile = require('../src/routers/v1/po/purchase-order-textile-router');
         v1POTextile.applyRoutes(server);
+
+        var v1POFabric = require('../src/routers/v1/po/purchase-order-fabric-router');
+        v1POFabric.applyRoutes(server);
+
+        var v1POAccessories = require('../src/routers/v1/po/purchase-order-accessories-router');
+        v1POAccessories.applyRoutes(server);
+
+        var v1POSparepart = require('../src/routers/v1/po/purchase-order-sparepart-router');
+        v1POSparepart.applyRoutes(server);
+
+        var v1POGeneral = require('../src/routers/v1/po/purchase-order-general-router');
+        v1POGeneral.applyRoutes(server);
+
+        var v1PurchaseOrder = require('../src/routers/v1/po/purchase-order-router');
+        v1PurchaseOrder.applyRoutes(server);
+
+        var v1POGroup = require('../src/routers/v1/po/purchase-order-group-router');
+        v1POGroup.applyRoutes(server);
 
         server.listen(process.env.PORT, process.env.IP);
         console.log(`server created at ${process.env.IP}:${process.env.PORT}`);

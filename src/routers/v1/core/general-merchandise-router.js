@@ -5,7 +5,7 @@ var GeneralMerchandiseManager = require("dl-module").managers.core.GeneralMercha
 var resultFormatter = require("../../../result-formatter");
 const apiVersion = '1.0.0';
 
-router.get("/v1/core/generalmerchandises", function(request, response, next) {
+router.get("/v1/core/products/general", function(request, response, next) {
     db.get().then(db => {
             var manager = new GeneralMerchandiseManager(db, {
                 username: 'router'
@@ -27,7 +27,7 @@ router.get("/v1/core/generalmerchandises", function(request, response, next) {
         })
 });
 
-router.get("/v1/core/generalmerchandises/:id", function(request, response, next) {
+router.get("/v1/core/products/general/:id", function(request, response, next) {
     db.get().then(db => {
         var manager = new GeneralMerchandiseManager(db, {
             username: 'router'
@@ -47,7 +47,7 @@ router.get("/v1/core/generalmerchandises/:id", function(request, response, next)
     })
 });
 
-router.post('/v1/core/generalmerchandises', (request, response, next) => {
+router.post('/v1/core/products/general', (request, response, next) => {
     db.get().then(db => {
         var manager = new GeneralMerchandiseManager(db, {
             username: 'router'
@@ -69,7 +69,7 @@ router.post('/v1/core/generalmerchandises', (request, response, next) => {
     })
 });
 
-router.put('/v1/core/generalmerchandises/:id', (request, response, next) => {
+router.put('/v1/core/products/general/:id', (request, response, next) => {
     db.get().then(db => {
         var manager = new GeneralMerchandiseManager(db, {
             username: 'router'
@@ -91,7 +91,7 @@ router.put('/v1/core/generalmerchandises/:id', (request, response, next) => {
     })
 });
 
-router.del('/v1/core/generalmerchandises/:id', (request, response, next) => {
+router.del('/v1/core/products/general/:id', (request, response, next) => {
     db.get().then(db => {
         var manager = new GeneralMerchandiseManager(db, {
             username: 'router'

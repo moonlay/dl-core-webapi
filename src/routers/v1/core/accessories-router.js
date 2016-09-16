@@ -5,7 +5,7 @@ var AccessoriesManager = require("dl-module").managers.core.AccessoriesManager;
 var resultFormatter = require("../../../result-formatter");
 const apiVersion = '1.0.0';
 
-router.get("v1/core/accessories", function (request, response, next) {
+router.get("v1/core/products/accessories", function (request, response, next) {
      db.get().then(db=> {
           var manager = new AccessoriesManager(db, {
             username: 'router'
@@ -27,7 +27,7 @@ router.get("v1/core/accessories", function (request, response, next) {
         })
 })
 
-router.get('/v1/core/accessories/:id', (request, response, next) => {
+router.get('/v1/core/products/accessories/:id', (request, response, next) => {
     db.get().then(db => {
         var manager = new AccessoriesManager(db, {
             username: 'router'
@@ -46,7 +46,7 @@ router.get('/v1/core/accessories/:id', (request, response, next) => {
     })
 });
 
-router.post('/v1/core/accessories', (request, response, next) => {
+router.post('/v1/core/products/accessories', (request, response, next) => {
     db.get().then(db => {
         var manager = new AccessoriesManager(db, {
             username: 'router'
@@ -67,8 +67,7 @@ router.post('/v1/core/accessories', (request, response, next) => {
     })
 });
 
-
-router.put('/v1/core/accessories/:id', (request, response, next) => {
+router.put('/v1/core/products/accessories/:id', (request, response, next) => {
     db.get().then(db => {
         var manager = new AccessoriesManager(db, {
             username: 'router'
@@ -90,7 +89,7 @@ router.put('/v1/core/accessories/:id', (request, response, next) => {
     })
 });
 
-router.del('/v1/core/accessories/:id', (request, response, next) => {
+router.del('/v1/core/products/accessories/:id', (request, response, next) => {
     db.get().then(db => {
         var manager = new AccessoriesManager(db, {
             username: 'router'

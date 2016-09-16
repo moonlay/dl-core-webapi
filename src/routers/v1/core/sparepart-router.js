@@ -5,7 +5,7 @@ var SparepartManager = require("dl-module").managers.core.SparepartManager;
 var resultFormatter = require("../../../result-formatter");
 const apiVersion = '1.0.0';
 
-router.get("/v1/core/spareparts", function(request, response, next) {
+router.get("/v1/core/products/spareparts", function(request, response, next) {
     db.get().then(db => {
             var manager = new SparepartManager(db, {
                 username: 'router'
@@ -27,7 +27,7 @@ router.get("/v1/core/spareparts", function(request, response, next) {
         })
 });
 
-router.get("/v1/core/spareparts/:id", function(request, response, next) {
+router.get("/v1/core/products/spareparts/:id", function(request, response, next) {
     db.get().then(db => {
         var manager = new SparepartManager(db, {
             username: 'router'
@@ -47,7 +47,7 @@ router.get("/v1/core/spareparts/:id", function(request, response, next) {
     })
 });
 
-router.post('/v1/core/spareparts', (request, response, next) => {
+router.post('/v1/core/products/spareparts', (request, response, next) => {
     db.get().then(db => {
         var manager = new SparepartManager(db, {
             username: 'router'
@@ -69,7 +69,7 @@ router.post('/v1/core/spareparts', (request, response, next) => {
     })
 });
 
-router.put('/v1/core/spareparts/:id', (request, response, next) => {
+router.put('/v1/core/products/spareparts/:id', (request, response, next) => {
     db.get().then(db => {
         var manager = new SparepartManager(db, {
             username: 'router'
@@ -91,7 +91,7 @@ router.put('/v1/core/spareparts/:id', (request, response, next) => {
     })
 });
 
-router.del('/v1/core/spareparts/:id', (request, response, next) => {
+router.del('/v1/core/products/spareparts/:id', (request, response, next) => {
     db.get().then(db => {
         var manager = new SparepartManager(db, {
             username: 'router'
@@ -111,7 +111,5 @@ router.del('/v1/core/spareparts/:id', (request, response, next) => {
             })
     })
 });
-
-
 
 module.exports = router

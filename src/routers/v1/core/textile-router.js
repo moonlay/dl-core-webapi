@@ -5,7 +5,7 @@ var TextileManager = require("dl-module").managers.core.TextileManager;
 var resultFormatter = require("../../../result-formatter");
 const apiVersion = '1.0.0';
 
-router.get("/v1/core/textiles", function(request, response, next) {
+router.get("/v1/core/products/textiles", function(request, response, next) {
     db.get().then(db => {
             var manager = new TextileManager(db, {
                 username: 'router'
@@ -28,7 +28,7 @@ router.get("/v1/core/textiles", function(request, response, next) {
 })
 
 
-router.get('/v1/core/textiles/:id', (request, response, next) => {
+router.get('/v1/core/products/textiles/:id', (request, response, next) => {
     db.get().then(db => {
         var manager = new TextileManager(db, {
             username: 'router'
@@ -49,7 +49,7 @@ router.get('/v1/core/textiles/:id', (request, response, next) => {
     })
 });
 
-router.post('/v1/core/textiles', (request, response, next) => {
+router.post('/v1/core/products/textiles', (request, response, next) => {
     db.get().then(db => {
         var manager = new TextileManager(db, {
             username: 'router'
@@ -71,7 +71,7 @@ router.post('/v1/core/textiles', (request, response, next) => {
     })
 });
 
-router.put('/v1/core/textiles/:id', (request, response, next) => {
+router.put('/v1/core/products/textiles/:id', (request, response, next) => {
     db.get().then(db => {
         var manager = new TextileManager(db, {
             username: 'router'
@@ -93,7 +93,7 @@ router.put('/v1/core/textiles/:id', (request, response, next) => {
     })
 });
 
-router.del('/v1/core/textiles/:id', (request, response, next) => {
+router.del('/v1/core/products/textiles/:id', (request, response, next) => {
     db.get().then(db => {
         var manager = new TextileManager(db, {
             username: 'router'
@@ -113,7 +113,5 @@ router.del('/v1/core/textiles/:id', (request, response, next) => {
             })
     })
 });
-
-
 
 module.exports = router;

@@ -1,24 +1,26 @@
 var Router = require('restify-router').Router;
 var router = new Router();
 var db = require("../../../db");
-var FabricManager = require("dl-module").managers.core.FabricManager;
+var PurchaseOrderBaseManager = require("dl-module").managers.po.PurchaseOrderBaseManager;
 var resultFormatter = require("../../../result-formatter");
 const apiVersion = '1.0.0';
-
-router.get("/v1/core/products/fabrics", function(request, response, next) {
+ 
+router.get("/v1/purchasing/po/textiles", (request, response, next) => {
     db.get().then(db => {
-            var manager = new FabricManager(db, {
+            var manager = new PurchaseOrderBaseManager(db, {
                 username: 'router'
             });
-
+            var unit = "unit";
+            var kategori = "kategori";
+            
             var query = request.query;
-            manager.read(query)
+            manager.read(unit,kategori,query)
             .then(docs => {
                     var result = resultFormatter.ok(apiVersion, 200, docs);
                     response.send(200, result);
                 })
                 .catch(e => {
-                    response.send(500, "Failed to fetch data.");
+                    response.send(500, "gagal ambil data");
                 })
         })
         .catch(e => {
@@ -27,9 +29,31 @@ router.get("/v1/core/products/fabrics", function(request, response, next) {
         })
 });
 
-router.get("/v1/core/products/fabrics/:id", function(request, response, next) {
+router.post('/v1/purchasing/po/textiles/split', (request, response, next) => {
     db.get().then(db => {
-        var manager = new FabricManager(db, {
+        var manager = new PurchaseOrderBaseManager(db, {
+            username: 'router'
+        });
+
+        var data = request.body;
+
+        manager.split(data)
+            .then(docId => {
+                response.header('Location', `${docId.toString()}`);
+                var result = resultFormatter.ok(apiVersion, 201);
+                response.send(201, result);
+            })
+            .catch(e => {
+                var error = resultFormatter.fail(apiVersion, 400, e);
+                response.send(400, error);
+            })
+
+    })
+});
+
+router.get('/v1/purchasing/po/textiles/:id', (request, response, next) => {
+    db.get().then(db => {
+        var manager = new PurchaseOrderBaseManager(db, {
             username: 'router'
         });
 
@@ -44,12 +68,13 @@ router.get("/v1/core/products/fabrics/:id", function(request, response, next) {
                 var error = resultFormatter.fail(apiVersion, 400, e);
                 response.send(400, error);
             })
+
     })
 });
 
-router.post('/v1/core/products/fabrics', (request, response, next) => {
+router.post('/v1/purchasing/po/textiles', (request, response, next) => {
     db.get().then(db => {
-        var manager = new FabricManager(db, {
+        var manager = new PurchaseOrderBaseManager(db, {
             username: 'router'
         });
 
@@ -57,7 +82,7 @@ router.post('/v1/core/products/fabrics', (request, response, next) => {
 
         manager.create(data)
             .then(docId => {
-                response.header('Location', `inventories/storages/${docId.toString()}`);    // TO-DO : update this location when URL in UI has been identified
+                response.header('Location', `${docId.toString()}`);
                 var result = resultFormatter.ok(apiVersion, 201);
                 response.send(201, result);
             })
@@ -69,9 +94,9 @@ router.post('/v1/core/products/fabrics', (request, response, next) => {
     })
 });
 
-router.put('/v1/core/products/fabrics/:id', (request, response, next) => {
+router.put('/v1/purchasing/po/textiles/:id', (request, response, next) => {
     db.get().then(db => {
-        var manager = new FabricManager(db, {
+        var manager = new PurchaseOrderBaseManager(db, {
             username: 'router'
         });
 
@@ -91,15 +116,15 @@ router.put('/v1/core/products/fabrics/:id', (request, response, next) => {
     })
 });
 
-router.del('/v1/core/products/fabrics/:id', (request, response, next) => {
+router.del('/v1/purchasing/po/textiles/:id', (request, response, next) => {
     db.get().then(db => {
-        var manager = new FabricManager(db, {
+        var manager = new PurchaseOrderBaseManager(db, {
             username: 'router'
         });
 
         var id = request.params.id;
         var data = request.body;
-
+ 
         manager.delete(data)
             .then(docId => {
                 var result = resultFormatter.ok(apiVersion, 204);
@@ -113,3 +138,4 @@ router.del('/v1/core/products/fabrics/:id', (request, response, next) => {
 });
 
 module.exports = router;
+
