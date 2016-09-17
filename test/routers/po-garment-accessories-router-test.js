@@ -5,66 +5,34 @@ var uri = `${process.env.IP}:${process.env.PORT}`;
 function getData() {
     var POGarmentAccessories = require('dl-models').po.POGarmentAccessories;
     var Supplier = require('dl-models').core.Supplier;
-    var Buyer = require('dl-models').core.Buyer;
-    var UoM_Template = require('dl-models').core.UoM_Template;
-    var UoM = require('dl-models').core.UoM;
+    var Buyer = require('dl-models').core.Buyer; 
+    var Uom = require('dl-models').core.Uom;
     var PurchaseOrderItem = require('dl-models').po.PurchaseOrderItem;
     var Product = require('dl-models').core.Product;
-
+    
     var now = new Date();
     var stamp = now / 1000 | 0;
     var code = stamp.toString(36);
 
-    var poGarmentAccessories = new POGarmentAccessories();
-    poGarmentAccessories.PRNo = '1' + code + stamp;
-    poGarmentAccessories.RONo = '2' + code + stamp;
-    poGarmentAccessories.RefPONo = '3' + code + stamp;
-    poGarmentAccessories.ppn = 10;
-    poGarmentAccessories.deliveryDate = new Date();
-    poGarmentAccessories.termOfPayment = 'Tempo 2 bulan';
-    poGarmentAccessories.deliveryFeeByBuyer = true;
-    poGarmentAccessories.PODLNo = '';
-    poGarmentAccessories.description = 'SP1';
-    poGarmentAccessories.supplierID = {};
-    poGarmentAccessories.buyerID = {};
-    poGarmentAccessories.article = "Test Article";
+    var pOGarmentAccessories = new POGarmentAccessories();
+    pOGarmentAccessories.RONo = '1' + code + stamp;
+    pOGarmentAccessories.PRNo = '2' + code + stamp;
+    pOGarmentAccessories.RefPONo = '3' + code + stamp;
+    pOGarmentAccessories.article = "Test Article";
+    pOGarmentAccessories.PODLNo = '';
+    pOGarmentAccessories.buyerId = {};
 
-    var supplier = new Supplier({
-        _id:code,
-        code: '1234',
-        name: 'hot',
-        description: 'hotline',
-        phone: '0812....',
-        address: 'test',
-        local: true
-    });
-    
     var buyer = new Buyer({
-        _id:code,
-        code: '1234',
-        name: 'hot',
-        description: 'hotline',
+        _id: '123',
+        code: '123',
+        name: 'Buyer01',
         contact: '0812....',
         address: 'test',
-        tempo:'tempo',
-        local: true
-    });
-    
-
-    var template = new UoM_Template ({
-        mainUnit: 'M',
-        mainValue: 1,
-        convertedUnit: 'M',
-        convertedValue: 1
+        tempo: 0
     });
 
-    var _units = [];
-    _units.push(template);
-
-    var _uom = new UoM ({
-        category: 'UoM-Unit-Test',
-        default: template,
-        units: _units
+    var uom = new Uom({
+        unit: 'Meter'
     });
 
     var product = new Product ({
@@ -72,23 +40,28 @@ function getData() {
         name: 'hotline',
         price: 0,
         description: 'hotline123',
-        UoM: _uom,
+        uom: uom,
         detail: {}
     });
 
-    var productValue = new PurchaseOrderItem ({
-        qty: 0,
-        price: 0,
+    var productValue = new PurchaseOrderItem({
+        quantity: 2,
+        price: 10000,
+        description: 'warna merah',
+        dealQuantity: 2,
+        dealMeasurement: 'Meter',
+        defaultQuantity: 200,
+        defaultMeasurementQuantity: 'Centimeter',
         product: product
     });
-    
+
     var _products = [];
     _products.push(productValue);
-    
-    poGarmentAccessories.supplier = supplier;
-    poGarmentAccessories.buyer = buyer;
-    poGarmentAccessories.items = _products;
-    return poGarmentAccessories;
+
+    pOGarmentAccessories.buyer = buyer;
+    pOGarmentAccessories.items = _products;
+
+    return pOGarmentAccessories;
 }
 
 it('#01. Should be able to get list', function (done) {

@@ -4,40 +4,29 @@ var uri = `${process.env.IP}:${process.env.PORT}`;
 
 function getData() {
     var Fabric = require('dl-models').core.Fabric;
-    var UoM = require('dl-models').core.UoM;
-    var UoM_Template = require('dl-models').core.UoM_Template;
+    var Uom = require('dl-models').core.Uom; 
 
     var fabric = new Fabric();
-    var uom_template = new UoM_Template({
-        mainValue: 1,
-        mainUnit: 'M',
-        convertedValue: 1,
-        convertedUnit: 'M'
+    
+    var uom = new Uom({
+        unit: 'Meter'
     });
-
-    var _uom_units = [];
-    _uom_units.push(uom_template);
-
-    var uom = new UoM({
-        category: 'UoM_Unit_Test',
-        default: uom_template,
-        units: _uom_units
-    });
-
+    
     var now = new Date();
     var stamp = now / 1000 | 0;
     var code = stamp.toString(36);
 
     fabric.code = code;
     fabric.name = `name[${code}]`;
+    fabric.price = 500;
+    fabric.description = `desc for ${code}`;
     fabric.composition = `composition [${code}]`;
     fabric.construction = `construction [${code}]`;
     fabric.thread = `thread [${code}]`;
     fabric.width = 0;
-    fabric.UoM = uom;
+    fabric.uom = uom;
     return fabric;
 }
-
 it('#01. Should be able to get list', function (done) {
     request(uri)
         .get('/v1/core/fabrics')

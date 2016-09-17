@@ -5,8 +5,7 @@ var uri = `${process.env.IP}:${process.env.PORT}`;
 function getData() {
     var POTextileGeneralATK = require('dl-models').po.POTextileGeneralATK;
     var Supplier = require('dl-models').core.Supplier;
-    var UoM_Template = require('dl-models').core.UoM_Template;
-    var UoM = require('dl-models').core.UoM;
+    var Uom = require('dl-models').core.Uom;
     var PurchaseOrderItem = require('dl-models').po.PurchaseOrderItem;
     var Product = require('dl-models').core.Product;
 
@@ -15,40 +14,12 @@ function getData() {
     var code = stamp.toString(36);
 
     var poTextileGeneralATK = new POTextileGeneralATK();
-    poTextileGeneralATK.RONo = '1' + code + stamp;
+    poTextileGeneralATK.PRNo = '1' + code + stamp;
     poTextileGeneralATK.RefPONo = '2' + code + stamp;
-    poTextileGeneralATK.PRNo = '3' + code + stamp;
-    poTextileGeneralATK.ppn = 10;
-    poTextileGeneralATK.deliveryDate = new Date();
-    poTextileGeneralATK.termOfPayment = 'Tempo 2 bulan';
-    poTextileGeneralATK.deliveryFeeByBuyer = true;
     poTextileGeneralATK.PODLNo = '';
-    poTextileGeneralATK.description = 'SP1';
-    poTextileGeneralATK.supplierID = {};
 
-    var supplier = new Supplier({
-        code: '123',
-        name: 'hot',
-        description: 'hotline',
-        phone: '0812....',
-        address: 'test',
-        local: true
-    });
-
-    var template = new UoM_Template ({
-        mainUnit: 'M',
-        mainValue: 1,
-        convertedUnit: 'M',
-        convertedValue: 1
-    });
-
-    var _units = [];
-    _units.push(template);
-
-    var _uom = new UoM ({
-        category: 'UoM-Unit-Test',
-        default: template,
-        units: _units
+    var uom = new Uom({
+        unit: 'Meter'
     });
 
     var product = new Product ({
@@ -56,21 +27,26 @@ function getData() {
         name: 'hotline',
         price: 0,
         description: 'hotline123',
-        UoM: _uom,
+        uom: uom,
         detail: {}
     });
 
-    var productValue = new PurchaseOrderItem ({
-        qty: 0,
-        price: 0,
+    var productValue = new PurchaseOrderItem({
+        quantity: 10,
+        price: 10000,
+        description: 'test desc',
+        dealQuantity: 10,
+        dealMeasurement: 'Meter',
+        defaultQuantity: 1000,
+        defaultMeasurementQuantity: 'Centimeter',
         product: product
     });
-    
+
     var _products = [];
     _products.push(productValue);
 
-    poTextileGeneralATK.supplier = supplier;
     poTextileGeneralATK.items = _products;
+
     return poTextileGeneralATK;
 }
 

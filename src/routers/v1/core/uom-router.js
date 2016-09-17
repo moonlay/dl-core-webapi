@@ -1,13 +1,13 @@
 var Router = require('restify-router').Router;
 var router = new Router();
 var db = require("../../../db");
-var UoMManager = require("dl-module").managers.core.UoMManager;
+var UomManager = require("dl-module").managers.core.UomManager;
 var resultFormatter = require("../../../result-formatter");
 const apiVersion = '1.0.0';
 
 router.get("/v1/core/uoms", function (request, response, next) {
     db.get().then(db => {
-        var manager = new UoMManager(db, {
+        var manager = new UomManager(db, {
             username: 'router'
         });
 
@@ -29,7 +29,7 @@ router.get("/v1/core/uoms", function (request, response, next) {
 
 router.get("/v1/core/uoms/categorylist", function (request, response, next) {
     db.get().then(db => {
-        var manager = new UoMManager(db, {
+        var manager = new UomManager(db, {
             username: 'router'
         });
 
@@ -51,7 +51,7 @@ router.get("/v1/core/uoms/categorylist", function (request, response, next) {
 
 router.get("/v1/core/uoms/:id", function (request, response, next) {
     db.get().then(db => {
-        var manager = new UoMManager(db, {
+        var manager = new UomManager(db, {
             username: 'router'
         });
 
@@ -73,7 +73,7 @@ router.get("/v1/core/uoms/:id", function (request, response, next) {
 
 router.post('/v1/core/uoms', (request, response, next) => {
     db.get().then(db => {
-        var manager = new UoMManager(db, {
+        var manager = new UomManager(db, {
             username: 'router'
         });
 
@@ -97,7 +97,7 @@ router.post('/v1/core/uoms', (request, response, next) => {
 
 router.put('/v1/core/uoms/:id', (request, response, next) => {
     db.get().then(db => {
-        var manager = new UoMManager(db, {
+        var manager = new UomManager(db, {
             username: 'router'
         });
 
@@ -121,7 +121,7 @@ router.put('/v1/core/uoms/:id', (request, response, next) => {
 
 router.del('/v1/core/uoms/:id', (request, response, next) => {
     db.get().then(db => {
-        var manager = new UoMManager(db, {
+        var manager = new UomManager(db, {
             username: 'router'
         });
 

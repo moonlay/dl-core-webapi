@@ -4,38 +4,31 @@ var uri = `${process.env.IP}:${process.env.PORT}`;
 
 function getData() {
     var POTextileJobOrder = require('dl-models').po.POTextileJobOrder;
-    var Supplier = require('dl-models').core.Supplier;
+    var Supplier  = require('dl-models').core.Supplier;
     var Buyer = require('dl-models').core.Buyer;
-    var UoM_Template = require('dl-models').core.UoM_Template;
-    var UoM = require('dl-models').core.UoM;
+    var Uom = require('dl-models').core.Uom;
     var PurchaseOrderItem = require('dl-models').po.PurchaseOrderItem;
     var Product = require('dl-models').core.Product;
-    
+
     var now = new Date();
     var stamp = now / 1000 | 0;
     var code = stamp.toString(36);
-    
+
     var pOTextileJobOrder = new POTextileJobOrder();
-    pOTextileJobOrder.RONo =  '1' + code + stamp;
-    pOTextileJobOrder.RefPONo =  '2' + code + stamp;
-    pOTextileJobOrder.PRNo =  '3' + code + stamp;
-    pOTextileJobOrder.ppn = 10;
-    pOTextileJobOrder.deliveryDate = new Date();
-    pOTextileJobOrder.termOfPayment = 'Tempo 2 bulan';
-    pOTextileJobOrder.deliveryFeeByBuyer = true;
+    pOTextileJobOrder.PRNo = '1' + code + stamp;
+    pOTextileJobOrder.RefPONo = '2' + code + stamp;
     pOTextileJobOrder.PODLNo = '';
-    pOTextileJobOrder.description = 'SP1';
-    pOTextileJobOrder.supplierID = {};
     pOTextileJobOrder.buyerID = {};
     pOTextileJobOrder.article = "Test Article";
 
-    var buyer = new Buyer({
+    var _buyer = new Buyer({
+        _id: '123',
         code: '123',
         name: 'hot',
         description: 'hotline',
         contact: '0812....',
         address: 'test',
-        tempo:'tempo',
+        tempo: 'tempo',
         local: true
     });
     
@@ -48,43 +41,37 @@ function getData() {
         import: true
     });
 
-    var template = new UoM_Template({
-        mainUnit: 'M',
-        mainValue: 1,
-        convertedUnit: 'M',
-        convertedValue: 1
+    
+    var uom = new Uom({
+        unit: 'Meter'
     });
 
-    var _units = [];
-    _units.push(template);
-
-    var _uom = new UoM({
-        category: 'UoM-Unit-Test',
-        default: template,
-        units: _units
-    });
-
-     var product = new Product({
+    var product = new Product({
         code: '22',
         name: 'hotline',
         price: 0,
         description: 'hotline123',
-        UoM: _uom,
+        uom: uom,
         detail: {}
     });
 
     var productValue = new PurchaseOrderItem({
-        qty: 0,
-        price: 0,
+        quantity: 10,
+        price: 10000,
+        description: 'test desc',
+        dealQuantity: 10,
+        dealMeasurement: 'Meter',
+        defaultQuantity: 1000,
+        defaultMeasurementQuantity: 'Centimeter',
         product: product
     });
-    
+
     var _products = [];
     _products.push(productValue);
 
-    pOTextileJobOrder.supplier = supplier;
-    pOTextileJobOrder.buyer=buyer;
+    pOTextileJobOrder.buyer = _buyer;
     pOTextileJobOrder.items = _products;
+    
     return pOTextileJobOrder;
 }
 

@@ -26,14 +26,17 @@ module.exports = new Promise((resolve, reject) => {
         var v1AccessoriesRouter = require('../src/routers/v1/core/accessories-router');
         v1AccessoriesRouter.applyRoutes(server);
 
-        var v1UoMRouter = require('../src/routers/v1/core/UoM-router');
-        v1UoMRouter.applyRoutes(server);
+        var v1UomRouter = require('../src/routers/v1/core/uom-router');
+        v1UomRouter.applyRoutes(server);
 
         var v1GeneralMerchandiseRouter = require('../src/routers/v1/core/general-merchandise-router');
         v1GeneralMerchandiseRouter.applyRoutes(server);
 
         var v1POGarmentGeneralRouter = require('../src/routers/v1/po/po-garment-general-router');
         v1POGarmentGeneralRouter.applyRoutes(server);
+        
+        var v1POGarmentFabricRouter = require('../src/routers/v1/po/po-garment-fabric-router');
+        v1POGarmentFabricRouter.applyRoutes(server);
 
         var v1POGarmentSparepartRouter = require('../src/routers/v1/po/po-garment-sparepart-router');
         v1POGarmentSparepartRouter.applyRoutes(server);
@@ -43,9 +46,6 @@ module.exports = new Promise((resolve, reject) => {
 
         var v1POTextileJobOrderRouter = require('../src/routers/v1/po/po-textile-job-order-external-router');
         v1POTextileJobOrderRouter.applyRoutes(server);
-
-        var v1POGarmentGeneralRouter = require('../src/routers/v1/po/po-garment-fabric-router');
-        v1POGarmentGeneralRouter.applyRoutes(server);
 
         var v1POTextileGeneralATKRouter = require('../src/routers/v1/po/po-textile-general-atk-router');
         v1POTextileGeneralATKRouter.applyRoutes(server);
@@ -61,6 +61,9 @@ module.exports = new Promise((resolve, reject) => {
 
         var v1SuratJalanRouter = require('../src/routers/v1/surat-jalan/surat-jalan-router');
         v1SuratJalanRouter.applyRoutes(server);
+
+        var v1POTextile = require('../src/routers/v1/po/po-textile-router');
+        v1POTextile.applyRoutes(server);
 
         server.listen(process.env.PORT, process.env.IP);
         console.log(`server created at ${process.env.IP}:${process.env.PORT}`);

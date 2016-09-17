@@ -26,7 +26,7 @@ v1AccessoriesRouter.applyRoutes(server);
 var v1SparepartRouter = require('./src/routers/v1/core/sparepart-router');
 v1SparepartRouter.applyRoutes(server);
 
-var v1UoMRouter = require('./src/routers/v1/core/UoM-router');
+var v1UoMRouter = require('./src/routers/v1/core/uom-router');
 v1UoMRouter.applyRoutes(server);
 
 var v1GeneralMerchandiseRouter = require('./src/routers/v1/core/general-merchandise-router');
@@ -56,9 +56,6 @@ v1POGarmentFabricRouter.applyRoutes(server);
 var v1POTextileGeneralATKRouter = require('./src/routers/v1/po/po-textile-general-atk-router');
 v1POTextileGeneralATKRouter.applyRoutes(server);
 
-var v1POGarmentAccessoriesRouter = require('./src/routers/v1/po/po-garment-accessories-router');
-v1POGarmentAccessoriesRouter.applyRoutes(server);
-
 var v1POTextileGeneralOtherATKRouter = require('./src/routers/v1/po/po-textile-general-other-atk-router');
 v1POTextileGeneralOtherATKRouter.applyRoutes(server);
 
@@ -74,6 +71,8 @@ v1CostCalculationRouter.applyRoutes(server);
 var v1SuratJalanRouter = require('./src/routers/v1/surat-jalan/surat-jalan-router');
 v1SuratJalanRouter.applyRoutes(server);
 
+var v1POTextile = require('./src/routers/v1/po/po-textile-router');
+v1POTextile.applyRoutes(server);
 
 server.listen(process.env.PORT, process.env.IP);
 console.log(`server created at ${process.env.IP}:${process.env.PORT}`)

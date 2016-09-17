@@ -5,33 +5,22 @@ var uri = `${process.env.IP}:${process.env.PORT}`;
 function getData() {
     var Textile = require('dl-models').core.Textile;
     var Textile = require('dl-models').core.Textile;
-    var UoM = require('dl-models').core.UoM;
-    var UoM_Template = require('dl-models').core.UoM_Template;
-
-    var textile = new Textile();
-    var uom_template = new UoM_Template({
-        mainValue: 1,
-        mainUnit: 'M',
-        convertedValue: 1,
-        convertedUnit: 'M'
-    });
-    var _uom_units = [];
-    _uom_units.push(uom_template);
-
-    var uom = new UoM({
-        category: 'UoM_Unit_Test',
-        default: uom_template,
-        units: _uom_units
-    });
+    var Uom = require('dl-models').core.Uom;
 
     var now = new Date();
     var stamp = now / 1000 | 0;
     var code = stamp.toString(36);
 
+    var textile = new Textile();
+    
+    var uom = new Uom({
+        unit: `Meter`
+    });
+    
     textile.code = code;
     textile.name = `name[${code}]`;
     textile.description = `description for ${code}`;
-    textile.UoM = uom;
+    textile.uom = uom;
     textile.price = 50;
 
     return textile;
