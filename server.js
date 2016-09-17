@@ -71,5 +71,9 @@ v1POGarmentJobOrderAccessoriesRouter.applyRoutes(server);
 var v1CostCalculationRouter = require('./src/routers/v1/cost-calculation/cost-calculation-router');
 v1CostCalculationRouter.applyRoutes(server);
 
+var v1SuratJalanRouter = require('./src/routers/v1/surat-jalan/surat-jalan-router');
+v1SuratJalanRouter.applyRoutes(server);
+
+
 server.listen(process.env.PORT, process.env.IP);
 console.log(`server created at ${process.env.IP}:${process.env.PORT}`)

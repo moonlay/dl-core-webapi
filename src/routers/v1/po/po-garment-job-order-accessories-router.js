@@ -70,6 +70,28 @@ router.post('/v1/po/garmentjoborderaccessories/podl', (request, response, next) 
     })
 });
 
+router.post('/v1/po/split/garmentjoborderaccessories', (request, response, next) => {
+    db.get().then(db => {
+        var manager = new POGarmentJobOrderAccessoriesManager(db, {
+            username: 'router'
+        });
+
+        var data = request.body;
+
+        manager.split(data)
+            .then(docId => {
+                response.header('Location', `${docId.toString()}`);
+                var result = resultFormatter.ok(apiVersion, 201);
+                response.send(201, result);
+            })
+            .catch(e => {
+                var error = resultFormatter.fail(apiVersion, 400, e);
+                response.send(400, error);
+            })
+
+    })
+});
+
 router.get("/v1/po/garmentjoborderaccessories", function(request, response, next) {
     db.get().then(db => {
             var manager = new POGarmentJobOrderAccessoriesManager(db, {

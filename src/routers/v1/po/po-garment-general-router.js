@@ -70,6 +70,28 @@ router.post('/v1/po/garmentgenerals/podl', (request, response, next) => {
     })
 });
 
+router.post('/v1/po/garmentgenerals/split', (request, response, next) => {
+    db.get().then(db => {
+        var manager = new POGarmentGeneralManager(db, {
+            username: 'router'
+        });
+
+        var data = request.body;
+
+        manager.split(data)
+            .then(docId => {
+                response.header('Location', `${docId.toString()}`);
+                var result = resultFormatter.ok(apiVersion, 201);
+                response.send(201, result);
+            })
+            .catch(e => {
+                var error = resultFormatter.fail(apiVersion, 400, e);
+                response.send(400, error);
+            })
+
+    })
+});
+
 router.get("/v1/po/garmentgenerals", function(request, response, next) {
     db.get().then(db => {
             var manager = new POGarmentGeneralManager(db, {

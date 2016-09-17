@@ -5,7 +5,7 @@ var POGarmentJobOrderFabric = require("dl-module").managers.po.POGarmentJobOrder
 var resultFormatter = require("../../../result-formatter");
 const apiVersion = '1.0.0';
  
-router.get("/v1/po/garmentjoborderfabrics/podl", function(request, response, next) {
+router.get("/v1/po/garmentjoborderfabrics/podl", (request, response, next) => {
     db.get().then(db => {
             var manager = new POGarmentJobOrderFabric(db, {
                 username: 'router'
@@ -25,7 +25,7 @@ router.get("/v1/po/garmentjoborderfabrics/podl", function(request, response, nex
             var error = resultFormatter.fail(apiVersion, 400, e);
             response.send(400, error);
         })
-})
+});
 
 router.get('/v1/po/garmentjoborderfabrics/podl/:id', (request, response, next) => {
     db.get().then(db => {
@@ -70,7 +70,29 @@ router.post('/v1/po/garmentjoborderfabrics/podl', (request, response, next) => {
     })
 });
 
-router.get("/v1/po/garmentjoborderfabrics", function(request, response, next) {
+router.post('/v1/po/split/garmentjoborderfabrics', (request, response, next) => {
+    db.get().then(db => {
+        var manager = new POGarmentJobOrderFabric(db, {
+            username: 'router'
+        });
+
+        var data = request.body;
+
+        manager.split(data)
+            .then(docId => {
+                response.header('Location', `${docId.toString()}`);
+                var result = resultFormatter.ok(apiVersion, 201);
+                response.send(201, result);
+            })
+            .catch(e => {
+                var error = resultFormatter.fail(apiVersion, 400, e);
+                response.send(400, error);
+            })
+
+    })
+});
+
+router.get("/v1/po/garmentjoborderfabrics", (request, response, next) => {
     db.get().then(db => {
             var manager = new POGarmentJobOrderFabric(db, {
                 username: 'router'
