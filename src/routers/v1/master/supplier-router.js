@@ -1,11 +1,11 @@
 var Router = require('restify-router').Router;
 var router = new Router();
 var db = require("../../../db");
-var SupplierManager = require("dl-module").managers.core.SupplierManager;
+var SupplierManager = require("dl-module").managers.master.SupplierManager;
 var resultFormatter = require("../../../result-formatter");
 const apiVersion = '1.0.0';
 
-router.get("/v1/core/suppliers", function(request, response, next) {
+router.get("/v1/master/suppliers", function(request, response, next) {
     db.get().then(db => {
             var manager = new SupplierManager(db, {
                 username: 'router'
@@ -27,7 +27,7 @@ router.get("/v1/core/suppliers", function(request, response, next) {
         })
 });
 
-router.get("/v1/core/suppliers/:id", (request, response, next) =>{
+router.get("/v1/master/suppliers/:id", (request, response, next) =>{
     db.get().then(db => {
         var manager = new SupplierManager(db, {
             username: 'router'
@@ -35,7 +35,7 @@ router.get("/v1/core/suppliers/:id", (request, response, next) =>{
 
         var id = request.params.id;
 
-        manager.getById(id)
+        manager.getSingleById(id)
             .then(doc => {
                 var result = resultFormatter.ok(apiVersion, 200, doc);
                 response.send(200, result);
@@ -47,7 +47,7 @@ router.get("/v1/core/suppliers/:id", (request, response, next) =>{
     })
 });
 
-router.post('/v1/core/suppliers', (request, response, next) => {
+router.post('/v1/master/suppliers', (request, response, next) => {
     db.get().then(db => {
         var manager = new SupplierManager(db, {
             username: 'router'
@@ -69,7 +69,7 @@ router.post('/v1/core/suppliers', (request, response, next) => {
     })
 });
 
-router.put('/v1/core/suppliers/:id', (request, response, next) => {
+router.put('/v1/master/suppliers/:id', (request, response, next) => {
     db.get().then(db => {
         var manager = new SupplierManager(db, {
             username: 'router'
@@ -91,7 +91,7 @@ router.put('/v1/core/suppliers/:id', (request, response, next) => {
     })
 });
 
-router.del('/v1/core/suppliers/:id', (request, response, next) => {
+router.del('/v1/master/suppliers/:id', (request, response, next) => {
     db.get().then(db => {
         var manager = new SupplierManager(db, {
             username: 'router'

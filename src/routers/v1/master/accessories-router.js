@@ -1,13 +1,13 @@
 var Router = require('restify-router').Router;
 var router = new Router();
 var db = require("../../../db");
-var AccessoriesManager = require("dl-module").managers.core.AccessoriesManager;
+var ProductManager = require("dl-module").managers.master.ProductManager;
 var resultFormatter = require("../../../result-formatter");
 const apiVersion = '1.0.0';
 
-router.get("v1/core/accessories", function (request, response, next) {
+router.get("v1/master/products/accessories", function (request, response, next) {
      db.get().then(db=> {
-          var manager = new AccessoriesManager(db, {
+          var manager = new ProductManager(db, {
             username: 'router'
         });
 
@@ -27,14 +27,14 @@ router.get("v1/core/accessories", function (request, response, next) {
         })
 })
 
-router.get('/v1/core/accessories/:id', (request, response, next) => {
+router.get('/v1/master/products/accessories/:id', (request, response, next) => {
     db.get().then(db => {
-        var manager = new AccessoriesManager(db, {
+        var manager = new ProductManager(db, {
             username: 'router'
         });
 
         var id = request.params.id;
-        manager.getById(id)
+        manager.getSingleById(id)
             .then(doc => {
                 var result = resultFormatter.ok(apiVersion, 200, doc);
                 response.send(200, result);
@@ -46,9 +46,9 @@ router.get('/v1/core/accessories/:id', (request, response, next) => {
     })
 });
 
-router.post('/v1/core/accessories', (request, response, next) => {
+router.post('/v1/master/products/accessories', (request, response, next) => {
     db.get().then(db => {
-        var manager = new AccessoriesManager(db, {
+        var manager = new ProductManager(db, {
             username: 'router'
         });
 
@@ -67,10 +67,9 @@ router.post('/v1/core/accessories', (request, response, next) => {
     })
 });
 
-
-router.put('/v1/core/accessories/:id', (request, response, next) => {
+router.put('/v1/master/products/accessories/:id', (request, response, next) => {
     db.get().then(db => {
-        var manager = new AccessoriesManager(db, {
+        var manager = new ProductManager(db, {
             username: 'router'
         });
 
@@ -90,9 +89,9 @@ router.put('/v1/core/accessories/:id', (request, response, next) => {
     })
 });
 
-router.del('/v1/core/accessories/:id', (request, response, next) => {
+router.del('/v1/master/products/accessories/:id', (request, response, next) => {
     db.get().then(db => {
-        var manager = new AccessoriesManager(db, {
+        var manager = new ProductManager(db, {
             username: 'router'
         });
 
