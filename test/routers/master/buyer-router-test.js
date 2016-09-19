@@ -3,7 +3,7 @@ var request = require('supertest');
 var uri = `${process.env.IP}:${process.env.PORT}`;
 
 function getData() {
-    var Buyer = require('dl-models').core.Buyer;
+    var Buyer = require('dl-models').master.Buyer;
     var buyer = new Buyer();
 
     var now = new Date();
@@ -15,13 +15,13 @@ function getData() {
     buyer.address = `Solo [${code}]`;
     buyer.country = `Ireland [${code}]`;
     buyer.contact = `phone[${code}]`;
-    buyer.tempo= 0;
+    buyer.tempo = 0;
     return buyer;
 }
 
 it('#01. Should be able to get list', function (done) {
     request(uri)
-        .get('/v1/core/buyers')
+        .get('/v1/master/buyers')
         .expect(200)
         .end(function (err, response) {
             if (err)
@@ -36,25 +36,24 @@ it('#01. Should be able to get list', function (done) {
         });
 })
 
- it('#02. should success when create new data', function (done) {
-    var data=getData();
-    request(uri).post('/v1/core/buyers')
+it('#02. should success when create new data', function (done) {
+    var data = getData();
+    request(uri).post('/v1/master/buyers')
         .send(data)
         .end(function (err, res) {
             if (err) {
                 done(err);
             } else {
                 done();
-               
+
             }
         });
 
 });
 
 var createdData;
-
-it(`#03. should success when update created data`, function(done) {
-    request(uri).put('/v1/core/buyers')
+it(`#03. should success when update created data`, function (done) {
+    request(uri).put('/v1/master/buyers')
         .send({ name: 'Manny', code: 'cat' })
         .end(function (err, res) {
             if (err) {
@@ -63,13 +62,13 @@ it(`#03. should success when update created data`, function(done) {
                 done();
             }
         });
-        });
+});
 
 var createdId;
-it("#04. should success when delete data", function(done) {
-    request(uri).del('/v1/core/buyers/:id')
-    .query({_id:createdId})
-    .end(function (err, res) {
+it("#04. should success when delete data", function (done) {
+    request(uri).del('/v1/master/buyers/:id')
+        .query({ _id: createdId })
+        .end(function (err, res) {
             if (err) {
                 done(err);
             } else {

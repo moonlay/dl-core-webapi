@@ -1,41 +1,41 @@
 var Router = require('restify-router').Router;
 var router = new Router();
 var db = require("../../../db");
-var SupplierManager = require("dl-module").managers.core.SupplierManager;
+var UomManager = require("dl-module").managers.master.UomManager;
 var resultFormatter = require("../../../result-formatter");
 const apiVersion = '1.0.0';
 
-router.get("/v1/core/suppliers", function(request, response, next) {
+router.get("/v1/master/uoms", function (request, response, next) {
     db.get().then(db => {
-            var manager = new SupplierManager(db, {
-                username: 'router'
-            });
+        var manager = new UomManager(db, {
+            username: 'router'
+        });
 
-            var query = request.query;
-            manager.read(query)
+        var query = request.query;
+        manager.read(query)
             .then(docs => {
-                    var result = resultFormatter.ok(apiVersion, 200, docs);
-                    response.send(200, result);
-                })
-                .catch(e => {
-                    response.send(500, "gagal ambil data");
-                })
-        })
+                var result = resultFormatter.ok(apiVersion, 200, docs);
+                response.send(200, result);
+            })
+            .catch(e => {
+                response.send(500, "Failed to fetch data.");
+            })
+    })
         .catch(e => {
             var error = resultFormatter.fail(apiVersion, 400, e);
             response.send(400, error);
         })
 });
 
-router.get("/v1/core/suppliers/:id", (request, response, next) =>{
+router.get("/v1/master/uoms/:id", function (request, response, next) {
     db.get().then(db => {
-        var manager = new SupplierManager(db, {
+        var manager = new UomManager(db, {
             username: 'router'
         });
 
         var id = request.params.id;
 
-        manager.getById(id)
+        manager.getSingleById(id)
             .then(doc => {
                 var result = resultFormatter.ok(apiVersion, 200, doc);
                 response.send(200, result);
@@ -47,9 +47,9 @@ router.get("/v1/core/suppliers/:id", (request, response, next) =>{
     })
 });
 
-router.post('/v1/core/suppliers', (request, response, next) => {
+router.post('/v1/master/uoms', (request, response, next) => {
     db.get().then(db => {
-        var manager = new SupplierManager(db, {
+        var manager = new UomManager(db, {
             username: 'router'
         });
 
@@ -57,7 +57,7 @@ router.post('/v1/core/suppliers', (request, response, next) => {
 
         manager.create(data)
             .then(docId => {
-                response.header('Location', `inventories/storages/${docId.toString()}`);
+                response.header('Location', `inventories/storages/${docId.toString()}`);    // TO-DO : update this location when URL in UI has been identified
                 var result = resultFormatter.ok(apiVersion, 201);
                 response.send(201, result);
             })
@@ -69,9 +69,9 @@ router.post('/v1/core/suppliers', (request, response, next) => {
     })
 });
 
-router.put('/v1/core/suppliers/:id', (request, response, next) => {
+router.put('/v1/master/uoms/:id', (request, response, next) => {
     db.get().then(db => {
-        var manager = new SupplierManager(db, {
+        var manager = new UomManager(db, {
             username: 'router'
         });
 
@@ -91,9 +91,9 @@ router.put('/v1/core/suppliers/:id', (request, response, next) => {
     })
 });
 
-router.del('/v1/core/suppliers/:id', (request, response, next) => {
+router.del('/v1/master/uoms/:id', (request, response, next) => {
     db.get().then(db => {
-        var manager = new SupplierManager(db, {
+        var manager = new UomManager(db, {
             username: 'router'
         });
 
@@ -111,5 +111,4 @@ router.del('/v1/core/suppliers/:id', (request, response, next) => {
             })
     })
 });
-
 module.exports = router;

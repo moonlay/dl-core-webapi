@@ -1,42 +1,41 @@
 var Router = require('restify-router').Router;
 var router = new Router();
 var db = require("../../../db");
-var BuyerManager = require("dl-module").managers.core.BuyerManager;
+var CategoryManager = require("dl-module").managers.master.CategoryManager;
 var resultFormatter = require("../../../result-formatter");
 const apiVersion = '1.0.0';
 
-router.get("/v1/core/buyers", function(request, response, next) {
+router.get("/v1/master/categories", function (request, response, next) {
     db.get().then(db => {
-            var manager = new BuyerManager(db, {
-                username: 'router'
-            });
+        var manager = new CategoryManager(db, {
+            username: 'router'
+        });
 
-            var query = request.query;
-            manager.read(query)
+        var query = request.query;
+        manager.read(query)
             .then(docs => {
-                    var result = resultFormatter.ok(apiVersion, 200, docs);
-                    response.send(200, result);
-                })
-                .catch(e => {
-                    response.send(500, "gagal ambil data");
-                })
-        })
+                var result = resultFormatter.ok(apiVersion, 200, docs);
+                response.send(200, result);
+            })
+            .catch(e => {
+                response.send(500, "Failed to fetch data.");
+            })
+    })
         .catch(e => {
             var error = resultFormatter.fail(apiVersion, 400, e);
             response.send(400, error);
         })
-})
+});
 
-
-router.get('/v1/core/buyers/:id', (request, response, next) => {
+router.get("/v1/master/categories/:id", function (request, response, next) {
     db.get().then(db => {
-        var manager = new BuyerManager(db, {
+        var manager = new CategoryManager(db, {
             username: 'router'
         });
 
         var id = request.params.id;
 
-        manager.getById(id)
+        manager.getSingleById(id)
             .then(doc => {
                 var result = resultFormatter.ok(apiVersion, 200, doc);
                 response.send(200, result);
@@ -45,13 +44,12 @@ router.get('/v1/core/buyers/:id', (request, response, next) => {
                 var error = resultFormatter.fail(apiVersion, 400, e);
                 response.send(400, error);
             })
-
     })
 });
 
-router.post('/v1/core/buyers', (request, response, next) => {
+router.post('/v1/master/categories', (request, response, next) => {
     db.get().then(db => {
-        var manager = new BuyerManager(db, {
+        var manager = new CategoryManager(db, {
             username: 'router'
         });
 
@@ -59,7 +57,7 @@ router.post('/v1/core/buyers', (request, response, next) => {
 
         manager.create(data)
             .then(docId => {
-                response.header('Location', `inventories/storages/${docId.toString()}`);
+                response.header('Location', `inventories/storages/${docId.toString()}`);    // TO-DO : update this location when URL in UI has been identified
                 var result = resultFormatter.ok(apiVersion, 201);
                 response.send(201, result);
             })
@@ -71,9 +69,9 @@ router.post('/v1/core/buyers', (request, response, next) => {
     })
 });
 
-router.put('/v1/core/buyers/:id', (request, response, next) => {
+router.put('/v1/master/categories/:id', (request, response, next) => {
     db.get().then(db => {
-        var manager = new BuyerManager(db, {
+        var manager = new CategoryManager(db, {
             username: 'router'
         });
 
@@ -93,9 +91,9 @@ router.put('/v1/core/buyers/:id', (request, response, next) => {
     })
 });
 
-router.del('/v1/core/buyers/:id', (request, response, next) => {
+router.del('/v1/master/categories/:id', (request, response, next) => {
     db.get().then(db => {
-        var manager = new BuyerManager(db, {
+        var manager = new CategoryManager(db, {
             username: 'router'
         });
 
@@ -113,7 +111,4 @@ router.del('/v1/core/buyers/:id', (request, response, next) => {
             })
     })
 });
-
-
-
 module.exports = router;
