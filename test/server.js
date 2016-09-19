@@ -41,11 +41,14 @@ module.exports = new Promise((resolve, reject) => {
         var v1CategoryRouter = require('../src/routers/v1/master/category-router');
         v1CategoryRouter.applyRoutes(server);
 
+        var v1PurchaseOrderExternalRouter = require('../src/routers/v1/purchasing/purchase-order-external-router');
+        v1PurchaseOrderExternalRouter.applyRoutes(server);
+
         var v1PurchaseOrderRouter = require('../src/routers/v1/purchasing/purchase-order-router');
         v1PurchaseOrderRouter.applyRoutes(server);
 
-        var v1PurchaseOrderExternalRouter = require('../src/routers/v1/purchasing/purchase-order-external-router');
-        v1PurchaseOrderExternalRouter.applyRoutes(server);
+        var v1DeliveryOrderRouter = require('../src/routers/v1/purchasing/delivery-order-router');
+        v1DeliveryOrderRouter.applyRoutes(server);
 
         server.listen(process.env.PORT, process.env.IP);
         console.log(`server created at ${process.env.IP}:${process.env.PORT}`);
