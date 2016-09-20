@@ -5,7 +5,8 @@ var PurchaseOrderManager = require("dl-module").managers.purchasing.PurchaseOrde
 var resultFormatter = require("../../../result-formatter");
 const apiVersion = '1.0.0';
 
-router.get("/v1/purchasing/po", (request, response, next) => {
+ 
+router.get("/", (request, response, next) => {
     db.get().then(db => {
             var manager = new PurchaseOrderManager(db, {
                 username: 'router'
@@ -19,58 +20,15 @@ router.get("/v1/purchasing/po", (request, response, next) => {
                 })
                 .catch(e => {
                     response.send(500, "gagal ambil data");
-                })
+                });
         })
         .catch(e => {
             var error = resultFormatter.fail(apiVersion, 400, e);
             response.send(400, error);
-        })
-})
-
-router.get('/v1/purchasing/po/:id', (request, response, next) => {
-    db.get().then(db => {
-        var manager = new PurchaseOrderManager(db, {
-            username: 'router'
         });
-
-        var id = request.params.id;
-
-        manager.getSingleById(id)
-            .then(doc => {
-                var result = resultFormatter.ok(apiVersion, 200, doc);
-                response.send(200, result);
-            })
-            .catch(e => {
-                var error = resultFormatter.fail(apiVersion, 400, e);
-                response.send(400, error);
-            })
-
-    })
 });
 
-router.post('/v1/purchasing/po', (request, response, next) => {
-    db.get().then(db => {
-        var manager = new PurchaseOrderManager(db, {
-            username: 'router'
-        });
-
-        var data = request.body;
-
-        manager.create(data)
-            .then(docId => {
-                response.header('Location', `${docId.toString()}`);
-                var result = resultFormatter.ok(apiVersion, 201);
-                response.send(201, result);
-            })
-            .catch(e => {
-                var error = resultFormatter.fail(apiVersion, 400, e);
-                response.send(400, error);
-            })
-
-    })
-});
-
-router.post('/v1/purchasing/po/split', (request, response, next) => {
+router.post('/split', (request, response, next) => {
     db.get().then(db => {
         var manager = new PurchaseOrderManager(db, {
             username: 'router'
@@ -87,12 +45,55 @@ router.post('/v1/purchasing/po/split', (request, response, next) => {
             .catch(e => {
                 var error = resultFormatter.fail(apiVersion, 400, e);
                 response.send(400, error);
-            })
+            });
 
-    })
+    });
 });
 
-router.put('/v1/purchasing/po/:id', (request, response, next) => {
+router.get('/:id', (request, response, next) => {
+    db.get().then(db => {
+        var manager = new PurchaseOrderManager(db, {
+            username: 'router'
+        });
+
+        var id = request.params.id;
+
+        manager.getSingleById(id)
+            .then(doc => {
+                var result = resultFormatter.ok(apiVersion, 200, doc);
+                response.send(200, result);
+            })
+            .catch(e => {
+                var error = resultFormatter.fail(apiVersion, 400, e);
+                response.send(400, error);
+            });
+
+    });
+});
+
+router.post('/', (request, response, next) => {
+    db.get().then(db => {
+        var manager = new PurchaseOrderManager(db, {
+            username: 'router'
+        });
+
+        var data = request.body;
+
+        manager.create(data)
+            .then(docId => {
+                response.header('Location', `${docId.toString()}`);
+                var result = resultFormatter.ok(apiVersion, 201);
+                response.send(201, result);
+            })
+            .catch(e => {
+                var error = resultFormatter.fail(apiVersion, 400, e);
+                response.send(400, error);
+            });
+
+    });
+});
+
+router.put('/:id', (request, response, next) => {
     db.get().then(db => {
         var manager = new PurchaseOrderManager(db, {
             username: 'router'
@@ -109,12 +110,12 @@ router.put('/v1/purchasing/po/:id', (request, response, next) => {
             .catch(e => {
                 var error = resultFormatter.fail(apiVersion, 400, e);
                 response.send(400, error);
-            })
+            });
 
-    })
+    });
 });
 
-router.del('/v1/purchasing/po/:id', (request, response, next) => {
+router.del('/:id', (request, response, next) => {
     db.get().then(db => {
         var manager = new PurchaseOrderManager(db, {
             username: 'router'
@@ -131,11 +132,11 @@ router.del('/v1/purchasing/po/:id', (request, response, next) => {
             .catch(e => {
                 var error = resultFormatter.fail(apiVersion, 400, e);
                 response.send(400, error);
-            })
-    })
+            });
+    });
 });
 
-router.get("/v1/purchasing/po/noexternal/", (request, response, next) => {
+router.get("/unposted", (request, response, next) => {
     db.get().then(db => {
             var manager = new PurchaseOrderManager(db, {
                 username: 'router'
@@ -149,13 +150,13 @@ router.get("/v1/purchasing/po/noexternal/", (request, response, next) => {
                 })
                 .catch(e => {
                     response.send(500, "gagal ambil data");
-                })
+                });
         })
         .catch(e => {
             var error = resultFormatter.fail(apiVersion, 400, e);
             response.send(400, error);
-        })
-})
+        });
+});
 
 module.exports = router;
 
