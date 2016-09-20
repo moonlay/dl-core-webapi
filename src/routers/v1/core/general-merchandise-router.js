@@ -1,7 +1,7 @@
 var Router = require('restify-router').Router;
 var router = new Router();
 var db = require("../../../db");
-var GeneralMerchandiseManager = require("dl-module").managers.core.GeneralMerchandiseManager;
+var GeneralMerchandiseManager = require("dl-module").managers.GeneralMerchandiseManager;
 var resultFormatter = require("../../../result-formatter");
 const apiVersion = '1.0.0';
 

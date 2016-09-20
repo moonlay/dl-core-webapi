@@ -1,7 +1,7 @@
 var Router = require('restify-router').Router;
 var router = new Router();
 var db = require("../../../db");
-var POGarmentGeneralManager = require("dl-module").managers.po.POGarmentGeneral;
+var POGarmentGeneralManager = require("dl-module").managers.POGarmentGeneral;
 var resultFormatter = require("../../../result-formatter");
 const apiVersion = '1.0.0';
  
