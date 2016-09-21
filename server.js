@@ -9,7 +9,7 @@ var server = restify.createServer();
 // restify.CORS.ALLOW_HEADERS.push('x-forwarded-port');
 // restify.CORS.ALLOW_HEADERS.push('x-region');
 // restify.CORS.ALLOW_HEADERS.push('x-forwarded-for');
- 
+
 server.use(restify.queryParser());
 server.use(restify.bodyParser());
 server.use(restify.CORS());
@@ -49,13 +49,19 @@ var v1CategoryRouter = require('./src/routers/v1/master/category-router');
 v1CategoryRouter.applyRoutes(server);
 
 var v1PurchaseOrderExternalRouter = require('./src/routers/v1/purchasing/purchase-order-external-router');
-v1PurchaseOrderExternalRouter.applyRoutes(server);
+v1PurchaseOrderExternalRouter.applyRoutes(server, "/v1/purchasing/po/externals");
+
+var v1PurchaseOrderSplitRouter = require('./src/routers/v1/purchasing/purchase-order-split-router');
+v1PurchaseOrderSplitRouter.applyRoutes(server, "/v1/purchasing/po/split");
+
+var v1PurchaseOrderUnpostedRouter = require('./src/routers/v1/purchasing/purchase-order-un-posted-router');
+v1PurchaseOrderUnpostedRouter.applyRoutes(server, "/v1/purchasing/po/unposted");
 
 var v1PurchaseOrderRouter = require('./src/routers/v1/purchasing/purchase-order-router');
 v1PurchaseOrderRouter.applyRoutes(server, "/v1/purchasing/po");
 
 var v1DeliveryOrderRouter = require('./src/routers/v1/purchasing/delivery-order-router');
-v1DeliveryOrderRouter.applyRoutes(server);
+v1DeliveryOrderRouter.applyRoutes(server, "/v1/purchasing/do");
 
 
 // server.on('NotFound', function(request, response, cb) {
