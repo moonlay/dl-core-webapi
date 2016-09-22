@@ -13,7 +13,7 @@ router.get("/", (request, response, next) => {
             });
 
             var query = request.query;
-            manager.readNoPurchaseOrderExternal(query)
+            manager.readUnposted(query)
                 .then(docs => {
                     var result = resultFormatter.ok(apiVersion, 200, docs);
                     response.send(200, result);
