@@ -16,37 +16,37 @@ server.use(restify.CORS());
 server.use(restify.fullResponse());
 
 var v1BuyerRouter = require('./src/routers/v1/master/buyer-router');
-v1BuyerRouter.applyRoutes(server);
+v1BuyerRouter.applyRoutes(server,"/v1/master/buyers");
 
 var v1SupplierRouter = require('./src/routers/v1/master/supplier-router');
-v1SupplierRouter.applyRoutes(server);
+v1SupplierRouter.applyRoutes(server,"/v1/master/suppliers/");
 
 var v1ProductRouter = require('./src/routers/v1/master/product-router');
-v1ProductRouter.applyRoutes(server);
+v1ProductRouter.applyRoutes(server,"/v1/master/products");
 
-var v1TextileRouter = require('./src/routers/v1/master/textile-router');
-v1TextileRouter.applyRoutes(server);
+// var v1TextileRouter = require('./src/routers/v1/master/textile-router');
+// v1TextileRouter.applyRoutes(server);
 
-var v1FabricRouter = require('./src/routers/v1/master/fabric-router');
-v1FabricRouter.applyRoutes(server);
+// var v1FabricRouter = require('./src/routers/v1/master/fabric-router');
+// v1FabricRouter.applyRoutes(server);
 
-var v1AccessoriesRouter = require('./src/routers/v1/master/accessories-router');
-v1AccessoriesRouter.applyRoutes(server);
+// var v1AccessoriesRouter = require('./src/routers/v1/master/accessories-router');
+// v1AccessoriesRouter.applyRoutes(server);
 
-var v1SparepartRouter = require('./src/routers/v1/master/sparepart-router');
-v1SparepartRouter.applyRoutes(server);
+// var v1SparepartRouter = require('./src/routers/v1/master/sparepart-router');
+// v1SparepartRouter.applyRoutes(server);
 
-var v1GeneralRouter = require('./src/routers/v1/master/general-router');
-v1GeneralRouter.applyRoutes(server);
+// var v1GeneralRouter = require('./src/routers/v1/master/general-router');
+// v1GeneralRouter.applyRoutes(server);
 
 var v1UoMRouter = require('./src/routers/v1/master/uom-router');
-v1UoMRouter.applyRoutes(server);
+v1UoMRouter.applyRoutes(server,"/v1/master/uoms");
 
 var v1UnitRouter = require('./src/routers/v1/master/unit-router');
-v1UnitRouter.applyRoutes(server);
+v1UnitRouter.applyRoutes(server,"/v1/master/units");
 
 var v1CategoryRouter = require('./src/routers/v1/master/category-router');
-v1CategoryRouter.applyRoutes(server);
+v1CategoryRouter.applyRoutes(server,"/v1/master/categories");
 
 var v1PurchaseOrderExternalRouter = require('./src/routers/v1/purchasing/purchase-order-external-router');
 v1PurchaseOrderExternalRouter.applyRoutes(server, "/v1/purchasing/po/externals");
