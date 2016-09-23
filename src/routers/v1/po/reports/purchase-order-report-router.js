@@ -6,7 +6,7 @@ const apiVersion = '1.0.0';
 var PurchaseOrderManager= require("dl-module").managers.purchasing.PurchaseOrderManager;
 
 
-router.get("/v1/po/reportpounitperiode?dateFrom=:sdate&dateTo=:edate", function(request, response, next) {
+router.get("/v1/po/poreport?dateFrom=:sdate&dateTo=:edate", function(request, response, next) {
     db.get().then(db => {
             var manager = new PurchaseOrderManager(db, {
                 username: 'router'
