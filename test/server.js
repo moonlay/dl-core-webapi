@@ -8,6 +8,7 @@ module.exports = new Promise((resolve, reject) => {
         server.use(restify.bodyParser());
         server.use(restify.CORS());
 
+
         var v1BuyerRouter = require('../src/routers/v1/master/buyer-router');
         v1BuyerRouter.applyRoutes(server);
 
