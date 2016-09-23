@@ -3,32 +3,32 @@ var request = require('supertest');
 var uri = `${process.env.IP}:${process.env.PORT}`;
 
 function getData() {
-    var Textile = require('dl-models').core.Textile;
-    var Textile = require('dl-models').core.Textile;
-    var Uom = require('dl-models').core.Uom;
+    var Product = require('dl-models').master.Product;
+    var Uom = require('dl-models').master.Uom; 
 
     var now = new Date();
     var stamp = now / 1000 | 0;
     var code = stamp.toString(36);
 
-    var textile = new Textile();
+    var product = new Product();
     
     var uom = new Uom({
         unit: `Meter`
     });
-    
-    textile.code = code;
-    textile.name = `name[${code}]`;
-    textile.description = `description for ${code}`;
-    textile.uom = uom;
-    textile.price = 50;
 
-    return textile;
+    product.code = code;
+    product.name = `name[${code}]`;
+    product.price = 50;
+    product.description = `description for ${code}`;
+    product.uom = uom;
+    product.tags = 'spareparts,master';
+    product.properties = [];
+
+    return product;
 }
-
 it('#01. Should be able to get list', function (done) {
     request(uri)
-        .get('/v1/core/textiles')
+        .get('/v1/master/products/spareparts')
         .expect(200)
         .end(function (err, response) {
             if (err)
@@ -42,9 +42,11 @@ it('#01. Should be able to get list', function (done) {
             }
         });
 })
+
 it('#02. should success when create new data', function (done) {
     var data = getData();
-    request(uri).post('/v1/core/textiles')
+    
+    request(uri).post('/v1/master/products/spareparts')
         .send(data)
         .end(function (err, res) {
             if (err) {
@@ -54,27 +56,13 @@ it('#02. should success when create new data', function (done) {
 
             }
         });
-
 });
 
 var createdData;
-
-it(`#03. should success when update created data`, function (done) {
-    request(uri).put('/v1/core/textiles')
-        .send({ name: 'test_name', code: 'test_code' })
-        .end(function (err, res) {
-            if (err) {
-                done(err);
-            } else {
-                done();
-            }
-        });
-});
-
 var createdId;
-it("#04. should success when delete data", function (done) {
-    request(uri).del('/v1/core/textiles/:id')
-        .query({ _id: createdId })
+it(`#03. should success when update created data`, function (done) {
+    request(uri).put('/v1/master/products/spareparts')
+        .send({ name: 'Manny', code: 'cat' })
         .end(function (err, res) {
             if (err) {
                 done(err);
@@ -84,3 +72,14 @@ it("#04. should success when delete data", function (done) {
         });
 });
 
+it("#04. should success when delete data", function(done) {
+    request(uri).del('/v1/master/products/spareparts/:id')
+    .query({_id:createdId})
+    .end(function (err, res) {
+            if (err) {
+                done(err);
+            } else {
+                done();
+            }
+        });
+});

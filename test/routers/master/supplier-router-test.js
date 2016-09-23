@@ -3,31 +3,26 @@ var request = require('supertest');
 var uri = `${process.env.IP}:${process.env.PORT}`;
 
 function getData() {
-    var Sparepart = require('dl-models').core.Sparepart;
-    var Uom = require('dl-models').core.Uom;
-
-    var sparepart = new Sparepart();
-    
-    var uom = new Uom({
-        unit: 'Meter'
-    });
+    var Supplier = require('dl-models').master.Supplier;
+    var supplier = new Supplier();
 
     var now = new Date();
     var stamp = now / 1000 | 0;
     var code = stamp.toString(36);
 
-    sparepart.code = code;
-    sparepart.name = `name[${code}]`;
-    sparepart.description = `description for ${code}`;
-    sparepart.price = 50;
-    sparepart.description = `description [${code}]`;
-    sparepart.uom = uom;
-    return sparepart;
+    supplier.code = code;
+    supplier.name = `name[${code}]`;
+    supplier.contact = 'phone[${code}]';
+    supplier.address = 'Solo [${code}]';
+    supplier.PIC = 'PIC [${code}]';
+    supplier.import = true;
+
+    return supplier;
 }
 
 it('#01. Should be able to get list', function (done) {
     request(uri)
-        .get('/v1/core/spareparts')
+        .get('/v1/master/suppliers')
         .expect(200)
         .end(function (err, response) {
             if (err)
@@ -44,8 +39,7 @@ it('#01. Should be able to get list', function (done) {
 
 it('#02. should success when create new data', function (done) {
     var data = getData();
-    
-    request(uri).post('/v1/core/spareparts')
+    request(uri).post('/v1/master/suppliers')
         .send(data)
         .end(function (err, res) {
             if (err) {
@@ -60,7 +54,7 @@ it('#02. should success when create new data', function (done) {
 var createdData;
 var createdId;
 it(`#03. should success when update created data`, function (done) {
-    request(uri).put('/v1/core/spareparts')
+    request(uri).put('/v1/master/suppliers')
         .send({ name: 'Manny', code: 'cat' })
         .end(function (err, res) {
             if (err) {
@@ -71,10 +65,10 @@ it(`#03. should success when update created data`, function (done) {
         });
 });
 
-it("#04. should success when delete data", function(done) {
-    request(uri).del('/v1/core/spareparts/:id')
-    .query({_id:createdId})
-    .end(function (err, res) {
+it("#04. should success when delete data", function (done) {
+    request(uri).del('/v1/master/suppliers/:id')
+        .query({ _id: createdId })
+        .end(function (err, res) {
             if (err) {
                 done(err);
             } else {
