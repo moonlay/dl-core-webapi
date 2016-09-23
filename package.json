@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/danliris/dl-core-webapi#readme",
   "dependencies": {
+    "assert": "^1.4.1",
     "dl-module": "git+https://github.com/danliris/dl-module.git",
     "mongo-factory": "^1.0.0",
     "mongodb": "^2.2.5",
