@@ -5,7 +5,7 @@ var CategoryManager = require("dl-module").managers.master.CategoryManager;
 var resultFormatter = require("../../../result-formatter");
 const apiVersion = '1.0.0';
 
-router.get("/v1/master/categories", function (request, response, next) {
+router.get("/", function (request, response, next) {
     db.get().then(db => {
         var manager = new CategoryManager(db, {
             username: 'router'
@@ -27,7 +27,7 @@ router.get("/v1/master/categories", function (request, response, next) {
         })
 });
 
-router.get("/v1/master/categories/:id", function (request, response, next) {
+router.get("/:id", function (request, response, next) {
     db.get().then(db => {
         var manager = new CategoryManager(db, {
             username: 'router'
@@ -47,7 +47,7 @@ router.get("/v1/master/categories/:id", function (request, response, next) {
     })
 });
 
-router.post('/v1/master/categories', (request, response, next) => {
+router.post('/', (request, response, next) => {
     db.get().then(db => {
         var manager = new CategoryManager(db, {
             username: 'router'
@@ -69,7 +69,7 @@ router.post('/v1/master/categories', (request, response, next) => {
     })
 });
 
-router.put('/v1/master/categories/:id', (request, response, next) => {
+router.put('/:id', (request, response, next) => {
     db.get().then(db => {
         var manager = new CategoryManager(db, {
             username: 'router'
@@ -91,7 +91,7 @@ router.put('/v1/master/categories/:id', (request, response, next) => {
     })
 });
 
-router.del('/v1/master/categories/:id', (request, response, next) => {
+router.del('/:id', (request, response, next) => {
     db.get().then(db => {
         var manager = new CategoryManager(db, {
             username: 'router'
