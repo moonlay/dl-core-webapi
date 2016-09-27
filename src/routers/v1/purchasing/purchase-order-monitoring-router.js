@@ -6,7 +6,7 @@ var DeliveryOrderManager = require("dl-module").managers.purchasing.DeliveryOrde
 var resultFormatter = require("../../../result-formatter");
 const apiVersion = '1.0.0';
 
-router.get('/v1/po/monitoringpembelian?unitId=:unitId&categoryId=:categoryId&PODLNo=:PODLNo&PRNo=:PRNo&supplierId=:supplierId&dateFrom=:dateFrom&dateTo=:dateTo', (request, response, next) => {
+router.get('/', (request, response, next) => {
     db.get().then(db => {
         var manager = new PurchaseOrderManager(db, {
             username: 'router'
@@ -30,29 +30,6 @@ router.get('/v1/po/monitoringpembelian?unitId=:unitId&categoryId=:categoryId&POD
                 response.send(400, error);
             })
     })
-});
-
-router.get('/v1/po/monitoringsuratjalan?no=:no&supplierId=:supplierId&dateFrom=:dateFrom&dateTo=:dateTo', (request, response, next) => {
-    db.get().then(db => {
-        var manager = new DeliveryOrderManager(db, {
-            username: 'router'
-        }); 
-
-        var no = request.params.no;
-        var supplierId = request.params.supplierId;
-        var dateFrom = request.params.dateFrom;
-        var dateTo = request.params.dateTo;
-
-        manager.getDataDeliveryOrder(no, supplierId, dateFrom, dateTo)
-            .then(doc => {
-                var result = resultFormatter.ok(apiVersion, 200, doc);
-                response.send(200, result);
-            })
-            .catch(e => {
-                var error = resultFormatter.fail(apiVersion, 400, e);
-                response.send(400, error);
-            })
-    })
-});
+}); 
 
 module.exports = router

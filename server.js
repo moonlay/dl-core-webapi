@@ -63,6 +63,8 @@ v1PurchaseOrderExternalRouter.applyRoutes(server, "/v1/purchasing/po/externals")
 
 var v1PurchaseOrderSplitRouter = require('./src/routers/v1/purchasing/purchase-order-split-router');
 v1PurchaseOrderSplitRouter.applyRoutes(server, "/v1/purchasing/po/split");
+var v1DOMonitoringRouter = require('./src/routers/v1/purchasing/purchase-order-monitoring-router');
+v1DOMonitoringRouter.applyRoutes(server, '/v1/purchasing/po/monitoring'); 
 
 var v1PurchaseOrderUnpostedRouter = require('./src/routers/v1/purchasing/purchase-order-un-posted-router');
 v1PurchaseOrderUnpostedRouter.applyRoutes(server, "/v1/purchasing/po/unposted");
@@ -70,11 +72,11 @@ v1PurchaseOrderUnpostedRouter.applyRoutes(server, "/v1/purchasing/po/unposted");
 var v1PurchaseOrderRouter = require('./src/routers/v1/purchasing/purchase-order-router');
 v1PurchaseOrderRouter.applyRoutes(server, "/v1/purchasing/po");
 
-var v1DeliveryOrderRouter = require('./src/routers/v1/purchasing/delivery-order-router');
-v1DeliveryOrderRouter.applyRoutes(server, "/v1/purchasing/do");
+var v1POMonitoringRouter = require('./src/routers/v1/purchasing/delivery-order-monitoring-router');
+v1POMonitoringRouter.applyRoutes(server,'/v1/purchasing/do/monitoring');
 
-var v1MonitoringRouter = require('./src/routers/v1/purchasing/monitoring-router');
-v1MonitoringRouter.applyRoutes(server);
+var v1DeliveryOrderRouter = require('./src/routers/v1/purchasing/delivery-order-router');
+v1DeliveryOrderRouter.applyRoutes(server, "/v1/purchasing/do"); 
 
 var v1ReportPoUnitPeriode = require('./src/routers/v1/po/reports/purchase-order-report-router');
 v1ReportPoUnitPeriode.applyRoutes(server);
