@@ -6,7 +6,7 @@ var resultFormatter = require("../../../result-formatter");
 const apiVersion = '1.0.0';
 
 
-router.get("/:idSupplier", (request, response, next) => {
+router.get("/", (request, response, next) => {
     db.get().then(db => {
             var manager = new PurchaseOrderExternalManager(db, {
                 username: 'router'
