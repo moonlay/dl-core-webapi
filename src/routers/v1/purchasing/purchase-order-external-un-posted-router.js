@@ -6,14 +6,15 @@ var resultFormatter = require("../../../result-formatter");
 const apiVersion = '1.0.0';
 
 
-router.get("/", (request, response, next) => {
+router.get("/:idSupplier", (request, response, next) => {
     db.get().then(db => {
             var manager = new PurchaseOrderExternalManager(db, {
                 username: 'router'
             });
 
             var query = request.query;
-            manager.readUnposted(query)
+            var idSupplier = request.params.idSupplier;
+            manager.readUnposted(idSupplier,query)
                 .then(docs => {
                     var result = resultFormatter.ok(apiVersion, 200, docs);
                     response.send(200, result);
