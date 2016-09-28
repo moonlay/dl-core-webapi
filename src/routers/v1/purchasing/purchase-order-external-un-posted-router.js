@@ -13,8 +13,7 @@ router.get("/", (request, response, next) => {
             });
 
             var query = request.query;
-            var idSupplier = request.params.idSupplier;
-            manager.readUnposted(idSupplier,query)
+            manager.readUnposted(query)
                 .then(docs => {
                     var result = resultFormatter.ok(apiVersion, 200, docs);
                     response.send(200, result);
