@@ -13,6 +13,8 @@ router.get("/", (request, response, next) => {
             });
 
             var query = request.query;
+            query.filter = !query.filter ? {} : JSON.parse(query.filter);
+            
             manager.readUnposted(query)
                 .then(docs => {
                     var result = resultFormatter.ok(apiVersion, 200, docs);
