@@ -63,8 +63,8 @@ v1POMonitoringRouter.applyRoutes(server,'/v1/purchasing/do/monitoring');
 var v1DeliveryOrderRouter = require('./src/routers/v1/purchasing/delivery-order-router');
 v1DeliveryOrderRouter.applyRoutes(server, "/v1/purchasing/do"); 
 
-var v1ReportPoUnitPeriode = require('./src/routers/v1/po/reports/purchase-order-report-router');
-v1ReportPoUnitPeriode.applyRoutes(server);
+var v1ReportPoUnitPeriode = require('./src/routers/v1/purchasing/reports/purchase-order-report-router');
+v1ReportPoUnitPeriode.applyRoutes(server,"/v1/po/poreport");
 
 // server.on('NotFound', function(request, response, cb) {
 
