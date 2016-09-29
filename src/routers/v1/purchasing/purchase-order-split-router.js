@@ -16,7 +16,7 @@ router.post('/', (request, response, next) => {
 
         manager.split(data)
             .then(docId => {
-                response.header('Location', `${docId.toString()}`);
+                response.header('Location', `${request.url}/${docId.toString()}`);
                 var result = resultFormatter.ok(apiVersion, 201);
                 response.send(201, result);
             })
