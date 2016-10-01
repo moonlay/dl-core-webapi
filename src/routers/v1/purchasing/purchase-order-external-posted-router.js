@@ -13,7 +13,9 @@ router.get("/", (request, response, next) => {
             });
 
             var query = request.query;
-            manager.readUnposted(query)
+            query.filter = !query.filter ? {} : JSON.parse(query.filter);
+            
+            manager.readPosted(query)
                 .then(docs => {
                     var result = resultFormatter.ok(apiVersion, 200, docs);
                     response.send(200, result);

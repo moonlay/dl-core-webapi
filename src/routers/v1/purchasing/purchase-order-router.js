@@ -27,6 +27,7 @@ router.get("/", (request, response, next) => {
             response.send(400, error);
         });
 });
+
 router.get('/:id', (request, response, next) => {
     db.get().then(db => {
         var manager = new PurchaseOrderManager(db, {
@@ -58,7 +59,7 @@ router.post('/', (request, response, next) => {
         var job = isSplit ? manager.split(data) : manager.create(data);
         job
             .then(docId => {
-                response.header('Location', `${docId.toString()}`);
+                response.header('Location', `${request.url}/${docId.toString()}`);
                 var result = resultFormatter.ok(apiVersion, 201);
                 response.send(201, result);
             })

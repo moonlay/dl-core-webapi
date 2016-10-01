@@ -57,7 +57,7 @@ router.post('/', (request, response, next) => {
 
         manager.create(data)
             .then(docId => {
-                response.header('Location', `inventories/storages/${docId.toString()}`);    // TO-DO : update this location when URL in UI has been identified
+               response.header('Location', `${request.url}/${docId.toString()}`);
                 var result = resultFormatter.ok(apiVersion, 201);
                 response.send(201, result);
             })
