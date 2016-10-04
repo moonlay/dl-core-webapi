@@ -69,6 +69,9 @@ v1ReportPoUnitPeriode.applyRoutes(server,"/v1/po/poreport");
 var v1ReportPoCategoryPeriode = require('./src/routers/v1/purchasing/reports/purchase-order-report-category-router');
 v1ReportPoCategoryPeriode.applyRoutes(server,"/v1/po/poreportcategory");
 
+var v1VatRouter = require('./src/routers/v1/master/vat-router');
+v1VatRouter.applyRoutes(server,"/v1/master/vats");
+
 // server.on('NotFound', function(request, response, cb) {
 
 // }); // When a client request is sent for a URL that does not exist, restify will emit this event. Note that restify checks for listeners on this event, and if there are none, responds with a default 404 handler. It is expected that if you listen for this event, you respond to the client.
