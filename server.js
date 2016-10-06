@@ -36,6 +36,9 @@ v1CategoryRouter.applyRoutes(server,"/v1/master/categories");
 var v1CurrencyRouter = require('./src/routers/v1/master/currency-router');
 v1CurrencyRouter.applyRoutes(server,"/v1/master/currencies");
 
+var v1VatRouter = require('./src/routers/v1/master/vat-router');
+v1VatRouter.applyRoutes(server,"/v1/master/vats");
+
 var v1PurchaseOrderExternalPostRouter = require('./src/routers/v1/purchasing/purchase-order-external-post-router');
 v1PurchaseOrderExternalPostRouter.applyRoutes(server, "/v1/purchasing/po/externals/post");
 
@@ -57,6 +60,9 @@ v1PurchaseOrderUnpostedRouter.applyRoutes(server, "/v1/purchasing/po/unposted");
 var v1PurchaseOrderRouter = require('./src/routers/v1/purchasing/purchase-order-router');
 v1PurchaseOrderRouter.applyRoutes(server, "/v1/purchasing/po");
 
+var v1POMonitoringRouter = require('./src/routers/v1/purchasing/delivery-order-posted-router');
+v1POMonitoringRouter.applyRoutes(server,'/v1/purchasing/do/posted');
+
 var v1POMonitoringRouter = require('./src/routers/v1/purchasing/delivery-order-monitoring-router');
 v1POMonitoringRouter.applyRoutes(server,'/v1/purchasing/do/monitoring');
 
@@ -69,8 +75,9 @@ v1ReportPoUnitPeriode.applyRoutes(server,"/v1/po/poreport");
 var v1ReportPoCategoryPeriode = require('./src/routers/v1/purchasing/reports/purchase-order-report-category-router');
 v1ReportPoCategoryPeriode.applyRoutes(server,"/v1/po/poreportcategory");
 
-var v1VatRouter = require('./src/routers/v1/master/vat-router');
-v1VatRouter.applyRoutes(server,"/v1/master/vats");
+var v1UnitReceiptNote = require('./src/routers/v1/purchasing/unit-receipt-note-router');
+v1UnitReceiptNote.applyRoutes(server, "/v1/purchasing/unitreceiptnote"); 
+
 
 // server.on('NotFound', function(request, response, cb) {
 
