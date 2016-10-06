@@ -3,28 +3,28 @@ var router = new Router();
 var db = require("../../../db");
 var ProductManager = require("dl-module").managers.master.ProductManager;
 var resultFormatter = require("../../../result-formatter");
+
+var passport = require('../../../passports/jwt-passport');
 const apiVersion = '1.0.0';
 
-router.get("/", function(request, response, next) {
+router.get("/", passport, function(request, response, next) {
     db.get().then(db => {
-            var manager = new ProductManager(db, {
-                username: 'router'
-            });
+            var manager = new ProductManager(db, request.user);
 
             var query = request.query;
             manager.read(query)
-            .then(docs => {
+                .then(docs => {
                     var result = resultFormatter.ok(apiVersion, 200, docs);
                     response.send(200, result);
                 })
                 .catch(e => {
                     response.send(500, "Failed to fetch data.");
-                })
+                });
         })
         .catch(e => {
             var error = resultFormatter.fail(apiVersion, 400, e);
             response.send(400, error);
-        })
+        });
 });
 
 router.get('/:id', (request, response, next) => {
