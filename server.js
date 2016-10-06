@@ -1,6 +1,9 @@
 'use strict'
 
 var restify = require('restify');
+restify.CORS.ALLOW_HEADERS.push('authorization');
+
+var passport = require('passport');
 var server = restify.createServer();
 // restify.CORS.ALLOW_HEADERS.push('accept-encoding');
 // restify.CORS.ALLOW_HEADERS.push('accept-language');
@@ -14,6 +17,7 @@ server.use(restify.queryParser());
 server.use(restify.bodyParser());
 server.use(restify.CORS());
 server.use(restify.fullResponse());
+server.use(passport.initialize()); 
 
 var v1BuyerRouter = require('./src/routers/v1/master/buyer-router');
 v1BuyerRouter.applyRoutes(server,"/v1/master/buyers");
