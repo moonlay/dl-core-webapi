@@ -64,9 +64,6 @@ v1PurchaseOrderUnpostedRouter.applyRoutes(server, "/v1/purchasing/po/unposted");
 var v1PurchaseOrderRouter = require('./src/routers/v1/purchasing/purchase-order-router');
 v1PurchaseOrderRouter.applyRoutes(server, "/v1/purchasing/po");
 
-var v1POMonitoringRouter = require('./src/routers/v1/purchasing/delivery-order-posted-router');
-v1POMonitoringRouter.applyRoutes(server,'/v1/purchasing/do/posted');
-
 var v1POMonitoringRouter = require('./src/routers/v1/purchasing/delivery-order-monitoring-router');
 v1POMonitoringRouter.applyRoutes(server,'/v1/purchasing/do/monitoring');
 
@@ -79,8 +76,11 @@ v1ReportPoUnitPeriode.applyRoutes(server,"/v1/po/poreport");
 var v1ReportPoCategoryPeriode = require('./src/routers/v1/purchasing/reports/purchase-order-report-category-router');
 v1ReportPoCategoryPeriode.applyRoutes(server,"/v1/po/poreportcategory");
 
+var v1UnitReceiptNote = require('./src/routers/v1/purchasing/unit-receipt-note-do-router');
+v1UnitReceiptNote.applyRoutes(server, "/v1/purchasing/receipt-note/unit/do"); 
+
 var v1UnitReceiptNote = require('./src/routers/v1/purchasing/unit-receipt-note-router');
-v1UnitReceiptNote.applyRoutes(server, "/v1/purchasing/unitreceiptnote"); 
+v1UnitReceiptNote.applyRoutes(server, "/v1/purchasing/receipt-note/unit"); 
 
 
 // server.on('NotFound', function(request, response, cb) {
