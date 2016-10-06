@@ -3,14 +3,14 @@ var router = new Router();
 var db = require("../../../db");
 var PurchaseOrderManager = require("dl-module").managers.purchasing.PurchaseOrderManager;
 var resultFormatter = require("../../../result-formatter");
+
+var passport = require('../../../passports/jwt-passport');
 const apiVersion = '1.0.0';
 
 
-router.get("/", (request, response, next) => {
+router.get("/",passport, (request, response, next) => {
     db.get().then(db => {
-            var manager = new PurchaseOrderManager(db, {
-                username: 'router'
-            });
+            var manager = new PurchaseOrderManager(db, request.user);
 
             var query = request.query;
             manager.read(query)
@@ -28,11 +28,9 @@ router.get("/", (request, response, next) => {
         });
 });
 
-router.get('/:id', (request, response, next) => {
+router.get('/:id',passport, (request, response, next) => {
     db.get().then(db => {
-        var manager = new PurchaseOrderManager(db, {
-            username: 'router'
-        });
+        var manager = new PurchaseOrderManager(db, request.user);
 
         var id = request.params.id;
 
@@ -49,11 +47,9 @@ router.get('/:id', (request, response, next) => {
     });
 });  
 
-router.post('/', (request, response, next) => {
+router.post('/', passport, (request, response, next) => {
     db.get().then(db => {
-        var manager = new PurchaseOrderManager(db, {
-            username: 'router'
-        });
+        var manager = new PurchaseOrderManager(db, request.user);
         var isSplit = false;
         var data = request.body;
         var job = isSplit ? manager.split(data) : manager.create(data);
@@ -71,11 +67,9 @@ router.post('/', (request, response, next) => {
     });
 });
 
-router.put('/:id', (request, response, next) => {
+router.put('/:id', passport, (request, response, next) => {
     db.get().then(db => {
-        var manager = new PurchaseOrderManager(db, {
-            username: 'router'
-        });
+        var manager = new PurchaseOrderManager(db, request.user);
 
         var id = request.params.id;
         var data = request.body;
@@ -93,11 +87,9 @@ router.put('/:id', (request, response, next) => {
     });
 });
 
-router.del('/:id', (request, response, next) => {
+router.del('/:id',passport, (request, response, next) => {
     db.get().then(db => {
-        var manager = new PurchaseOrderManager(db, {
-            username: 'router'
-        });
+        var manager = new PurchaseOrderManager(db, request.user);
 
         var id = request.params.id;
         var data = request.body;
