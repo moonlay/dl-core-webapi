@@ -27,11 +27,9 @@ router.get("/", passport, function(request, response, next) {
         });
 });
 
-router.get('/:id', (request, response, next) => {
+router.get('/:id',  passport, (request, response, next) => {
     db.get().then(db => {
-        var manager = new ProductManager(db, {
-            username: 'router'
-        });
+        var manager = new ProductManager(db, request.user);
 
         var id = request.params.id;
         manager.getSingleById(id)
@@ -46,11 +44,9 @@ router.get('/:id', (request, response, next) => {
     })
 });
 
-router.post('/', (request, response, next) => {
+router.post('/',  passport,  (request, response, next) => {
     db.get().then(db => {
-        var manager = new ProductManager(db, {
-            username: 'router'
-        });
+        var manager = new ProductManager(db, request.user);
 
         var data = request.body;
 
@@ -67,11 +63,9 @@ router.post('/', (request, response, next) => {
     })
 });
 
-router.put('/:id', (request, response, next) => {
+router.put('/:id',passport, (request, response, next) => {
     db.get().then(db => {
-        var manager = new ProductManager(db, {
-            username: 'router'
-        });
+        var manager = new ProductManager(db, request.user);
 
         var id = request.params.id;
         var data = request.body;
@@ -89,11 +83,9 @@ router.put('/:id', (request, response, next) => {
     })
 });
 
-router.del('/:id', (request, response, next) => {
+router.del('/:id', passport, (request, response, next) => {
     db.get().then(db => {
-        var manager = new ProductManager(db, {
-            username: 'router'
-        });
+        var manager = new ProductManager(db, request.user);
 
         var id = request.params.id;
         var data = request.body;

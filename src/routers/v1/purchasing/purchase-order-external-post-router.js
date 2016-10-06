@@ -3,14 +3,14 @@ var router = new Router();
 var db = require("../../../db");
 var PurchaseOrderExternalManager = require("dl-module").managers.purchasing.PurchaseOrderExternalManager;
 var resultFormatter = require("../../../result-formatter");
+
+var passport = require('../../../passports/jwt-passport');
 const apiVersion = '1.0.0';
 
  
-router.post('/', (request, response, next) => {
+router.post('/', passport, (request, response, next) => {
     db.get().then(db => {
-        var manager = new PurchaseOrderExternalManager(db, {
-            username: 'router'
-        });
+        var manager = new PurchaseOrderExternalManager(db, request.user);
 
         var data = request.body;
 
