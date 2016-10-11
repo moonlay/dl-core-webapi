@@ -40,14 +40,17 @@ v1CategoryRouter.applyRoutes(server,"/v1/master/categories");
 var v1CurrencyRouter = require('./src/routers/v1/master/currency-router');
 v1CurrencyRouter.applyRoutes(server,"/v1/master/currencies");
 
+var v1VatRouter = require('./src/routers/v1/master/vat-router');
+v1VatRouter.applyRoutes(server,"/v1/master/vats");
+
 var v1PurchaseOrderExternalPostRouter = require('./src/routers/v1/purchasing/purchase-order-external-post-router');
 v1PurchaseOrderExternalPostRouter.applyRoutes(server, "/v1/purchasing/po/externals/post");
 
 var v1PurchaseOrderExternalsUnpostedRouter = require('./src/routers/v1/purchasing/purchase-order-external-posted-router');
 v1PurchaseOrderExternalsUnpostedRouter.applyRoutes(server, "/v1/purchasing/po/externals/posted");
 
-var v1PurchaseOrderExternalsPdfRouter = require('./src/routers/v1/purchasing/purchase-order-external-pdf-router');
-v1PurchaseOrderExternalsPdfRouter.applyRoutes(server, "/v1/purchasing/po/externals/pdf");
+// var v1PurchaseOrderExternalsPdfRouter = require('./src/routers/v1/purchasing/purchase-order-external-pdf-router');
+// v1PurchaseOrderExternalsPdfRouter.applyRoutes(server, "/v1/purchasing/po/externals/pdf");
 
 var v1PurchaseOrderExternalRouter = require('./src/routers/v1/purchasing/purchase-order-external-router');
 v1PurchaseOrderExternalRouter.applyRoutes(server, "/v1/purchasing/po/externals");
@@ -71,13 +74,19 @@ var v1DeliveryOrderRouter = require('./src/routers/v1/purchasing/delivery-order-
 v1DeliveryOrderRouter.applyRoutes(server, "/v1/purchasing/do"); 
 
 var v1ReportPoUnitPeriode = require('./src/routers/v1/purchasing/reports/purchase-order-report-router');
-v1ReportPoUnitPeriode.applyRoutes(server,"/v1/po/poreport");
+v1ReportPoUnitPeriode.applyRoutes(server,"/v1/purchasing/po/reports");
 
 var v1ReportPoCategoryPeriode = require('./src/routers/v1/purchasing/reports/purchase-order-report-category-router');
-v1ReportPoCategoryPeriode.applyRoutes(server,"/v1/po/poreportcategory");
+v1ReportPoCategoryPeriode.applyRoutes(server,"/v1/purchasing/po/reports/by-category");
 
-var v1VatRouter = require('./src/routers/v1/master/vat-router');
-v1VatRouter.applyRoutes(server,"/v1/master/vats");
+var v1UnitReceiptNote = require('./src/routers/v1/purchasing/unit-receipt-note-do-router');
+v1UnitReceiptNote.applyRoutes(server, "/v1/purchasing/receipt-note/unit/do"); 
+
+var v1UnitReceiptNote = require('./src/routers/v1/purchasing/unit-receipt-note-router');
+v1UnitReceiptNote.applyRoutes(server, "/v1/purchasing/receipt-note/unit"); 
+
+var v1UnitReceiptNote = require('./src/routers/v1/purchasing/unit-receipt-note-pdf-router');
+v1UnitReceiptNote.applyRoutes(server, "/v1/purchasing/receipt-note/unit/pdf"); 
 
 // server.on('NotFound', function(request, response, cb) {
 
