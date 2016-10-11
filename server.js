@@ -82,6 +82,8 @@ v1UnitReceiptNote.applyRoutes(server, "/v1/purchasing/receipt-note/unit/do");
 var v1UnitReceiptNote = require('./src/routers/v1/purchasing/unit-receipt-note-router');
 v1UnitReceiptNote.applyRoutes(server, "/v1/purchasing/receipt-note/unit"); 
 
+var v1UnitReceiptNote = require('./src/routers/v1/purchasing/unit-receipt-note-pdf-router');
+v1UnitReceiptNote.applyRoutes(server, "/v1/purchasing/receipt-note/unit/pdf"); 
 
 // server.on('NotFound', function(request, response, cb) {
 
