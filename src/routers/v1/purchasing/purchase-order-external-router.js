@@ -27,6 +27,32 @@ router.get("/", passport, function(request, response, next) {
         });
 });
 
+var handlePdfRequest = function(request, response, next) {
+    db.get().then(db => {
+            var manager = new PurchaseOrderExternalManager(db, request.user);
+
+            var id = request.params.id;
+            manager.pdf(id)
+                .then(docBinary => {
+                    // var base64 = 'data:application/pdf;base64,' + docBinary.toString('base64')
+                    response.writeHead(200, {
+                        'Content-Type': 'application/pdf',
+                        // 'Content-Disposition': 'attachment; filename=some_file.pdf',
+                        'Content-Length': docBinary.length
+                    });
+                    response.end(docBinary);
+                })
+                .catch(e => {
+                    var error = resultFormatter.fail(apiVersion, 400, e);
+                    response.send(400, error);
+                });
+        })
+        .catch(e => {
+            var error = resultFormatter.fail(apiVersion, 400, e);
+            response.send(400, error);
+        });
+};
+
 router.get('/:id', passport, (request, response, next) => {
     db.get().then(db => {
             if ((request.headers.accept || '').toString().indexOf("application/pdf") >= 0) {
@@ -53,31 +79,6 @@ router.get('/:id', passport, (request, response, next) => {
 }, handlePdfRequest);
 
 
-var handlePdfRequest = function(request, response, next) {
-    db.get().then(db => {
-            var manager = new PurchaseOrderExternalManager(db, request.user);
-
-            var id = request.params.id;
-            manager.pdf(id)
-                .then(docBinary => {
-                    // var base64 = 'data:application/pdf;base64,' + docBinary.toString('base64')
-                    response.writeHead(200, {
-                        'Content-Type': 'application/pdf',
-                        // 'Content-Disposition': 'attachment; filename=some_file.pdf',
-                        'Content-Length': docBinary.length
-                    });
-                    response.end(docBinary);
-                })
-                .catch(e => {
-                    var error = resultFormatter.fail(apiVersion, 400, e);
-                    response.send(400, error);
-                });
-        })
-        .catch(e => {
-            var error = resultFormatter.fail(apiVersion, 400, e);
-            response.send(400, error);
-        });
-};
 
 router.post('/', passport, (request, response, next) => {
     db.get().then(db => {
