@@ -14,7 +14,7 @@ router.get('/:id', (request, response, next) => {
         var id = request.params.id;
         manager.pdf(id)
             .then(docBinary => {
-                var base64 = 'data:application/pdf;base64,' + docBinary.toString('base64')
+                // var base64 = 'data:application/pdf;base64,' + docBinary.toString('base64')
                 response.writeHead(200, {
                     'Content-Type': 'application/pdf',
                     // 'Content-Disposition': 'attachment; filename=some_file.pdf',
