@@ -49,6 +49,9 @@ v1PurchaseOrderExternalPostRouter.applyRoutes(server, "/v1/purchasing/po/externa
 var v1PurchaseOrderExternalsUnpostedRouter = require('./src/routers/v1/purchasing/purchase-order-external-posted-router');
 v1PurchaseOrderExternalsUnpostedRouter.applyRoutes(server, "/v1/purchasing/po/externals/posted");
 
+var v1PurchaseOrderExternalsPdfRouter = require('./src/routers/v1/purchasing/purchase-order-external-pdf-router');
+v1PurchaseOrderExternalsPdfRouter.applyRoutes(server, "/v1/purchasing/po/externals/pdf");
+
 var v1PurchaseOrderExternalRouter = require('./src/routers/v1/purchasing/purchase-order-external-router');
 v1PurchaseOrderExternalRouter.applyRoutes(server, "/v1/purchasing/po/externals");
 

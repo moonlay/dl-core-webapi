@@ -4,13 +4,13 @@ var db = require("../../../db");
 var PurchaseOrderManager = require("dl-module").managers.purchasing.PurchaseOrderManager;
 var DeliveryOrderManager = require("dl-module").managers.purchasing.DeliveryOrderManager;
 var resultFormatter = require("../../../result-formatter");
+
+var passport = require('../../../passports/jwt-passport');
 const apiVersion = '1.0.0';
 
-router.get('/', (request, response, next) => {
+router.get('/', passport, (request, response, next) => {
     db.get().then(db => {
-        var manager = new PurchaseOrderManager(db, {
-            username: 'router'
-        });
+        var manager = new PurchaseOrderManager(db, request.user);
 
         var unitId = request.params.unitId;
         var categoryId = request.params.categoryId;
