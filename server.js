@@ -70,11 +70,11 @@ v1POMonitoringRouter.applyRoutes(server,'/v1/purchasing/do/monitoring');
 var v1DeliveryOrderRouter = require('./src/routers/v1/purchasing/delivery-order-router');
 v1DeliveryOrderRouter.applyRoutes(server, "/v1/purchasing/do"); 
 
-var v1ReportPoUnitPeriode = require('./src/routers/v1/purchasing/reports/purchase-order-report-router');
-v1ReportPoUnitPeriode.applyRoutes(server,"/v1/purchasing/po/reports");
-
 var v1ReportPoCategoryPeriode = require('./src/routers/v1/purchasing/reports/purchase-order-report-category-router');
 v1ReportPoCategoryPeriode.applyRoutes(server,"/v1/purchasing/po/reports/by-category");
+
+var v1ReportPoUnitPeriode = require('./src/routers/v1/purchasing/reports/purchase-order-report-router');
+v1ReportPoUnitPeriode.applyRoutes(server,"/v1/purchasing/po/reports");
 
 var v1VatRouter = require('./src/routers/v1/master/vat-router');
 v1VatRouter.applyRoutes(server,"/v1/master/vats");

@@ -7,44 +7,35 @@ var PurchaseOrderManager= require("dl-module").managers.purchasing.PurchaseOrder
 var passport = require('../../../../passports/jwt-passport');
 
 
-router.get("/",passport, function(request, response, next) {
-    db.get().then(db => {
-            var manager = new PurchaseOrderManager(db, {
-                username: 'router'
-            });
-            var sdate = request.params.dateFrom;
-            var edate = request.params.dateTo;
-            manager.getDataPOUnit(sdate,edate)
-            .then(docs => {
-                    var result = resultFormatter.ok(apiVersion, 200, docs);
-                    response.send(200, result);
-                })
-                .catch(e => {
-                    response.send(500, "gagal ambil data");
-                })
-        })
-        .catch(e => {
-            var error = resultFormatter.fail(apiVersion, 400, e);
-            response.send(400, error);
-        })
-});
-
 router.get("/:unit",passport, function(request, response, next) {
     db.get().then(db => {
-            var manager = new PurchaseOrderManager(db, {
-                username: 'router'
-            });
+            var manager = new PurchaseOrderManager(db, request.user);
             var sdate = request.params.dateFrom;
             var edate = request.params.dateTo;
-            var unit = request.params.unit;
-            manager.getDataPODetailUnit(sdate,edate,unit)
-            .then(docs => {
+            var unit=request.params.unit;
+            if(unit=="undefined")
+            {
+                manager.getDataPOUnit(sdate,edate)
+                .then(docs => {
                     var result = resultFormatter.ok(apiVersion, 200, docs);
                     response.send(200, result);
                 })
                 .catch(e => {
                     response.send(500, "gagal ambil data");
                 })
+            }
+            else
+            {
+                manager.getDataPODetailUnit(sdate,edate,unit)
+                .then(docs => {
+                    var result = resultFormatter.ok(apiVersion, 200, docs);
+                    response.send(200, result);
+                })
+                .catch(e => {
+                    response.send(500, "gagal ambil data");
+                })
+            }
+            
         })
         .catch(e => {
             var error = resultFormatter.fail(apiVersion, 400, e);
@@ -52,6 +43,18 @@ router.get("/:unit",passport, function(request, response, next) {
         })
 });
 
-
+// router.get("/:unit",passport, function(request, response, next) {
+//     db.get().then(db => {
+//             var manager = new PurchaseOrderManager(db, request.user);
+//             var sdate = request.params.dateFrom;
+//             var edate = request.params.dateTo;
+//             var unit = request.params.unit;
+            
+//         })
+//         .catch(e => {
+//             var error = resultFormatter.fail(apiVersion, 400, e);
+//             response.send(400, error);
+//         })
+// });
 
 module.exports = router;
