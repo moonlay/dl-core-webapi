@@ -7,99 +7,147 @@ var resultFormatter = require("../../../result-formatter");
 var passport = require('../../../passports/jwt-passport');
 const apiVersion = '1.0.0';
 
-router.get("/",passport,function(request, response, next) {
+router.get("/", passport, function(request, response, next) {
     db.get().then(db => {
             var manager = new PurchaseOrderExternalManager(db, request.user);
 
             var query = request.query;
             manager.read(query)
-            .then(docs => {
+                .then(docs => {
                     var result = resultFormatter.ok(apiVersion, 200, docs);
                     response.send(200, result);
                 })
                 .catch(e => {
                     response.send(500, "Failed to fetch data.");
-                })
+                });
         })
         .catch(e => {
             var error = resultFormatter.fail(apiVersion, 400, e);
             response.send(400, error);
-        })
+        });
 });
 
-router.get('/:id',passport, (request, response, next) => {
+var handlePdfRequest = function(request, response, next) {
     db.get().then(db => {
-        var manager = new PurchaseOrderExternalManager(db, request.user);
+            var manager = new PurchaseOrderExternalManager(db, request.user);
 
-        var id = request.params.id;
-        manager.getSingleById(id)
-            .then(doc => {
-                var result = resultFormatter.ok(apiVersion, 200, doc);
-                response.send(200, result);
-            })
-            .catch(e => {
-                var error = resultFormatter.fail(apiVersion, 400, e);
-                response.send(400, error);
-            })
-    })
-});
+            var id = request.params.id;
+            manager.pdf(id)
+                .then(docBinary => {
+                    // var base64 = 'data:application/pdf;base64,' + docBinary.toString('base64')
+                    response.writeHead(200, {
+                        'Content-Type': 'application/pdf',
+                        // 'Content-Disposition': 'attachment; filename=some_file.pdf',
+                        'Content-Length': docBinary.length
+                    });
+                    response.end(docBinary);
+                })
+                .catch(e => {
+                    var error = resultFormatter.fail(apiVersion, 400, e);
+                    response.send(400, error);
+                });
+        })
+        .catch(e => {
+            var error = resultFormatter.fail(apiVersion, 400, e);
+            response.send(400, error);
+        });
+};
+
+router.get('/:id', passport, (request, response, next) => {
+    db.get().then(db => {
+            if ((request.headers.accept || '').toString().indexOf("application/pdf") >= 0) {
+                next();
+            }
+            else {
+                var manager = new PurchaseOrderExternalManager(db, request.user);
+                var id = request.params.id;
+                manager.getSingleById(id)
+                    .then(doc => {
+                        var result = resultFormatter.ok(apiVersion, 200, doc);
+                        response.send(200, result);
+                    })
+                    .catch(e => {
+                        var error = resultFormatter.fail(apiVersion, 400, e);
+                        response.send(400, error);
+                    });
+            }
+        })
+        .catch(e => {
+            var error = resultFormatter.fail(apiVersion, 400, e);
+            response.send(400, error);
+        });
+}, handlePdfRequest);
+
+
 
 router.post('/', passport, (request, response, next) => {
     db.get().then(db => {
-        var manager = new PurchaseOrderExternalManager(db, request.user);
+            var manager = new PurchaseOrderExternalManager(db, request.user);
 
-        var data = request.body;
+            var data = request.body;
 
-        manager.create(data)
-            .then(docId => {
-                response.header('Location', `${request.url}/${docId.toString()}`);
-                var result = resultFormatter.ok(apiVersion, 201);
-                response.send(201, result);
-            })
-            .catch(e => {
-                var error = resultFormatter.fail(apiVersion, 400, e);
-                response.send(400, error);
-            })
-    })
+            manager.create(data)
+                .then(docId => {
+                    response.header('Location', `${request.url}/${docId.toString()}`);
+                    var result = resultFormatter.ok(apiVersion, 201);
+                    response.send(201, result);
+                })
+                .catch(e => {
+                    var error = resultFormatter.fail(apiVersion, 400, e);
+                    response.send(400, error);
+                });
+        })
+        .catch(e => {
+            var error = resultFormatter.fail(apiVersion, 400, e);
+            response.send(400, error);
+        });
 });
 
-router.put('/:id',passport, (request, response, next) => {
+router.put('/:id', passport, (request, response, next) => {
     db.get().then(db => {
-        var manager = new PurchaseOrderExternalManager(db, request.user);
+            var manager = new PurchaseOrderExternalManager(db, request.user);
 
-        var id = request.params.id;
-        var data = request.body;
+            var id = request.params.id;
+            var data = request.body;
 
-        manager.update(data)
-            .then(docId => {
-                var result = resultFormatter.ok(apiVersion, 204);
-                response.send(204, result);
-            })
-            .catch(e => {
-                var error = resultFormatter.fail(apiVersion, 400, e);
-                response.send(400, error);
-            })
+            manager.update(data)
+                .then(docId => {
+                    var result = resultFormatter.ok(apiVersion, 204);
+                    response.send(204, result);
+                })
+                .catch(e => {
+                    var error = resultFormatter.fail(apiVersion, 400, e);
+                    response.send(400, error);
+                });
 
-    })
+        })
+        .catch(e => {
+            var error = resultFormatter.fail(apiVersion, 400, e);
+            response.send(400, error);
+        });
 });
 
-router.del('/:id',passport, (request, response, next) => {
+router.del('/:id', passport, (request, response, next) => {
     db.get().then(db => {
-        var manager = new PurchaseOrderExternalManager(db, request.user);
+            var manager = new PurchaseOrderExternalManager(db, request.user);
 
-        var id = request.params.id;
-        var data = request.body;
+            var id = request.params.id;
+            var data = request.body;
 
-        manager.delete(data)
-            .then(docId => {
-                var result = resultFormatter.ok(apiVersion, 204);
-                response.send(204, result);
-            })
-            .catch(e => {
-                var error = resultFormatter.fail(apiVersion, 400, e);
-                response.send(400, error);
-            })
-    })
+            manager.delete(data)
+                .then(docId => {
+                    var result = resultFormatter.ok(apiVersion, 204);
+                    response.send(204, result);
+                })
+                .catch(e => {
+                    var error = resultFormatter.fail(apiVersion, 400, e);
+                    response.send(400, error);
+                });
+        })
+        .catch(e => {
+            var error = resultFormatter.fail(apiVersion, 400, e);
+            response.send(400, error);
+        });
 });
 
-module.exports = router
+module.exports = router;
