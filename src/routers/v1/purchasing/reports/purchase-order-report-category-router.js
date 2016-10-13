@@ -8,9 +8,7 @@ var passport = require('../../../../passports/jwt-passport');
 
 router.get("/", passport, function(request, response, next) {
     db.get().then(db => {
-            var manager = new PurchaseOrderManager(db, {
-                username: 'router'
-            });
+            var manager = new PurchaseOrderManager(db, request.user);
             var sdate = request.params.dateFrom;
             var edate = request.params.dateTo;
             manager.getDataPOCategory(sdate, edate)
