@@ -1,7 +1,7 @@
 var Router = require('restify-router').Router;
 var router = new Router();
 var db = require("../../../db");
-var PurchaseOrderExternalManager = require("dl-module").managers.purchasing.PurchaseOrderExternalManager;
+var UnitReceiptNoteManager = require("dl-module").managers.purchasing.UnitReceiptNoteManager;
 var resultFormatter = require("../../../result-formatter");
 const apiVersion = '1.0.0';
 var passport = require('../../../passports/jwt-passport');
@@ -9,7 +9,7 @@ var passport = require('../../../passports/jwt-passport');
 
 router.get('/:id', (request, response, next) => {
     db.get().then(db => {
-        var manager = new PurchaseOrderExternalManager(db, request.user);
+        var manager = new UnitReceiptNoteManager(db, request.user);
 
         var id = request.params.id;
         manager.pdf(id)
