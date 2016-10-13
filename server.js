@@ -74,10 +74,10 @@ var v1DeliveryOrderRouter = require('./src/routers/v1/purchasing/delivery-order-
 v1DeliveryOrderRouter.applyRoutes(server, "/v1/purchasing/do"); 
 
 var v1ReportPoCategoryPeriode = require('./src/routers/v1/purchasing/reports/purchase-order-report-category-router');
-v1ReportPoCategoryPeriode.applyRoutes(server,"/v1/purchasing/po/report/category");
+v1ReportPoCategoryPeriode.applyRoutes(server,"/v1/purchasing/po/reports/categories");
 
 var v1ReportPoUnitPeriode = require('./src/routers/v1/purchasing/reports/purchase-order-report-unit-router');
-v1ReportPoUnitPeriode.applyRoutes(server,"/v1/purchasing/po/report/unit");
+v1ReportPoUnitPeriode.applyRoutes(server,"/v1/purchasing/po/reports/units");
 
 var v1UnitReceiptNote = require('./src/routers/v1/purchasing/unit-receipt-note-do-router');
 v1UnitReceiptNote.applyRoutes(server, "/v1/purchasing/receipt-note/unit/do"); 
