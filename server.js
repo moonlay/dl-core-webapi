@@ -5,6 +5,9 @@ restify.CORS.ALLOW_HEADERS.push('authorization');
 
 var passport = require('passport');
 var server = restify.createServer();
+
+var json2xls = require('json2xls');
+server.use(json2xls.middleware);
 // restify.CORS.ALLOW_HEADERS.push('accept-encoding');
 // restify.CORS.ALLOW_HEADERS.push('accept-language');
 // restify.CORS.ALLOW_HEADERS.push('content-type');
@@ -15,33 +18,38 @@ var server = restify.createServer();
 
 server.use(restify.queryParser());
 server.use(restify.bodyParser());
-server.use(restify.CORS());
-server.use(restify.fullResponse());
-server.use(passport.initialize()); 
+server.use(restify.CORS({headers:['Content-Disposition']}));
+// server.use(restify.fullResponse());
+server.use(passport.initialize());
+// server.use(function(request, response, next) {
+//     response.header("Access-Control-Expose-Headers", "Content-Disposition");
+//     next();
+// });
+
 
 var v1BuyerRouter = require('./src/routers/v1/master/buyer-router');
-v1BuyerRouter.applyRoutes(server,"/v1/master/buyers");
+v1BuyerRouter.applyRoutes(server, "/v1/master/buyers");
 
 var v1SupplierRouter = require('./src/routers/v1/master/supplier-router');
-v1SupplierRouter.applyRoutes(server,"/v1/master/suppliers/");
+v1SupplierRouter.applyRoutes(server, "/v1/master/suppliers/");
 
 var v1ProductRouter = require('./src/routers/v1/master/product-router');
-v1ProductRouter.applyRoutes(server,"/v1/master/products");
+v1ProductRouter.applyRoutes(server, "/v1/master/products");
 
 var v1UoMRouter = require('./src/routers/v1/master/uom-router');
-v1UoMRouter.applyRoutes(server,"/v1/master/uoms");
+v1UoMRouter.applyRoutes(server, "/v1/master/uoms");
 
 var v1UnitRouter = require('./src/routers/v1/master/unit-router');
-v1UnitRouter.applyRoutes(server,"/v1/master/units");
+v1UnitRouter.applyRoutes(server, "/v1/master/units");
 
 var v1CategoryRouter = require('./src/routers/v1/master/category-router');
-v1CategoryRouter.applyRoutes(server,"/v1/master/categories");
+v1CategoryRouter.applyRoutes(server, "/v1/master/categories");
 
 var v1CurrencyRouter = require('./src/routers/v1/master/currency-router');
-v1CurrencyRouter.applyRoutes(server,"/v1/master/currencies");
+v1CurrencyRouter.applyRoutes(server, "/v1/master/currencies");
 
 var v1VatRouter = require('./src/routers/v1/master/vat-router');
-v1VatRouter.applyRoutes(server,"/v1/master/vats");
+v1VatRouter.applyRoutes(server, "/v1/master/vats");
 
 var v1PurchaseOrderExternalPostRouter = require('./src/routers/v1/purchasing/purchase-order-external-post-router');
 v1PurchaseOrderExternalPostRouter.applyRoutes(server, "/v1/purchasing/po/externals/post");
@@ -59,7 +67,7 @@ var v1PurchaseOrderSplitRouter = require('./src/routers/v1/purchasing/purchase-o
 v1PurchaseOrderSplitRouter.applyRoutes(server, "/v1/purchasing/po/split");
 
 var v1DOMonitoringRouter = require('./src/routers/v1/purchasing/purchase-order-monitoring-router');
-v1DOMonitoringRouter.applyRoutes(server, '/v1/purchasing/po/monitoring'); 
+v1DOMonitoringRouter.applyRoutes(server, '/v1/purchasing/po/monitoring');
 
 var v1PurchaseOrderUnpostedRouter = require('./src/routers/v1/purchasing/purchase-order-un-posted-router');
 v1PurchaseOrderUnpostedRouter.applyRoutes(server, "/v1/purchasing/po/unposted");
@@ -68,25 +76,25 @@ var v1PurchaseOrderRouter = require('./src/routers/v1/purchasing/purchase-order-
 v1PurchaseOrderRouter.applyRoutes(server, "/v1/purchasing/po");
 
 var v1POMonitoringRouter = require('./src/routers/v1/purchasing/delivery-order-monitoring-router');
-v1POMonitoringRouter.applyRoutes(server,'/v1/purchasing/do/monitoring');
+v1POMonitoringRouter.applyRoutes(server, '/v1/purchasing/do/monitoring');
 
 var v1DeliveryOrderRouter = require('./src/routers/v1/purchasing/delivery-order-router');
-v1DeliveryOrderRouter.applyRoutes(server, "/v1/purchasing/do"); 
+v1DeliveryOrderRouter.applyRoutes(server, "/v1/purchasing/do");
 
 var v1ReportPoCategoryPeriode = require('./src/routers/v1/purchasing/reports/purchase-order-report-category-router');
-v1ReportPoCategoryPeriode.applyRoutes(server,"/v1/purchasing/po/reports/by-category");
+v1ReportPoCategoryPeriode.applyRoutes(server, "/v1/purchasing/po/reports/by-category");
 
 var v1ReportPoUnitPeriode = require('./src/routers/v1/purchasing/reports/purchase-order-report-router');
-v1ReportPoUnitPeriode.applyRoutes(server,"/v1/purchasing/po/reports");
+v1ReportPoUnitPeriode.applyRoutes(server, "/v1/purchasing/po/reports");
 
 var v1UnitReceiptNote = require('./src/routers/v1/purchasing/unit-receipt-note-do-router');
-v1UnitReceiptNote.applyRoutes(server, "/v1/purchasing/receipt-note/unit/do"); 
+v1UnitReceiptNote.applyRoutes(server, "/v1/purchasing/receipt-note/unit/do");
 
 var v1UnitReceiptNote = require('./src/routers/v1/purchasing/unit-receipt-note-router');
-v1UnitReceiptNote.applyRoutes(server, "/v1/purchasing/receipt-note/unit"); 
+v1UnitReceiptNote.applyRoutes(server, "/v1/purchasing/receipt-note/unit");
 
 var v1UnitReceiptNote = require('./src/routers/v1/purchasing/unit-receipt-note-pdf-router');
-v1UnitReceiptNote.applyRoutes(server, "/v1/purchasing/receipt-note/unit/pdf"); 
+v1UnitReceiptNote.applyRoutes(server, "/v1/purchasing/receipt-note/unit/pdf");
 
 // server.on('NotFound', function(request, response, cb) {
 
