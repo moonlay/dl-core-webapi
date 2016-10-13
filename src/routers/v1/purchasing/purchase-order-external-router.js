@@ -37,7 +37,7 @@ var handlePdfRequest = function(request, response, next) {
                     // var base64 = 'data:application/pdf;base64,' + docBinary.toString('base64')
                     response.writeHead(200, {
                         'Content-Type': 'application/pdf',
-                        // 'Content-Disposition': 'attachment; filename=some_file.pdf',
+                        'Content-Disposition': `attachment; filename=${id}.pdf`,
                         'Content-Length': docBinary.length
                     });
                     response.end(docBinary);
