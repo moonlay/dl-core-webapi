@@ -95,11 +95,14 @@ v1ReportPoUnitPeriode.applyRoutes(server, "/v1/purchasing/po/reports/units");
 var v1UnitReceiptNote = require('./src/routers/v1/purchasing/unit-receipt-note-do-router');
 v1UnitReceiptNote.applyRoutes(server, "/v1/purchasing/receipt-note/unit/do");
 
+var v1UnitReceiptNoteMonitoring = require('./src/routers/v1/purchasing/unit-receipt-note-monitoring-router');
+v1UnitReceiptNoteMonitoring.applyRoutes(server, "/v1/purchasing/receipt-note/unit/monitoring"); 
+
 var v1UnitReceiptNote = require('./src/routers/v1/purchasing/unit-receipt-note-router');
 v1UnitReceiptNote.applyRoutes(server, "/v1/purchasing/receipt-note/unit");
 
-var v1UnitReceiptNote = require('./src/routers/v1/purchasing/unit-receipt-note-pdf-router');
-v1UnitReceiptNote.applyRoutes(server, "/v1/purchasing/receipt-note/unit/pdf");
+// var v1UnitReceiptNote = require('./src/routers/v1/purchasing/unit-receipt-note-pdf-router');
+// v1UnitReceiptNote.applyRoutes(server, "/v1/purchasing/receipt-note/unit/pdf"); 
 
 // server.on('NotFound', function(request, response, cb) {
 
