@@ -17,7 +17,7 @@ router.get('/', passport,  (request, response, next) => {
         var dateFrom = request.params.dateFrom;
         var dateTo = request.params.dateTo;
 
-        manager.getListUnitReceiptNote(no, unitId, supplierId, dateFrom, dateTo)
+        manager.getUnitReceiptNotes(no, unitId, supplierId, dateFrom, dateTo)
             .then(docs => {
                     if ((request.headers.accept || '').toString().indexOf("application/xls") < 0) {
                         var result = resultFormatter.ok(apiVersion, 200, docs);
