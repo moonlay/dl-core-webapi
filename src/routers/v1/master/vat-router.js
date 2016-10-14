@@ -7,14 +7,16 @@ var resultFormatter = require("../../../result-formatter");
 var passport = require('../../../passports/jwt-passport');
 const apiVersion = '1.0.0';
 
-router.get("/",passport, function (request, response, next) {
+router.get("/", passport, function (request, response, next) {
     db.get().then(db => {
         var manager = new VatManager(db, request.user);
 
-        var query = request.query;
+        var query = request.queryInfo;
         manager.read(query)
             .then(docs => {
-                var result = resultFormatter.ok(apiVersion, 200, docs);
+                var result = resultFormatter.ok(apiVersion, 200, docs.data);
+                delete docs.data;
+                result.info = docs;
                 response.send(200, result);
             })
             .catch(e => {
@@ -27,7 +29,7 @@ router.get("/",passport, function (request, response, next) {
         })
 });
 
-router.get("/:id",passport, function (request, response, next) {
+router.get("/:id", passport, function (request, response, next) {
     db.get().then(db => {
         var manager = new VatManager(db, request.user);
 
@@ -53,7 +55,7 @@ router.post('/', passport, (request, response, next) => {
 
         manager.create(data)
             .then(docId => {
-               response.header('Location', `${request.url}/${docId.toString()}`);
+                response.header('Location', `${request.url}/${docId.toString()}`);
                 var result = resultFormatter.ok(apiVersion, 201);
                 response.send(201, result);
             })
@@ -85,7 +87,7 @@ router.put('/:id', passport, (request, response, next) => {
     })
 });
 
-router.del('/:id',passport, (request, response, next) => {
+router.del('/:id', passport, (request, response, next) => {
     db.get().then(db => {
         var manager = new VatManager(db, request.user);
 

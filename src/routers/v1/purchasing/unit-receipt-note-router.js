@@ -12,10 +12,12 @@ router.get("/", passport, (request, response, next) => {
             username: 'router'
         });
 
-        var query = request.query;
+        var query = request.queryInfo;
         manager.read(query)
             .then(docs => {
-                var result = resultFormatter.ok(apiVersion, 200, docs);
+                var result = resultFormatter.ok(apiVersion, 200, docs.data);
+                delete docs.data;
+                result.info = docs;
                 response.send(200, result);
             })
             .catch(e => {
@@ -28,26 +30,26 @@ router.get("/", passport, (request, response, next) => {
         });
 });
 
-var handlePdfRequest = function(request, response, next) {
+var handlePdfRequest = function (request, response, next) {
     db.get().then(db => {
-            var manager = new UnitReceiptNoteManager(db, request.user);
+        var manager = new UnitReceiptNoteManager(db, request.user);
 
-            var id = request.params.id;
-            manager.pdf(id)
-                .then(docBinary => {
-                    // var base64 = 'data:application/pdf;base64,' + docBinary.toString('base64')
-                    response.writeHead(200, {
-                        'Content-Type': 'application/pdf',
-                        'Content-Disposition': `attachment; filename=${id}.pdf`,
-                        'Content-Length': docBinary.length
-                    });
-                    response.end(docBinary);
-                })
-                .catch(e => {
-                    var error = resultFormatter.fail(apiVersion, 400, e);
-                    response.send(400, error);
+        var id = request.params.id;
+        manager.pdf(id)
+            .then(docBinary => {
+                // var base64 = 'data:application/pdf;base64,' + docBinary.toString('base64')
+                response.writeHead(200, {
+                    'Content-Type': 'application/pdf',
+                    'Content-Disposition': `attachment; filename=${id}.pdf`,
+                    'Content-Length': docBinary.length
                 });
-        })
+                response.end(docBinary);
+            })
+            .catch(e => {
+                var error = resultFormatter.fail(apiVersion, 400, e);
+                response.send(400, error);
+            });
+    })
         .catch(e => {
             var error = resultFormatter.fail(apiVersion, 400, e);
             response.send(400, error);
@@ -56,23 +58,23 @@ var handlePdfRequest = function(request, response, next) {
 
 router.get('/:id', passport, (request, response, next) => {
     db.get().then(db => {
-            if ((request.headers.accept || '').toString().indexOf("application/pdf") >= 0) {
-                next();
-            }
-            else {
-                var manager = new UnitReceiptNoteManager(db, request.user);
-                var id = request.params.id;
-                manager.getSingleById(id)
-                    .then(doc => {
-                        var result = resultFormatter.ok(apiVersion, 200, doc);
-                        response.send(200, result);
-                    })
-                    .catch(e => {
-                        var error = resultFormatter.fail(apiVersion, 400, e);
-                        response.send(400, error);
-                    });
-            }
-        })
+        if ((request.headers.accept || '').toString().indexOf("application/pdf") >= 0) {
+            next();
+        }
+        else {
+            var manager = new UnitReceiptNoteManager(db, request.user);
+            var id = request.params.id;
+            manager.getSingleById(id)
+                .then(doc => {
+                    var result = resultFormatter.ok(apiVersion, 200, doc);
+                    response.send(200, result);
+                })
+                .catch(e => {
+                    var error = resultFormatter.fail(apiVersion, 400, e);
+                    response.send(400, error);
+                });
+        }
+    })
         .catch(e => {
             var error = resultFormatter.fail(apiVersion, 400, e);
             response.send(400, error);

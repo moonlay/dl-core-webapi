@@ -7,20 +7,22 @@ var resultFormatter = require("../../../result-formatter");
 var passport = require('../../../passports/jwt-passport');
 const apiVersion = '1.0.0';
 
-router.get("/", passport, function(request, response, next) {
+router.get("/", passport, function (request, response, next) {
     db.get().then(db => {
-            var manager = new BuyerManager(db,request.user);
+        var manager = new BuyerManager(db, request.user);
 
-            var query = request.query;
-            manager.read(query)
+        var query = request.queryInfo;
+        manager.read(query)
             .then(docs => {
-                    var result = resultFormatter.ok(apiVersion, 200, docs);
-                    response.send(200, result);
-                })
-                .catch(e => {
-                    response.send(500, "gagal ambil data");
-                })
-        })
+                var result = resultFormatter.ok(apiVersion, 200, docs.data);
+                delete docs.data;
+                result.info = docs;
+                response.send(200, result);
+            })
+            .catch(e => {
+                response.send(500, "gagal ambil data");
+            })
+    })
         .catch(e => {
             var error = resultFormatter.fail(apiVersion, 400, e);
             response.send(400, error);
@@ -28,7 +30,7 @@ router.get("/", passport, function(request, response, next) {
 })
 
 
-router.get('/:id',passport, (request, response, next) => {
+router.get('/:id', passport, (request, response, next) => {
     db.get().then(db => {
         var manager = new BuyerManager(db, request.user);
 

@@ -7,22 +7,23 @@ const apiVersion = '1.0.0';
 
 router.get("/", (request, response, next) => {
     db.get().then(db => {
-            var manager = new DeliveryOrderManager(db, {
-                username: 'router'
-            });
+        var manager = new DeliveryOrderManager(db, {
+            username: 'router'
+        });
 
-            var query = request.query;
-            query.filter = !query.filter ? {} : JSON.parse(query.filter);
-            
-            manager.readBySupplierAndUnit(query)
-                .then(docs => {
-                    var result = resultFormatter.ok(apiVersion, 200, docs);
-                    response.send(200, result);
-                })
-                .catch(e => {
-                    response.send(500, "gagal ambil data");
-                });
-        })
+        var query = request.queryInfo;
+
+        manager.readBySupplierAndUnit(query)
+            .then(docs => {
+                var result = resultFormatter.ok(apiVersion, 200, docs.data);
+                delete docs.data;
+                result.info = docs;
+                response.send(200, result);
+            })
+            .catch(e => {
+                response.send(500, "gagal ambil data");
+            });
+    })
         .catch(e => {
             var error = resultFormatter.fail(apiVersion, 400, e);
             response.send(400, error);
