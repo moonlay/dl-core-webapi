@@ -12,9 +12,8 @@ router.get("/", passport, (request, response, next) => {
     db.get().then(db => {
             var manager = new PurchaseOrderExternalManager(db, request.user);
 
-            var query = request.query;
-            query.filter = !query.filter ? {} : JSON.parse(query.filter);
-            
+            var query = request.queryInfo;
+
             manager.readPosted(query)
                 .then(docs => {
                     var result = resultFormatter.ok(apiVersion, 200, docs);
