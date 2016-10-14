@@ -11,10 +11,12 @@ router.get("/", passport, function (request, response, next) {
     db.get().then(db => {
         var manager = new UnitManager(db, request.user);
 
-        var query = request.query;
+        var query = request.queryInfo;
         manager.read(query)
             .then(docs => {
-                var result = resultFormatter.ok(apiVersion, 200, docs);
+                var result = resultFormatter.ok(apiVersion, 200, docs.data);
+                delete docs.data;
+                result.info = docs;
                 response.send(200, result);
             })
             .catch(e => {
@@ -27,7 +29,7 @@ router.get("/", passport, function (request, response, next) {
         })
 });
 
-router.get("/:id",passport, function (request, response, next) {
+router.get("/:id", passport, function (request, response, next) {
     db.get().then(db => {
         var manager = new UnitManager(db, request.user);
 
