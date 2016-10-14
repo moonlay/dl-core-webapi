@@ -12,7 +12,13 @@ router.get("/", passport, (request, response, next) => {
     db.get().then(db => {
         var manager = new PurchaseOrderManager(db, request.user);
 
+        var sorting = {
+            "unit.division": 1,
+            "category.name": 1,
+            "purchaseRequest.date": 1
+        };
         var query = request.queryInfo;
+        query.order = sorting;
         manager.read(query)
             .then(docs => {
                 var result = resultFormatter.ok(apiVersion, 200, docs.data);
