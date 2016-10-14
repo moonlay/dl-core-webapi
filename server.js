@@ -18,13 +18,18 @@ server.use(json2xls.middleware);
 
 server.use(restify.queryParser());
 server.use(restify.bodyParser());
-server.use(restify.CORS({headers:['Content-Disposition']}));
+server.use(restify.CORS({
+    headers: ['Content-Disposition']
+}));
 // server.use(restify.fullResponse());
 server.use(passport.initialize());
-// server.use(function(request, response, next) {
-//     response.header("Access-Control-Expose-Headers", "Content-Disposition");
-//     next();
-// });
+server.use(function(request, response, next) {
+    var query = request.query;
+    query.order = !query.order ? {} : JSON.parse(query.order);
+    query.filter = !query.filter ? {} : JSON.parse(query.filter);
+    request.queryInfo = query;
+    next();
+});
 
 
 var v1BuyerRouter = require('./src/routers/v1/master/buyer-router');
@@ -82,10 +87,10 @@ var v1DeliveryOrderRouter = require('./src/routers/v1/purchasing/delivery-order-
 v1DeliveryOrderRouter.applyRoutes(server, "/v1/purchasing/do");
 
 var v1ReportPoCategoryPeriode = require('./src/routers/v1/purchasing/reports/purchase-order-report-category-router');
-v1ReportPoCategoryPeriode.applyRoutes(server,"/v1/purchasing/po/reports/categories");
+v1ReportPoCategoryPeriode.applyRoutes(server, "/v1/purchasing/po/reports/categories");
 
 var v1ReportPoUnitPeriode = require('./src/routers/v1/purchasing/reports/purchase-order-report-unit-router');
-v1ReportPoUnitPeriode.applyRoutes(server,"/v1/purchasing/po/reports/units");
+v1ReportPoUnitPeriode.applyRoutes(server, "/v1/purchasing/po/reports/units");
 
 var v1UnitReceiptNote = require('./src/routers/v1/purchasing/unit-receipt-note-do-router');
 v1UnitReceiptNote.applyRoutes(server, "/v1/purchasing/receipt-note/unit/do");
