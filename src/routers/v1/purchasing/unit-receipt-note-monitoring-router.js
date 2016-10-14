@@ -18,10 +18,15 @@ router.get('/', passport,  (request, response, next) => {
         var dateTo = request.params.dateTo;
 
         manager.getDataUnitReceiptNote(no, unitId, supplierId, dateFrom, dateTo)
-            .then(doc => {
-                var result = resultFormatter.ok(apiVersion, 200, doc);
-                response.send(200, result);
-            })
+            .then(docs => {
+                    if ((request.headers.accept || '').toString().indexOf("application/xls") < 0) {
+                        var result = resultFormatter.ok(apiVersion, 200, docs);
+                        response.send(200, result);
+                    }
+                    else {
+                        response.xls('data.xlsx', docs);
+                    }
+                })
             .catch(e => {
                 var error = resultFormatter.fail(apiVersion, 400, e);
                 response.send(400, error);
