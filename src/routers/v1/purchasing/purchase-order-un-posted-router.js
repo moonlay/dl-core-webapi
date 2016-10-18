@@ -14,7 +14,13 @@ router.get("/", passport, (request, response, next) => {
 
         var query = request.queryInfo;
 
-        manager.readUnposted(query)
+        var filter = {
+            isPosted: false
+        };
+
+        query.filter = filter;
+
+        manager.read(query)
             .then(docs => {
                 var result = resultFormatter.ok(apiVersion, 200, docs.data);
                 delete docs.data;
