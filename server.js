@@ -56,6 +56,9 @@ v1CurrencyRouter.applyRoutes(server, "/v1/master/currencies");
 var v1VatRouter = require('./src/routers/v1/master/vat-router');
 v1VatRouter.applyRoutes(server, "/v1/master/vats");
 
+var v1BudgetRouter = require('./src/routers/v1/master/budget-router');
+v1BudgetRouter.applyRoutes(server, "/v1/master/budgets");
+
 var v1PurchaseOrderExternalPostRouter = require('./src/routers/v1/purchasing/purchase-order-external-post-router');
 v1PurchaseOrderExternalPostRouter.applyRoutes(server, "/v1/purchasing/po/externals/post");
 
@@ -100,6 +103,9 @@ v1UnitReceiptNoteMonitoring.applyRoutes(server, "/v1/purchasing/receipt-note/uni
 
 var v1UnitReceiptNote = require('./src/routers/v1/purchasing/unit-receipt-note-router');
 v1UnitReceiptNote.applyRoutes(server, "/v1/purchasing/receipt-note/unit");
+
+var v1PurchaseRequestRouter = require('./src/routers/v1/purchasing/purchase-request-router');
+v1PurchaseRequestRouter.applyRoutes(server, "/v1/purchasing/pr");
 
 // var v1UnitReceiptNote = require('./src/routers/v1/purchasing/unit-receipt-note-pdf-router');
 // v1UnitReceiptNote.applyRoutes(server, "/v1/purchasing/receipt-note/unit/pdf"); 
