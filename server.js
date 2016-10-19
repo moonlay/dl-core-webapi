@@ -101,6 +101,9 @@ v1UnitReceiptNoteMonitoring.applyRoutes(server, "/v1/purchasing/receipt-note/uni
 var v1UnitReceiptNote = require('./src/routers/v1/purchasing/unit-receipt-note-router');
 v1UnitReceiptNote.applyRoutes(server, "/v1/purchasing/receipt-note/unit");
 
+var v1UnitPaymentPriceCorrectionNote = require('./src/routers/v1/purchasing/unit-payment-price-correction-note-router');
+v1UnitPaymentPriceCorrectionNote.applyRoutes(server, "/v1/purchasing//unit-payment-note/price-correction");
+
 // var v1UnitReceiptNote = require('./src/routers/v1/purchasing/unit-receipt-note-pdf-router');
 // v1UnitReceiptNote.applyRoutes(server, "/v1/purchasing/receipt-note/unit/pdf"); 
 
