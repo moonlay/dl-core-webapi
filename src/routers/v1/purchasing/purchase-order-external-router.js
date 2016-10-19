@@ -11,10 +11,12 @@ router.get("/", passport, function(request, response, next) {
     db.get().then(db => {
             var manager = new PurchaseOrderExternalManager(db, request.user);
 
-            var query = request.query;
+            var query = request.queryInfo;
             manager.read(query)
                 .then(docs => {
-                    var result = resultFormatter.ok(apiVersion, 200, docs);
+                    var result = resultFormatter.ok(apiVersion, 200, docs.data);
+                    delete docs.data;
+                    result.info = docs;
                     response.send(200, result);
                 })
                 .catch(e => {
@@ -37,7 +39,7 @@ var handlePdfRequest = function(request, response, next) {
                     // var base64 = 'data:application/pdf;base64,' + docBinary.toString('base64')
                     response.writeHead(200, {
                         'Content-Type': 'application/pdf',
-                        // 'Content-Disposition': 'attachment; filename=some_file.pdf',
+                        'Content-Disposition': `attachment; filename=${id}.pdf`,
                         'Content-Length': docBinary.length
                     });
                     response.end(docBinary);
