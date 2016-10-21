@@ -7,6 +7,10 @@
     "test": "mocha test/index.js",
     "start": "node server.js"
   },
+  "engines": {
+    "node": "6.3.x",
+    "npm": "3.10.x"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/danliris/dl-core-webapi.git"
@@ -20,7 +24,6 @@
   "dependencies": {
     "assert": "^1.4.1",
     "dl-module": "git+https://github.com/danliris/dl-module.git#dev",
-    "json2xls": "^0.1.2",
     "mongo-factory": "^1.0.0",
     "mongodb": "^2.2.5",
     "passport": "^0.3.2",

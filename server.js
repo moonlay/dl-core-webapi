@@ -56,6 +56,9 @@ v1CurrencyRouter.applyRoutes(server, "/v1/master/currencies");
 var v1VatRouter = require('./src/routers/v1/master/vat-router');
 v1VatRouter.applyRoutes(server, "/v1/master/vats");
 
+var v1BudgetRouter = require('./src/routers/v1/master/budget-router');
+v1BudgetRouter.applyRoutes(server, "/v1/master/budgets");
+
 var v1PurchaseOrderExternalPostRouter = require('./src/routers/v1/purchasing/purchase-order-external-post-router');
 v1PurchaseOrderExternalPostRouter.applyRoutes(server, "/v1/purchasing/po/externals/post");
 
@@ -80,6 +83,12 @@ v1PurchaseOrderUnpostedRouter.applyRoutes(server, "/v1/purchasing/po/unposted");
 var v1PurchaseOrderRouter = require('./src/routers/v1/purchasing/purchase-order-router');
 v1PurchaseOrderRouter.applyRoutes(server, "/v1/purchasing/po");
 
+var v1PurchaseRequestPostRouter = require('./src/routers/v1/purchasing/purchase-request-post-router');
+v1PurchaseRequestPostRouter.applyRoutes(server, "/v1/purchasing/pr/post");
+
+var v1PurchaseRequestRouter = require('./src/routers/v1/purchasing/purchase-request-router');
+v1PurchaseRequestRouter.applyRoutes(server, "/v1/purchasing/pr");
+
 var v1POMonitoringRouter = require('./src/routers/v1/purchasing/delivery-order-monitoring-router');
 v1POMonitoringRouter.applyRoutes(server, '/v1/purchasing/do/monitoring');
 
@@ -100,13 +109,16 @@ v1UnitReceiptNoteMonitoring.applyRoutes(server, "/v1/purchasing/receipt-note/uni
 
 var v1UnitReceiptNote = require('./src/routers/v1/purchasing/unit-receipt-note-router');
 v1UnitReceiptNote.applyRoutes(server, "/v1/purchasing/receipt-note/unit");
-
+ 
 var v1UnitPaymentPriceCorrectionNote = require('./src/routers/v1/purchasing/unit-payment-price-correction-note-router');
-v1UnitPaymentPriceCorrectionNote.applyRoutes(server, "/v1/purchasing/unit-payment-note/price-correction");
+v1UnitPaymentPriceCorrectionNote.applyRoutes(server, "/v1/purchasing/unit-payment-note/price-correction"); 
 
 var v1UnitPaymentOrder = require('./src/routers/v1/purchasing/unit-payment-order-router');
 v1UnitPaymentOrder.applyRoutes(server, "/v1/purchasing/payment-order/unit");
-
+ 
+var v1UnitPaymentOrderSupplier = require('./src/routers/v1/purchasing/unit-receipt-note-suplier-unit-router');
+v1UnitPaymentOrderSupplier.applyRoutes(server, "/v1/purchasing/unit-receipt-note-suplier-unit");
+ 
 // var v1UnitReceiptNote = require('./src/routers/v1/purchasing/unit-receipt-note-pdf-router');
 // v1UnitReceiptNote.applyRoutes(server, "/v1/purchasing/receipt-note/unit/pdf"); 
 
