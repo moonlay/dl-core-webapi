@@ -3,7 +3,7 @@ var router = new Router();
 var db = require("../../../db");
 var UnitReceiptNoteManager = require("dl-module").managers.purchasing.UnitReceiptNoteManager;
 var resultFormatter = require("../../../result-formatter");
-
+var json2xls = require('json2xls');
 var passport = require('../../../passports/jwt-passport');
 const apiVersion = '1.0.0';
 
@@ -30,21 +30,22 @@ router.get('/', passport, (request, response, next) => {
                     for (var unitReceiptNote of docs) {
                         for (var item of unitReceiptNote.items) {
                             index++;
-                            var _item = {}
-                            _item.no = index;
-                            _item.unit = item.purchaseOrder.unit.division;
-                            _item.category = item.purchaseOrder.category.name;
-                            _item.noPoInternal = item.purchaseOrder.refNo || "-";
-                            _item.productCode = item.product.code;
-                            _item.productName = item.product.name;
-                            _item.supplier = unitReceiptNote.supplier.name;
-                            _item.unitReceiptNoteDate = unitReceiptNote.date;
-                            _item.unitReceiptNoteNo = unitReceiptNote.no;
-                            _item.purchaseOrderQuantity = item.purchaseOrderQuantity;
-                            _item.purchaseOrderUom = item.deliveredUom.unit;
-                            _item.deliveredQuantity = item.deliveredQuantity;
-                            _item.deliveredUom = item.deliveredUom.unit;
-                            _item.totalQuantity = (item.purchaseOrderQuantity || 0) - (item.deliveredQuantity || 0);
+                            var _item = {
+                                "No": index,
+                                "Unit": item.purchaseOrder.unit.division,
+                                "Kategori": item.purchaseOrder.category.name,
+                                "No PO Internal": item.purchaseOrder.refNo || "-",
+                                "Nama Barang": item.product.code,
+                                "Kode Barang": item.product.name,
+                                "Supplier": unitReceiptNote.supplier.name,
+                                "Tanggal Bon Terima Unit": unitReceiptNote.date,
+                                "No Bon Terima Unit": unitReceiptNote.no,
+                                "Jumlah Diminta": item.purchaseOrderQuantity,
+                                "Satuan Diminta": item.deliveredUom.unit,
+                                "Jumlah Diterima": item.deliveredQuantity,
+                                "Satuan Diterima": item.deliveredUom.unit,
+                                "Jumlah (+/-/0)": (item.purchaseOrderQuantity || 0) - (item.deliveredQuantity || 0)
+                            }
                             data.push(_item);
                         }
                     }
@@ -52,8 +53,25 @@ router.get('/', passport, (request, response, next) => {
                     var locale = 'id-ID';
                     var moment = require('moment');
                     moment.locale(locale);
+                    var options = {
+                        "No": "number",
+                        "Unit": "string",
+                        "Kategori": "string",
+                        "No PO Internal": "string",
+                        "Nama Barang": "string",
+                        "Kode Barang": "string",
+                        "Supplier": "string",
+                        "Tanggal Bon Terima Unit": "string",
+                        "No Bon Terima Unit": "string",
+                        "Jumlah Diminta": "number",
+                        "Satuan Diminta": "string",
+                        "Jumlah Diterima": "number",
+                        "Satuan Diterima": "string",
+                        "Jumlah (+/-/0)": "number"
+                    };
 
-                    response.xls(`Monitoring Bon Unit - ${moment(new Date()).format(dateFormat)}.xlsx`, data);
+
+                    response.xls(`Monitoring Bon Unit - ${moment(new Date()).format(dateFormat)}.xlsx`, data, options);
                 }
             })
             .catch(e => {
