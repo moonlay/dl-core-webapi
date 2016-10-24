@@ -24,7 +24,7 @@ router.get('/', passport, (request, response, next) => {
                     response.send(200, result);
                 }
                 else {
-                    var dateFormat = "DDMMMMYYYY";
+                    var dateFormat = "DD MMMM YYYY";
                     var dateFormat2 = "DD-MMMM-YYYY";
                     var locale = 'id-ID';
                     var moment = require('moment');

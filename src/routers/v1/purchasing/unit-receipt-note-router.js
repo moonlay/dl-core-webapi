@@ -38,7 +38,7 @@ var handlePdfRequest = function (request, response, next) {
         manager.pdf(id)
             .then(docBinary => {
                 // var base64 = 'data:application/pdf;base64,' + docBinary.toString('base64')
-                var dateFormat = "DDMMMMYYYY";
+                var dateFormat = "DD MMMM YYYY";
                     var locale = 'id-ID';
                     var moment = require('moment');
                     moment.locale(locale);
