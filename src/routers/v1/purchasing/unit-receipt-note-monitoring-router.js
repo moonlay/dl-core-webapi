@@ -3,7 +3,6 @@ var router = new Router();
 var db = require("../../../db");
 var UnitReceiptNoteManager = require("dl-module").managers.purchasing.UnitReceiptNoteManager;
 var resultFormatter = require("../../../result-formatter");
-var json2xls = require('json2xls');
 var passport = require('../../../passports/jwt-passport');
 const apiVersion = '1.0.0';
 
@@ -25,6 +24,13 @@ router.get('/', passport, (request, response, next) => {
                     response.send(200, result);
                 }
                 else {
+                    
+                    var dateFormat = "DDMMMMYYYY";
+                    var dateFormat2 = "DD-MMMM-YYYY";
+                    var locale = 'id-ID';
+                    var moment = require('moment');
+                    moment.locale(locale);
+                    
                     var data = [];
                     var index = 0;
                     for (var unitReceiptNote of docs) {
@@ -38,7 +44,7 @@ router.get('/', passport, (request, response, next) => {
                                 "Nama Barang": item.product.code,
                                 "Kode Barang": item.product.name,
                                 "Supplier": unitReceiptNote.supplier.name,
-                                "Tanggal Bon Terima Unit": unitReceiptNote.date,
+                                "Tanggal Bon Terima Unit": moment(new Date(unitReceiptNote.date)).format(dateFormat2),
                                 "No Bon Terima Unit": unitReceiptNote.no,
                                 "Jumlah Diminta": item.purchaseOrderQuantity,
                                 "Satuan Diminta": item.deliveredUom.unit,
@@ -49,10 +55,6 @@ router.get('/', passport, (request, response, next) => {
                             data.push(_item);
                         }
                     }
-                    var dateFormat = "DDMMMMYYYY";
-                    var locale = 'id-ID';
-                    var moment = require('moment');
-                    moment.locale(locale);
                     var options = {
                         "No": "number",
                         "Unit": "string",
@@ -71,7 +73,7 @@ router.get('/', passport, (request, response, next) => {
                     };
 
 
-                    response.xls(`Monitoring Bon Unit - ${moment(new Date()).format(dateFormat)}.xlsx`, data, options);
+                    response.xls(`Monitoring Bon Terima Unit - ${moment(new Date()).format(dateFormat)}.xlsx`, data, options);
                 }
             })
             .catch(e => {
