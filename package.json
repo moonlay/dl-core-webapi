@@ -7,10 +7,6 @@
     "test": "mocha test/index.js",
     "start": "node server.js"
   },
-  "engines": {
-    "node": "6.3.x",
-    "npm": "3.10.x"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/danliris/dl-core-webapi.git"
