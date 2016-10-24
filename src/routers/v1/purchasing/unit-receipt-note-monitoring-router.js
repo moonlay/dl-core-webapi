@@ -24,7 +24,6 @@ router.get('/', passport, (request, response, next) => {
                     response.send(200, result);
                 }
                 else {
-                    
                     var dateFormat = "DDMMMMYYYY";
                     var dateFormat2 = "DD-MMMM-YYYY";
                     var locale = 'id-ID';
@@ -38,7 +37,7 @@ router.get('/', passport, (request, response, next) => {
                             index++;
                             var _item = {
                                 "No": index,
-                                "Unit": item.purchaseOrder.unit.division,
+                                "Unit": `${item.purchaseOrder.unit.division} - ${item.purchaseOrder.unit.subDivision}`,
                                 "Kategori": item.purchaseOrder.category.name,
                                 "No PO Internal": item.purchaseOrder.refNo || "-",
                                 "Nama Barang": item.product.code,
