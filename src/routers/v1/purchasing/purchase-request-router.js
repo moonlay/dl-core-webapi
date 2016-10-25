@@ -34,12 +34,13 @@ var handlePdfRequest = function(request, response, next) {
             var manager = new PurchaseRequestManager(db, request.user);
 
             var id = request.params.id;
+            var date=request.params.date;
             manager.pdf(id)
                 .then(docBinary => {
                     // var base64 = 'data:application/pdf;base64,' + docBinary.toString('base64')
                     response.writeHead(200, {
                         'Content-Type': 'application/pdf',
-                        'Content-Disposition': `attachment; filename=${id}.pdf`,
+                        'Content-Disposition': `attachment; filename=Purchase Request ${date}.pdf`,
                         'Content-Length': docBinary.length
                     });
                     response.end(docBinary);
