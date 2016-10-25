@@ -58,7 +58,13 @@ router.get("/", passport, function(request, response, next) {
                             "%": TotalPercentage
                         }
                         data.push(totals);
-                        response.xls(`Laporan Total Pembelian Per Kategori ${moment(sdate).format(dateFormat)} - ${moment(edate).format(dateFormat)}.xlsx`, data);
+                        data.push(totals);
+                        if(sdate!="undefined" && edate!="undefined")
+                        {
+                            response.xls(`Laporan Total Pembelian Per Kategori ${moment(sdate).format(dateFormat)} - ${moment(edate).format(dateFormat)}.xlsx`, data);
+                        }
+                        else
+                        response.xls(`Laporan Total Pembelian Per Kategori ${moment(new Date()).format(dateFormat)}.xlsx`, data);
                     }
                 })
                 .catch(e => {
