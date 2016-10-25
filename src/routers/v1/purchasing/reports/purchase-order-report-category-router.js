@@ -6,6 +6,8 @@ const apiVersion = '1.0.0';
 var PurchaseOrderManager = require("dl-module").managers.purchasing.PurchaseOrderManager;
 var passport = require('../../../../passports/jwt-passport');
 
+
+
 router.get("/", passport, function(request, response, next) {
     db.get().then(db => {
             var manager = new PurchaseOrderManager(db, request.user);
@@ -18,7 +20,45 @@ router.get("/", passport, function(request, response, next) {
                         response.send(200, result);
                     }
                     else {
-                        response.xls('data.xlsx', docs);
+                        var dateFormat = "DD MMMM YYYY";
+                        var dateFormat2 = "DD-MMMM-YYYY";
+                        var locale = 'id-ID';
+                        var moment = require('moment');
+                        moment.locale(locale);
+                        
+                        var data = [];
+                        var index = 0;
+                        var PriceTotals=0;
+                        for (var purchaseOrder of docs) {
+                            PriceTotals +=purchaseOrder.pricetotal;
+                        }
+                        for (var purchaseOrder of docs) {
+                            index++;
+                            var x= purchaseOrder.pricetotal.toFixed(2).toString().split('.');
+                            var x1=x[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                            var amount= x1 + '.' + x[1];
+                            var item={
+                                "No": index,
+                                "Kategori":purchaseOrder._id,
+                                "Rp"    : amount,
+                                "%":((purchaseOrder.pricetotal/PriceTotals)*100).toFixed(2)
+                            }
+                            data.push(item);
+                        }
+                        var TotalPercentage=0;
+                        for (var purchaseOrder of docs) {
+                            TotalPercentage +=((purchaseOrder.pricetotal/PriceTotals)*100);
+                        }
+                        var y= PriceTotals.toFixed(2).toString().split('.');
+                        var y1=y[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                        var amounts= y1 + '.' + y[1];
+                        var totals={
+                            "Kategori":"Total",
+                            "Rp": amounts,
+                            "%": TotalPercentage
+                        }
+                        data.push(totals);
+                        response.xls(`Laporan Total Pembelian Per Kategori ${moment(sdate).format(dateFormat)} - ${moment(edate).format(dateFormat)}.xlsx`, data);
                     }
                 })
                 .catch(e => {
