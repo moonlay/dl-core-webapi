@@ -34,12 +34,16 @@ var handlePdfRequest = function(request, response, next) {
             var manager = new PurchaseRequestManager(db, request.user);
 
             var id = request.params.id;
+            var dateFormat = "DDMMMMYYYY";
+            var locale = 'id-ID';
+            var moment = require('moment');
+            moment.locale(locale);
             manager.pdf(id)
                 .then(docBinary => {
                     // var base64 = 'data:application/pdf;base64,' + docBinary.toString('base64')
                     response.writeHead(200, {
                         'Content-Type': 'application/pdf',
-                        'Content-Disposition': `attachment; filename=${id}.pdf`,
+                        'Content-Disposition': `attachment; filename=Purchase Request ${moment(new Date()).format(dateFormat)}.pdf`,
                         'Content-Length': docBinary.length
                     });
                     response.end(docBinary);
