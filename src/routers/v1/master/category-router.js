@@ -3,18 +3,20 @@ var router = new Router();
 var db = require("../../../db");
 var CategoryManager = require("dl-module").managers.master.CategoryManager;
 var resultFormatter = require("../../../result-formatter");
+
+var passport = require('../../../passports/jwt-passport');
 const apiVersion = '1.0.0';
 
-router.get("/", function (request, response, next) {
+router.get("/", passport, function (request, response, next) {
     db.get().then(db => {
-        var manager = new CategoryManager(db, {
-            username: 'router'
-        });
+        var manager = new CategoryManager(db, request.user);
 
-        var query = request.query;
+        var query = request.queryInfo;
         manager.read(query)
             .then(docs => {
-                var result = resultFormatter.ok(apiVersion, 200, docs);
+                var result = resultFormatter.ok(apiVersion, 200, docs.data);
+                delete docs.data;
+                result.info = docs;
                 response.send(200, result);
             })
             .catch(e => {
@@ -27,11 +29,9 @@ router.get("/", function (request, response, next) {
         })
 });
 
-router.get("/:id", function (request, response, next) {
+router.get("/:id", passport, function (request, response, next) {
     db.get().then(db => {
-        var manager = new CategoryManager(db, {
-            username: 'router'
-        });
+        var manager = new CategoryManager(db, request.user);
 
         var id = request.params.id;
 
@@ -47,17 +47,15 @@ router.get("/:id", function (request, response, next) {
     })
 });
 
-router.post('/', (request, response, next) => {
+router.post('/', passport, (request, response, next) => {
     db.get().then(db => {
-        var manager = new CategoryManager(db, {
-            username: 'router'
-        });
+        var manager = new CategoryManager(db, request.user);
 
         var data = request.body;
 
         manager.create(data)
             .then(docId => {
-               response.header('Location', `${request.url}/${docId.toString()}`);
+                response.header('Location', `${request.url}/${docId.toString()}`);
                 var result = resultFormatter.ok(apiVersion, 201);
                 response.send(201, result);
             })
@@ -69,11 +67,9 @@ router.post('/', (request, response, next) => {
     })
 });
 
-router.put('/:id', (request, response, next) => {
+router.put('/:id', passport, (request, response, next) => {
     db.get().then(db => {
-        var manager = new CategoryManager(db, {
-            username: 'router'
-        });
+        var manager = new CategoryManager(db, request.user);
 
         var id = request.params.id;
         var data = request.body;
@@ -91,11 +87,9 @@ router.put('/:id', (request, response, next) => {
     })
 });
 
-router.del('/:id', (request, response, next) => {
+router.del('/:id', passport, (request, response, next) => {
     db.get().then(db => {
-        var manager = new CategoryManager(db, {
-            username: 'router'
-        });
+        var manager = new CategoryManager(db, request.user);
 
         var id = request.params.id;
         var data = request.body;

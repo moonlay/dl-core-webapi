@@ -1,7 +1,7 @@
 var Router = require('restify-router').Router;
 var router = new Router();
 var db = require("../../../db");
-var BuyerManager = require("dl-module").managers.master.BuyerManager;
+var BudgetManager = require("dl-module").managers.master.BudgetManager;
 var resultFormatter = require("../../../result-formatter");
 
 var passport = require('../../../passports/jwt-passport');
@@ -9,7 +9,7 @@ const apiVersion = '1.0.0';
 
 router.get("/", passport, function (request, response, next) {
     db.get().then(db => {
-        var manager = new BuyerManager(db, request.user);
+        var manager = new BudgetManager(db, request.user);
 
         var query = request.queryInfo;
         manager.read(query)
@@ -20,19 +20,18 @@ router.get("/", passport, function (request, response, next) {
                 response.send(200, result);
             })
             .catch(e => {
-                response.send(500, "gagal ambil data");
+                response.send(500, "Failed to fetch data.");
             })
     })
         .catch(e => {
             var error = resultFormatter.fail(apiVersion, 400, e);
             response.send(400, error);
         })
-})
+});
 
-
-router.get('/:id', passport, (request, response, next) => {
+router.get("/:id", passport, function (request, response, next) {
     db.get().then(db => {
-        var manager = new BuyerManager(db, request.user);
+        var manager = new BudgetManager(db, request.user);
 
         var id = request.params.id;
 
@@ -45,13 +44,12 @@ router.get('/:id', passport, (request, response, next) => {
                 var error = resultFormatter.fail(apiVersion, 400, e);
                 response.send(400, error);
             })
-
     })
 });
 
 router.post('/', passport, (request, response, next) => {
     db.get().then(db => {
-        var manager = new BuyerManager(db, request.user);
+        var manager = new BudgetManager(db, request.user);
 
         var data = request.body;
 
@@ -71,7 +69,7 @@ router.post('/', passport, (request, response, next) => {
 
 router.put('/:id', passport, (request, response, next) => {
     db.get().then(db => {
-        var manager = new BuyerManager(db, request.user);
+        var manager = new BudgetManager(db, request.user);
 
         var id = request.params.id;
         var data = request.body;
@@ -91,7 +89,7 @@ router.put('/:id', passport, (request, response, next) => {
 
 router.del('/:id', passport, (request, response, next) => {
     db.get().then(db => {
-        var manager = new BuyerManager(db, request.user);
+        var manager = new BudgetManager(db, request.user);
 
         var id = request.params.id;
         var data = request.body;
@@ -107,7 +105,4 @@ router.del('/:id', passport, (request, response, next) => {
             })
     })
 });
-
-
-
 module.exports = router;
