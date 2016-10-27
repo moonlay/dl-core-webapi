@@ -34,7 +34,7 @@ var handlePdfRequest = function(request, response, next) {
             var manager = new PurchaseRequestManager(db, request.user);
 
             var id = request.params.id;
-            var dateFormat = "DDMMMMYYYY";
+            var dateFormat = "DD MMMM YYYY";
             var locale = 'id-ID';
             var moment = require('moment');
             moment.locale(locale);
