@@ -68,6 +68,7 @@ router.get("/", passport, function(request, response, next) {
                         }
                         else
                         response.xls(`Laporan Total Pembelian Per Unit ${moment(new Date()).format(dateFormat)}.xlsx`, data,options);
+
                     }
             })
             .catch(e => {
