@@ -7,7 +7,6 @@ var PurchaseOrderManager = require("dl-module").managers.purchasing.PurchaseOrde
 var passport = require('../../../../passports/jwt-passport');
 
 
-
 router.get("/", passport, function(request, response, next) {
     db.get().then(db => {
             var manager = new PurchaseOrderManager(db, request.user);
