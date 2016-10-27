@@ -56,13 +56,18 @@ router.get("/", passport, function(request, response, next) {
                             "%": TotalPercentage
                         }
                         data.push(totals);
-                        data.push(totals);
+                        var options = {
+                            "No": "number",
+                            "Kategori": "string",
+                            "Rp": "number",
+                            "%": "number",
+                         }
                         if(sdate!="undefined" && edate!="undefined")
                         {
-                            response.xls(`Laporan Total Pembelian Per Unit ${moment(sdate).format(dateFormat)} - ${moment(edate).format(dateFormat)}.xlsx`, data);
+                            response.xls(`Laporan Total Pembelian Per Unit ${moment(sdate).format(dateFormat)} - ${moment(edate).format(dateFormat)}.xlsx`, data,options);
                         }
                         else
-                        response.xls(`Laporan Total Pembelian Per Unit ${moment(new Date()).format(dateFormat)}.xlsx`, data);
+                        response.xls(`Laporan Total Pembelian Per Unit ${moment(new Date()).format(dateFormat)}.xlsx`, data,options);
                     }
             })
             .catch(e => {
@@ -127,12 +132,18 @@ router.get("/:unit", passport, function(request, response, next) {
                             "%": TotalPercentage
                         }
                         data.push(totals);
+                        var options = {
+                            "No": "number",
+                            "Kategori": "string",
+                            "Rp": "number",
+                            "%": "number",
+                         }
                         if(sdate!="undefined" && edate!="undefined")
                         {
-                            response.xls(`Laporan Total Pembelian Per Unit ${moment(sdate).format(dateFormat)} - ${moment(edate).format(dateFormat)}.xlsx`, data);
+                            response.xls(`Laporan Total Pembelian Per Unit ${moment(sdate).format(dateFormat)} - ${moment(edate).format(dateFormat)}.xlsx`, data,options);
                         }
                         else
-                        response.xls(`Laporan Total Pembelian Per Unit ${moment(new Date()).format(dateFormat)}.xlsx`, data);
+                        response.xls(`Laporan Total Pembelian Per Unit ${moment(new Date()).format(dateFormat)}.xlsx`, data,options);
                         
                 }
             }).catch(e => {
