@@ -16,7 +16,9 @@ router.get("/", passport, function (request, response, next) {
         };
         var query = request.queryInfo;
         query.order = sorting;
-        
+        query.select = [
+            "no","supplier.name","items"
+        ]
         manager.read(query)
             .then(docs => {
                 var result = resultFormatter.ok(apiVersion, 200, docs.data);

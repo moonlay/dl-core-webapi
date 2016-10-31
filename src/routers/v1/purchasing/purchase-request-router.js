@@ -16,6 +16,9 @@ router.get("/",passport, (request, response, next) => {
         };
         var query = request.queryInfo;
         query.order = sorting;
+        query.select=[
+            "unit.division","category.name","date","no","expectedDeliveryDate","_createdBy","isPosted"
+        ];
         manager.read(query)
             .then(docs => {
                 var result = resultFormatter.ok(apiVersion, 200, docs.data);
