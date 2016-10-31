@@ -13,9 +13,7 @@ router.get("/", passport, (request, response, next) => {
         var manager = new PurchaseOrderManager(db, request.user);
 
         var sorting = {
-            "unit.division": 1,
-            "category.name": 1,
-            "purchaseRequest.date": 1
+            "_updatedDate": -1
         };
         var query = request.queryInfo;
         query.order = sorting;
