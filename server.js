@@ -95,6 +95,9 @@ v1PurchaseRequestPostRouter.applyRoutes(server, "/v1/purchasing/pr/post");
 var v1PurchaseRequestByUserRouter = require('./src/routers/v1/purchasing/purchase-request-by-user-router');
 v1PurchaseRequestByUserRouter.applyRoutes(server, "/v1/purchasing/pr/by-user");
 
+var v1PurchaseRequestRouter = require('./src/routers/v1/purchasing/purchase-request-monitoring-router');
+v1PurchaseRequestRouter.applyRoutes(server, "/v1/purchasing/pr/monitoring");
+
 var v1PurchaseRequestRouter = require('./src/routers/v1/purchasing/purchase-request-router');
 v1PurchaseRequestRouter.applyRoutes(server, "/v1/purchasing/pr");
 
