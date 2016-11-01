@@ -26,7 +26,7 @@ router.get("/", passport, function (request, response, next) {
         ]
         manager.read(query)
             .then(docs => {
-                var result = resultFormatter.ok(apiVersion, 200, docs);
+                var result = resultFormatter.ok(apiVersion, 200, docs.data);
                 delete docs.data;
                 result.info = docs;
                 response.send(200, result);

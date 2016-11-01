@@ -98,7 +98,7 @@ router.get('/:id', passport, (request, response, next) => {
 router.post('/', passport, (request, response, next) => {
     db.get().then(db => {
 
-        var manager = new DeliveryOrderManager(db, request.user);
+        var manager = new UnitPaymentOrderManager(db, request.user);
 
         var data = request.body;
         manager.create(data)
@@ -118,7 +118,7 @@ router.post('/', passport, (request, response, next) => {
 router.put('/:id', passport, (request, response, next) => {
     db.get().then(db => {
 
-        var manager = new DeliveryOrderManager(db, request.user);
+        var manager = new UnitPaymentOrderManager(db, request.user);
         var id = request.params.id;
         var data = request.body;
 
@@ -138,7 +138,7 @@ router.put('/:id', passport, (request, response, next) => {
 router.del('/:id', passport, (request, response, next) => {
     db.get().then(db => {
 
-        var manager = new DeliveryOrderManager(db, request.user);
+        var manager = new UnitPaymentOrderManager(db, request.user);
 
         var id = request.params.id;
         var data = request.body;
