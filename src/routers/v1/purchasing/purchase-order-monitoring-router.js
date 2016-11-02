@@ -71,6 +71,10 @@ router.get('/', passport, (request, response, next) => {
                                     "Tanggal PPH": fulfillment.pphDate ? moment(new Date(fulfillment.pphDate)).format(dateFormat2) : "-",
                                     "No PPH": fulfillment.pphNo ? fulfillment.pphNo : "-",
                                     "Nilai PPH": fulfillment.pphValue ? fulfillment.pphValue : 0,
+                                    "Tanggal Koreksi": fulfillment.priceCorrectionDate ? moment(new Date(fulfillment.priceCorrectionDate)).format(dateFormat2) : "-",
+                                    "No Koreksi": fulfillment.priceCorrectionNo ? fulfillment.priceCorrectionNo : "-",
+                                    "Nilai Koreksi": fulfillment.priceCorrectionPriceTotal ? fulfillment.priceCorrectionPriceTotal : 0,
+                                    "Ket. Koreksi": fulfillment.priceCorrectionRemark ? fulfillment.priceCorrectionRemark : "-",
                                     "Keterangan": PO.purchaseOrderExternal.remark ? PO.purchaseOrderExternal.remark : "-"
                                 }
                                 data.push(_item);
@@ -113,6 +117,10 @@ router.get('/', passport, (request, response, next) => {
                                 "Tanggal PPH": "-",
                                 "No PPH": "-",
                                 "Nilai PPH": 0,
+                                "Tanggal Koreksi": "-",
+                                "No Koreksi": "-",
+                                "Nilai Koreksi": 0,
+                                "Ket. Koreksi": "-",
                                 "Keterangan": PO.purchaseOrderExternal.remark ? PO.purchaseOrderExternal.remark : "-"
                             }
                             data.push(_item);
