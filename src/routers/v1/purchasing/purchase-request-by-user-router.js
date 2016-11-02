@@ -28,6 +28,7 @@ router.get("/", passport, (request, response, next) => {
             .then(docs => {
                 var result = resultFormatter.ok(apiVersion, 200, docs.data);
                 delete docs.data;
+                delete docs.order;
                 result.info = docs;
                 response.send(200, result);
             })
