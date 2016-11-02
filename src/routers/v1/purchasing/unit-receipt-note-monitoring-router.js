@@ -1,6 +1,7 @@
 var Router = require('restify-router').Router;
 var router = new Router();
 var db = require("../../../db");
+var ObjectId = require("mongodb").ObjectId;
 var UnitReceiptNoteManager = require("dl-module").managers.purchasing.UnitReceiptNoteManager;
 var resultFormatter = require("../../../result-formatter");
 var passport = require('../../../passports/jwt-passport');
@@ -19,13 +20,7 @@ router.get('/', passport, (request, response, next) => {
 
         manager.getUnitReceiptNotes(no, unitId, categoryId, supplierId, dateFrom, dateTo)
             .then(docs => {
-                if ((request.headers.accept || '').toString().indexOf("application/xls") < 0) {
-                    var result = resultFormatter.ok(apiVersion, 200, docs);
-                    response.send(200, result);
-                }
-                else {
-                    var dateFormat = "DD MMMM YYYY";
-                    var dateFormat2 = "DD-MMMM-YYYY";
+                var dateFormat = "DD MMM YYYY";
                     var locale = 'id-ID';
                     var moment = require('moment');
                     moment.locale(locale);
@@ -34,26 +29,45 @@ router.get('/', passport, (request, response, next) => {
                     var index = 0;
                     for (var unitReceiptNote of docs) {
                         for (var item of unitReceiptNote.items) {
+                            var sisa = 0;
+                            for(var poItem of item.purchaseOrder.items){
+                                var productIdPoItem = new ObjectId(poItem.product._id);
+                                var productIdUnitReceiptNoteItem = new ObjectId(item.product._id);
+                                if (productIdPoItem.equals(productIdUnitReceiptNoteItem)) {
+                                    for (var poItemFulfillment of poItem.fulfillments) {
+                                        var qty = poItemFulfillment.unitReceiptNoteDeliveredQuantity || 0;
+                                        sisa += qty;
+                                    }
+                                    break;
+                                }
+                            }
+                            
                             index++;
                             var _item = {
                                 "No": index,
                                 "Unit": `${item.purchaseOrder.unit.division} - ${item.purchaseOrder.unit.subDivision}`,
                                 "Kategori": item.purchaseOrder.category.name,
                                 "No PO Internal": item.purchaseOrder.refNo || "-",
-                                "Nama Barang": item.product.code,
-                                "Kode Barang": item.product.name,
+                                "Nama Barang": item.product.name,
+                                "Kode Barang": item.product.code,
                                 "Supplier": unitReceiptNote.supplier.name,
-                                "Tanggal Bon Terima Unit": moment(new Date(unitReceiptNote.date)).format(dateFormat2),
+                                "Tanggal Bon Terima Unit": moment(new Date(unitReceiptNote.date)).format(dateFormat),
                                 "No Bon Terima Unit": unitReceiptNote.no,
                                 "Jumlah Diminta": item.purchaseOrderQuantity,
                                 "Satuan Diminta": item.deliveredUom.unit,
                                 "Jumlah Diterima": item.deliveredQuantity,
                                 "Satuan Diterima": item.deliveredUom.unit,
-                                "Jumlah (+/-/0)": (item.purchaseOrderQuantity || 0) - (item.deliveredQuantity || 0)
+                                "Jumlah (+/-/0)": (item.purchaseOrderQuantity || 0) - sisa
                             }
                             data.push(_item);
                         }
                     }
+                    
+                if ((request.headers.accept || '').toString().indexOf("application/xls") < 0) {
+                    var result = resultFormatter.ok(apiVersion, 200, data);
+                    response.send(200, result);
+                }
+                else {
                     var options = {
                         "No": "number",
                         "Unit": "string",
