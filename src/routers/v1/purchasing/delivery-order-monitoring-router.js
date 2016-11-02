@@ -21,8 +21,7 @@ router.get('/', passport, (request, response, next) => {
         manager.getDataDeliveryOrder(no, supplierId, dateFrom, dateTo)
             .then(docs => {
 
-                var dateFormat = "DD MMMM YYYY";
-                var dateFormat2 = "DD-MMMM-YYYY";
+                var dateFormat = "DD MMM YYYY";
                 var locale = 'id-ID';
                 var moment = require('moment');
                 moment.locale(locale);
@@ -47,8 +46,8 @@ router.get('/', passport, (request, response, next) => {
                                 "Kode Supplier": deliveryOrder.supplier.code,
                                 "Nama Supplier": deliveryOrder.supplier.name,
                                 "Nomor Surat Jalan": deliveryOrder.no,
-                                "Tanggal Surat Jalan": moment(new Date(deliveryOrder.date)).format(dateFormat2),
-                                "Tanggal Datang Barang": moment(new Date(deliveryOrder.supplierDoDate)).format(dateFormat2),
+                                "Tanggal Surat Jalan": moment(new Date(deliveryOrder.date)).format(dateFormat),
+                                "Tanggal Datang Barang": moment(new Date(deliveryOrder.supplierDoDate)).format(dateFormat),
                                 "Nomor PO Eksternal": item.purchaseOrderExternal.no,
                                 "Kode Barang": fulfillment.product.code,
                                 "Nama Barang": fulfillment.product.name,
