@@ -5,6 +5,7 @@ var PurchaseOrderManager = require("dl-module").managers.purchasing.PurchaseOrde
 var DeliveryOrderManager = require("dl-module").managers.purchasing.DeliveryOrderManager;
 var resultFormatter = require("../../../result-formatter");
 
+var ObjectId = require("mongodb").ObjectId;
 var passport = require('../../../passports/jwt-passport');
 const apiVersion = '1.0.0';
 
@@ -19,41 +20,53 @@ router.get('/', passport, (request, response, next) => {
 
         manager.getDataDeliveryOrder(no, supplierId, dateFrom, dateTo)
             .then(docs => {
-                if ((request.headers.accept || '').toString().indexOf("application/xls") < 0) {
-                    var result = resultFormatter.ok(apiVersion, 200, docs);
-                    response.send(200, result);
-                } else {
-                    var dateFormat = "DD MMMM YYYY";
-                    var dateFormat2 = "DD-MMMM-YYYY";
-                    var locale = 'id-ID';
-                    var moment = require('moment');
-                    moment.locale(locale);
 
-                    var data = [];
-                    var index = 0;
-                    for (var deliveryOrder of docs) {
-                        for (var item of deliveryOrder.items) {
-                            for (var fulfillment of item.fulfillments) {
-                                var _item = {
-                                    "Kode Supplier": deliveryOrder.supplier.code,
-                                    "Nama Supplier": deliveryOrder.supplier.name,
-                                    "Nomor Surat Jalan": deliveryOrder.no,
-                                    "Tanggal Surat Jalan": moment(new Date(deliveryOrder.date)).format(dateFormat2),
-                                    "Tanggal Datang Barang": moment(new Date(deliveryOrder.supplierDoDate)).format(dateFormat2),
-                                    "Nomor PO Eksternal": item.purchaseOrderExternal.no,
-                                    "Kode Barang": fulfillment.product.code,
-                                    "Nama Barang": fulfillment.product.name,
-                                    "Deskripsi Barang": fulfillment.product.description,
-                                    "Jumlah Barang yang Diminta": fulfillment.purchaseOrderQuantity,
-                                    "Jumlah Barang yang Datang": fulfillment.deliveredQuantity,
-                                    "Jumlah Sisa Barang": `${(fulfillment.purchaseOrderQuantity - fulfillment.deliveredQuantity)}`,
-                                    "Satuan Barang":fulfillment.product.uom.unit
+                var dateFormat = "DD MMMM YYYY";
+                var dateFormat2 = "DD-MMMM-YYYY";
+                var locale = 'id-ID';
+                var moment = require('moment');
+                moment.locale(locale);
+                
+                var data = [];
+                var index = 0;
+                for (var deliveryOrder of docs) {
+                    for (var item of deliveryOrder.items) {
+                        for (var fulfillment of item.fulfillments) {
+                            var sisa = 0;
+                            for (var poItem of fulfillment.purchaseOrder.items) {
+                                var productIdPoItem = new ObjectId(poItem.product._id);
+                                var productIdFulfillment = new ObjectId(fulfillment.product._id);
+                                if (productIdPoItem.equals(productIdFulfillment)) {
+                                    for (var poItemFulfillment of poItem.fulfillments) {
+                                        sisa += poItemFulfillment.deliveryOderDeliveredQuantity;
+                                    }
+                                    break;
                                 }
-                                data.push(_item);
                             }
+                            var _item = {
+                                "Kode Supplier": deliveryOrder.supplier.code,
+                                "Nama Supplier": deliveryOrder.supplier.name,
+                                "Nomor Surat Jalan": deliveryOrder.no,
+                                "Tanggal Surat Jalan": moment(new Date(deliveryOrder.date)).format(dateFormat2),
+                                "Tanggal Datang Barang": moment(new Date(deliveryOrder.supplierDoDate)).format(dateFormat2),
+                                "Nomor PO Eksternal": item.purchaseOrderExternal.no,
+                                "Kode Barang": fulfillment.product.code,
+                                "Nama Barang": fulfillment.product.name,
+                                "Deskripsi Barang": fulfillment.product.description,
+                                "Jumlah Barang yang Diminta": fulfillment.purchaseOrderQuantity,
+                                "Jumlah Barang yang Datang": fulfillment.deliveredQuantity,
+                                "Jumlah Sisa Barang": `${(fulfillment.purchaseOrderQuantity - sisa)}`,
+                                "Satuan Barang": fulfillment.product.uom.unit
+                            }
+                            data.push(_item);
                         }
                     }
+                }
 
+                if ((request.headers.accept || '').toString().indexOf("application/xls") < 0) {
+                    var result = resultFormatter.ok(apiVersion, 200, data);
+                    response.send(200, result);
+                } else {
                     var options = {
                         "Kode Supplier": "string",
                         "Nama Supplier": "string",

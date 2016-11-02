@@ -11,7 +11,14 @@ router.get("/",passport, (request, response, next) => {
     db.get().then(db => {
             var manager = new PurchaseRequestManager(db, request.user);
 
-            var query = request.queryInfo;
+            var sorting = {
+            "_updatedDate": -1
+        };
+        var query = request.queryInfo;
+        query.order = sorting;
+        query.select=[
+            "unit.division","category.name","date","no","expectedDeliveryDate","_createdBy","isPosted"
+        ];
         manager.read(query)
             .then(docs => {
                 var result = resultFormatter.ok(apiVersion, 200, docs.data);

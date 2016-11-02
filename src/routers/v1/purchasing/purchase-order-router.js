@@ -13,12 +13,13 @@ router.get("/", passport, (request, response, next) => {
         var manager = new PurchaseOrderManager(db, request.user);
 
         var sorting = {
-            "unit.division": 1,
-            "category.name": 1,
-            "purchaseRequest.date": 1
+            "_updatedDate": -1
         };
         var query = request.queryInfo;
         query.order = sorting;
+        query.select = [
+            "unit.division", "category.name", "purchaseRequest.date", "purchaseRequest.no", "purchaseRequest.expectedDeliveryDate","_createdBy", "isPosted"
+        ]
         manager.read(query)
             .then(docs => {
                 var result = resultFormatter.ok(apiVersion, 200, docs.data);

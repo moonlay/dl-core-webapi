@@ -12,14 +12,26 @@ router.get("/", passport, function (request, response, next) {
         var manager = new PurchaseOrderExternalManager(db, request.user);
 
         var sorting = {
-            "date": -1
+            "_updatedDate": -1
         };
-
         var query = request.queryInfo;
         query.order = sorting;
+        query.select = [
+            "no", "date", "supplier.name", "items", "isPosted"
+        ]
         manager.read(query)
             .then(docs => {
-                var result = resultFormatter.ok(apiVersion, 200, docs.data);
+                var data = docs.data.map(poExternal => {
+                    poExternal.items = poExternal.items.map(po => {
+                        return {
+                            purchaseRequest: {
+                                no: po.purchaseRequest.no
+                            }
+                        }
+                    });
+                    return poExternal;
+                })
+                var result = resultFormatter.ok(apiVersion, 200, data);
                 delete docs.data;
                 result.info = docs;
                 response.send(200, result);
