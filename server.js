@@ -101,6 +101,9 @@ v1PurchaseRequestRouter.applyRoutes(server, "/v1/purchasing/pr/monitoring");
 var v1PurchaseRequestRouter = require('./src/routers/v1/purchasing/purchase-request-router');
 v1PurchaseRequestRouter.applyRoutes(server, "/v1/purchasing/pr");
 
+var v1DOMonitoringByUserRouter = require('./src/routers/v1/purchasing/delivery-order-monitoring-by-user-router');
+v1DOMonitoringByUserRouter.applyRoutes(server, '/v1/purchasing/do/monitoring/by-user');
+
 var v1POMonitoringRouter = require('./src/routers/v1/purchasing/delivery-order-monitoring-router');
 v1POMonitoringRouter.applyRoutes(server, '/v1/purchasing/do/monitoring');
 
