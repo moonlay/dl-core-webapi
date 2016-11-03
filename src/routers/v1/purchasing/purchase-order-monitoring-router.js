@@ -24,7 +24,6 @@ router.get('/', passport, (request, response, next) => {
             .then(docs => {
 
                 var dateFormat = "DD MMM YYYY";
-                var dateFormat2 = "DD-MMMM-YYYY";
                 var locale = 'id-ID';
                 var moment = require('moment');
                 moment.locale(locale);
@@ -38,7 +37,7 @@ router.get('/', passport, (request, response, next) => {
                                 index++;
                                 var _item = {
                                     "No": index,
-                                    "Tanggal Purchase Request": moment(new Date(PO.purchaseRequest.date)).format(dateFormat2),
+                                    "Tanggal Purchase Request": moment(new Date(PO.purchaseRequest.date)).format(dateFormat),
                                     "No Purchase Request": PO.purchaseRequest.no,
                                     "Nama Barang": item.product.name,
                                     "Kode Barang": item.product.code,
@@ -48,29 +47,33 @@ router.get('/', passport, (request, response, next) => {
                                     "Harga Total": PO.purchaseOrderExternal ? (item.pricePerDealUnit * item.dealQuantity * PO.purchaseOrderExternal.currencyRate) : 0,
                                     "Kode Supplier": PO.supplier.code ? PO.supplier.code : "-",
                                     "Nama Supplier": PO.supplier.name ? PO.supplier.name : "-",
-                                    "Tanggal Terima PO Internal": moment(new Date(PO.purchaseRequest.date)).format(dateFormat2),
-                                    "Tanggal Terima PO Eksternal": PO.purchaseOrderExternal.date ? moment(new Date(PO.purchaseOrderExternal.date)).format(dateFormat2) : "-",
-                                    "Tanggal Target Datang": PO.purchaseOrderExternal.expectedDeliveryDate ? moment(new Date(PO.purchaseOrderExternal.expectedDeliveryDate)).format(dateFormat2) : "-",
+                                    "Tanggal Terima PO Internal": moment(new Date(PO.purchaseRequest.date)).format(dateFormat),
+                                    "Tanggal Terima PO Eksternal": PO.purchaseOrderExternal.date ? moment(new Date(PO.purchaseOrderExternal.date)).format(dateFormat) : "-",
+                                    "Tanggal Target Datang": PO.purchaseOrderExternal.expectedDeliveryDate ? moment(new Date(PO.purchaseOrderExternal.expectedDeliveryDate)).format(dateFormat) : "-",
                                     "No PO Eksternal": PO.purchaseOrderExternal.no ? PO.purchaseOrderExternal.no : "-",
-                                    "Tanggal Surat Jalan": fulfillment.supplierDoDate ? moment(new Date(fulfillment.supplierDoDate)).format(dateFormat2) : "-",
-                                    "Tanggal Datang Barang": fulfillment.deliveryOderDate ? moment(new Date(fulfillment.deliveryOderDate)).format(dateFormat2) : "-",
+                                    "Tanggal Surat Jalan": fulfillment.supplierDoDate ? moment(new Date(fulfillment.supplierDoDate)).format(dateFormat) : "-",
+                                    "Tanggal Datang Barang": fulfillment.deliveryOderDate ? moment(new Date(fulfillment.deliveryOderDate)).format(dateFormat) : "-",
                                     "No Surat Jalan": fulfillment.deliveryOderNo ? fulfillment.deliveryOderNo : "-",
-                                    "Tanggal Bon Terima Unit": fulfillment.unitReceiptNoteDate ? moment(new Date(fulfillment.unitReceiptNoteDate)).format(dateFormat2) : "-",
+                                    "Tanggal Bon Terima Unit": fulfillment.unitReceiptNoteDate ? moment(new Date(fulfillment.unitReceiptNoteDate)).format(dateFormat) : "-",
                                     "No Bon Terima Unit": fulfillment.unitReceiptNoteNo ? fulfillment.unitReceiptNoteNo : "-",
                                     "Jumlah Diminta": fulfillment.unitReceiptNoteDeliveredQuantity ? fulfillment.unitReceiptNoteDeliveredQuantity : 0,
                                     "Satuan Diminta": fulfillment.unitReceiptDeliveredUom ? fulfillment.unitReceiptDeliveredUom.unit : "-",
-                                    "Tanggal Invoice": fulfillment.invoiceDate ? moment(new Date(fulfillment.invoiceDate)).format(dateFormat2) : "-",
+                                    "Tanggal Invoice": fulfillment.invoiceDate ? moment(new Date(fulfillment.invoiceDate)).format(dateFormat) : "-",
                                     "No Invoice": fulfillment.invoiceNo ? fulfillment.invoiceNo : "-",
-                                    "Tanggal Nota Intern": fulfillment.interNoteDate ? moment(new Date(fulfillment.interNoteDate)).format(dateFormat2) : "-",
+                                    "Tanggal Nota Intern": fulfillment.interNoteDate ? moment(new Date(fulfillment.interNoteDate)).format(dateFormat) : "-",
                                     "No Nota Intern": fulfillment.interNoteNo ? fulfillment.interNoteNo : "-",
                                     "Nilai Nota Intern": fulfillment.interNoteValue ? fulfillment.interNoteValue : 0,
-                                    "Tanggal Jatuh Tempo": fulfillment.interNoteDueDate ? moment(new Date(fulfillment.interNoteDueDate)).format(dateFormat2) : "-",
-                                    "Tanggal PPN": fulfillment.ppnDate ? moment(new Date(fulfillment.ppnDate)).format(dateFormat2) : "-",
+                                    "Tanggal Jatuh Tempo": fulfillment.interNoteDueDate ? moment(new Date(fulfillment.interNoteDueDate)).format(dateFormat) : "-",
+                                    "Tanggal PPN": fulfillment.ppnDate ? moment(new Date(fulfillment.ppnDate)).format(dateFormat) : "-",
                                     "No PPN": fulfillment.ppnNo ? fulfillment.ppnNo : "-",
                                     "Nilai PPN": fulfillment.ppnValue ? fulfillment.ppnValue : 0,
-                                    "Tanggal PPH": fulfillment.pphDate ? moment(new Date(fulfillment.pphDate)).format(dateFormat2) : "-",
+                                    "Tanggal PPH": fulfillment.pphDate ? moment(new Date(fulfillment.pphDate)).format(dateFormat) : "-",
                                     "No PPH": fulfillment.pphNo ? fulfillment.pphNo : "-",
                                     "Nilai PPH": fulfillment.pphValue ? fulfillment.pphValue : 0,
+                                    "Tanggal Koreksi": fulfillment.priceCorrectionDate ? moment(new Date(fulfillment.priceCorrectionDate)).format(dateFormat) : "-",
+                                    "No Koreksi": fulfillment.priceCorrectionNo ? fulfillment.priceCorrectionNo : "-",
+                                    "Nilai Koreksi": fulfillment.priceCorrectionPriceTotal ? fulfillment.priceCorrectionPriceTotal : 0,
+                                    "Ket. Koreksi": fulfillment.priceCorrectionRemark ? fulfillment.priceCorrectionRemark : "-",
                                     "Keterangan": PO.purchaseOrderExternal.remark ? PO.purchaseOrderExternal.remark : "-"
                                 }
                                 data.push(_item);
@@ -80,7 +83,7 @@ router.get('/', passport, (request, response, next) => {
                             index++;
                             var _item = {
                                 "No": index,
-                                "Tanggal Purchase Request": moment(new Date(PO.purchaseRequest.date)).format(dateFormat2),
+                                "Tanggal Purchase Request": moment(new Date(PO.purchaseRequest.date)).format(dateFormat),
                                 "No Purchase Request": PO.purchaseRequest.no,
                                 "Nama Barang": item.product.name,
                                 "Kode Barang": item.product.code,
@@ -90,9 +93,9 @@ router.get('/', passport, (request, response, next) => {
                                 "Harga Total": PO.purchaseOrderExternal.currencyRate ? (item.pricePerDealUnit * item.dealQuantity * PO.purchaseOrderExternal.currencyRate) : 0,
                                 "Kode Supplier": PO.supplier.code ? PO.supplier.code : "-",
                                 "Nama Supplier": PO.supplier.name ? PO.supplier.name : "-",
-                                "Tanggal Terima PO Internal": moment(new Date(PO.purchaseRequest.date)).format(dateFormat2),
-                                "Tanggal Terima PO Eksternal": PO.purchaseOrderExternal.date ? moment(new Date(PO.purchaseOrderExternal.date)).format(dateFormat2) : "-",
-                                "Tanggal Target Datang": PO.purchaseOrderExternal.expectedDeliveryDate ? moment(new Date(PO.purchaseOrderExternal.expectedDeliveryDate)).format(dateFormat2) : "-",
+                                "Tanggal Terima PO Internal": moment(new Date(PO.purchaseRequest.date)).format(dateFormat),
+                                "Tanggal Terima PO Eksternal": PO.purchaseOrderExternal.date ? moment(new Date(PO.purchaseOrderExternal.date)).format(dateFormat) : "-",
+                                "Tanggal Target Datang": PO.purchaseOrderExternal.expectedDeliveryDate ? moment(new Date(PO.purchaseOrderExternal.expectedDeliveryDate)).format(dateFormat) : "-",
                                 "No PO Eksternal": PO.purchaseOrderExternal.no,
                                 "Tanggal Surat Jalan": "-",
                                 "Tanggal Datang Barang": "-",
@@ -113,6 +116,10 @@ router.get('/', passport, (request, response, next) => {
                                 "Tanggal PPH": "-",
                                 "No PPH": "-",
                                 "Nilai PPH": 0,
+                                "Tanggal Koreksi": "-",
+                                "No Koreksi": "-",
+                                "Nilai Koreksi": 0,
+                                "Ket. Koreksi": "-",
                                 "Keterangan": PO.purchaseOrderExternal.remark ? PO.purchaseOrderExternal.remark : "-"
                             }
                             data.push(_item);
