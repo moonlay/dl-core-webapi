@@ -22,7 +22,7 @@ router.get("/", passport, function (request, response, next) {
         query.filter = filter;
         query.order = sorting;
         query.select = [
-            "no", "supplier.name", "items"
+            "no", "date", "supplier.name", "items"
         ]
         manager.read(query)
             .then(docs => {
