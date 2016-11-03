@@ -15,10 +15,14 @@ router.get("/", passport, (request, response, next) => {
         var query = request.queryInfo;
 
         var filter = {
-            isPosted: true
+            _deleted: false,
+            isPosted: true,
         };
 
         query.filter = filter;
+        query.select = [
+            "unit.division","category.name","date","no","expectedDeliveryDate","_createdBy","isPosted","_id","items"
+        ];
 
         manager.read(query)
             .then(docs => {
