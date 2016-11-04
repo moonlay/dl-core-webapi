@@ -14,24 +14,19 @@ router.get("/", passport, function (request, response, next) {
         var sorting = {
             "_updatedDate": -1
         };
+        var filter = {
+            _createdBy: request.user.username
+        };
+
         var query = request.queryInfo;
+        query.filter = filter;
         query.order = sorting;
         query.select = [
             "no", "date", "supplier.name", "items", "isPosted"
         ]
         manager.read(query)
             .then(docs => {
-                var data = docs.data.map(poExternal => {
-                    poExternal.items = poExternal.items.map(po => {
-                        return {
-                            purchaseRequest: {
-                                no: po.purchaseRequest.no
-                            }
-                        }
-                    });
-                    return poExternal;
-                })
-                var result = resultFormatter.ok(apiVersion, 200, data);
+                var result = resultFormatter.ok(apiVersion, 200, docs.data);
                 delete docs.data;
                 delete docs.order;
                 result.info = docs;
@@ -97,8 +92,6 @@ router.get('/:id', passport, (request, response, next) => {
             response.send(400, error);
         });
 }, handlePdfRequest);
-
-
 
 router.post('/', passport, (request, response, next) => {
     db.get().then(db => {

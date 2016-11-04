@@ -12,11 +12,19 @@ router.get("/", passport, (request, response, next) => {
             username: 'router'
         });
 
+        var sorting = {
+            "_updatedDate": -1
+        };
         var query = request.queryInfo;
+        query.order = sorting;
+        query.select=[
+            "unit.division","supplier.name","date","no","items"
+        ];
         manager.read(query)
             .then(docs => {
                 var result = resultFormatter.ok(apiVersion, 200, docs.data);
                 delete docs.data;
+                delete docs.order;
                 result.info = docs;
                 response.send(200, result);
             })

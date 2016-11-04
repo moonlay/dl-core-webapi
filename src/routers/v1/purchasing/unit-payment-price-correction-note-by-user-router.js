@@ -1,44 +1,38 @@
 var Router = require('restify-router').Router;
 var router = new Router();
 var db = require("../../../db");
-var PurchaseOrderExternalManager = require("dl-module").managers.purchasing.PurchaseOrderExternalManager;
+var UnitPaymentPriceCorrectionNoteManager = require("dl-module").managers.purchasing.UnitPaymentPriceCorrectionNoteManager;
 var resultFormatter = require("../../../result-formatter");
-
-var passport = require('../../../passports/jwt-passport');
 const apiVersion = '1.0.0';
+var passport = require('../../../passports/jwt-passport');
 
-router.get("/", passport, function (request, response, next) {
+router.get("/", passport, (request, response, next) => {
     db.get().then(db => {
-        var manager = new PurchaseOrderExternalManager(db, request.user);
-
+        var manager = new UnitPaymentPriceCorrectionNoteManager(db, request.user);
         var sorting = {
             "_updatedDate": -1
         };
+        var filter = {
+            _createdBy: request.user.username
+        };
+
         var query = request.queryInfo;
+        query.filter = filter;
         query.order = sorting;
         query.select = [
-            "no", "date", "supplier.name", "items", "isPosted"
+            "no", "date", "unitPaymentOrder.no", "unitPaymentOrder.supplier.name", "invoiceCorrectionNo", "unitPaymentOrder.dueDate"
         ]
+
         manager.read(query)
             .then(docs => {
-                var data = docs.data.map(poExternal => {
-                    poExternal.items = poExternal.items.map(po => {
-                        return {
-                            purchaseRequest: {
-                                no: po.purchaseRequest.no
-                            }
-                        }
-                    });
-                    return poExternal;
-                })
-                var result = resultFormatter.ok(apiVersion, 200, data);
+                var result = resultFormatter.ok(apiVersion, 200, docs.data);
                 delete docs.data;
                 delete docs.order;
                 result.info = docs;
                 response.send(200, result);
             })
             .catch(e => {
-                response.send(500, "Failed to fetch data.");
+                response.send(500, "gagal ambil data");
             });
     })
         .catch(e => {
@@ -49,15 +43,19 @@ router.get("/", passport, function (request, response, next) {
 
 var handlePdfRequest = function (request, response, next) {
     db.get().then(db => {
-        var manager = new PurchaseOrderExternalManager(db, request.user);
+        var manager = new UnitPaymentPriceCorrectionNoteManager(db, request.user);
 
         var id = request.params.id;
         manager.pdf(id)
             .then(docBinary => {
                 // var base64 = 'data:application/pdf;base64,' + docBinary.toString('base64')
+                var dateFormat = "DD MMMM YYYY";
+                var locale = 'id-ID';
+                var moment = require('moment');
+                moment.locale(locale);
                 response.writeHead(200, {
                     'Content-Type': 'application/pdf',
-                    'Content-Disposition': `attachment; filename=${id}.pdf`,
+                    'Content-Disposition': `attachment; filename=Nota Debet - ${moment(new Date()).format(dateFormat)}.pdf`,
                     'Content-Length': docBinary.length
                 });
                 response.end(docBinary);
@@ -79,7 +77,7 @@ router.get('/:id', passport, (request, response, next) => {
             next();
         }
         else {
-            var manager = new PurchaseOrderExternalManager(db, request.user);
+            var manager = new UnitPaymentPriceCorrectionNoteManager(db, request.user);
             var id = request.params.id;
             manager.getSingleById(id)
                 .then(doc => {
@@ -98,14 +96,12 @@ router.get('/:id', passport, (request, response, next) => {
         });
 }, handlePdfRequest);
 
-
-
 router.post('/', passport, (request, response, next) => {
     db.get().then(db => {
-        var manager = new PurchaseOrderExternalManager(db, request.user);
+
+        var manager = new UnitPaymentPriceCorrectionNoteManager(db, request.user);
 
         var data = request.body;
-
         manager.create(data)
             .then(docId => {
                 response.header('Location', `${request.url}/${docId.toString()}`);
@@ -116,16 +112,14 @@ router.post('/', passport, (request, response, next) => {
                 var error = resultFormatter.fail(apiVersion, 400, e);
                 response.send(400, error);
             });
-    })
-        .catch(e => {
-            var error = resultFormatter.fail(apiVersion, 400, e);
-            response.send(400, error);
-        });
+
+    });
 });
 
 router.put('/:id', passport, (request, response, next) => {
     db.get().then(db => {
-        var manager = new PurchaseOrderExternalManager(db, request.user);
+
+        var manager = new UnitPaymentPriceCorrectionNoteManager(db, request.user);
 
         var id = request.params.id;
         var data = request.body;
@@ -140,16 +134,13 @@ router.put('/:id', passport, (request, response, next) => {
                 response.send(400, error);
             });
 
-    })
-        .catch(e => {
-            var error = resultFormatter.fail(apiVersion, 400, e);
-            response.send(400, error);
-        });
+    });
 });
 
 router.del('/:id', passport, (request, response, next) => {
     db.get().then(db => {
-        var manager = new PurchaseOrderExternalManager(db, request.user);
+
+        var manager = new UnitPaymentPriceCorrectionNoteManager(db, request.user);
 
         var id = request.params.id;
         var data = request.body;
@@ -163,11 +154,8 @@ router.del('/:id', passport, (request, response, next) => {
                 var error = resultFormatter.fail(apiVersion, 400, e);
                 response.send(400, error);
             });
-    })
-        .catch(e => {
-            var error = resultFormatter.fail(apiVersion, 400, e);
-            response.send(400, error);
-        });
+    });
 });
+
 
 module.exports = router;

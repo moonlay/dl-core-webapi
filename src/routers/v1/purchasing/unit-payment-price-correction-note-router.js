@@ -11,12 +11,20 @@ router.get("/", passport, (request, response, next) => {
         var manager = new UnitPaymentPriceCorrectionNoteManager(db, {
             username: 'router'
         });
-
+        var sorting = {
+            "_updatedDate": -1
+        };
         var query = request.queryInfo;
+        query.order = sorting;
+        query.select = [
+            "no", "date", "unitPaymentOrder.no", "unitPaymentOrder.supplier.name", "invoiceCorrectionNo","unitPaymentOrder.dueDate"
+        ]
+        
         manager.read(query)
             .then(docs => {
                 var result = resultFormatter.ok(apiVersion, 200, docs.data);
                 delete docs.data;
+                delete docs.order;
                 result.info = docs;
                 response.send(200, result);
             })
