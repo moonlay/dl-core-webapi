@@ -34,11 +34,6 @@ router.get('/', passport, (request, response, next) => {
                     var index = 0;
                     for (var purchaseRequest of docs) {
                         for (var item of purchaseRequest.items) {
-                            var dates="-";
-                            if(purchaseRequest.expectedDeliveryDate!=""||purchaseRequest.expectedDeliveryDate!="undefined")
-                            {
-                                dates=moment(new Date(purchaseRequest.expectedDeliveryDate)).format(dateFormat2);
-                            }
                                 index++;
                                 var _item = {
                                     "No":index,
@@ -51,7 +46,7 @@ router.get('/', passport, (request, response, next) => {
                                     "Nama Barang": item.product.name,
                                     "Jumlah": item.quantity,
                                     "Satuan":item.product.uom.unit,
-                                    "Tanggal Diminta Datang": dates,
+                                    "Tanggal Diminta Datang": purchaseRequest.expectedDeliveryDate ? moment(new Date(purchaseRequest.expectedDeliveryDate)).format(dateFormat2) : "-",
                                 }
                                 data.push(_item);
                         }
