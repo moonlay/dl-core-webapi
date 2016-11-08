@@ -46,7 +46,7 @@ router.get('/', passport, (request, response, next) => {
                                     "Nama Barang": item.product.name,
                                     "Jumlah": item.quantity,
                                     "Satuan":item.product.uom.unit,
-                                    "Tanggal Diminta Datang": moment(new Date(purchaseRequest.expectedDeliveryDate)).format(dateFormat2),
+                                    "Tanggal Diminta Datang": purchaseRequest.expectedDeliveryDate ? moment(new Date(purchaseRequest.expectedDeliveryDate)).format(dateFormat2) : "-",
                                 }
                                 data.push(_item);
                         }
