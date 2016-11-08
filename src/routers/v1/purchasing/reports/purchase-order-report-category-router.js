@@ -69,7 +69,7 @@ router.get("/", passport, function(request, response, next) {
                             response.xls(`Laporan Total Pembelian Per Kategori ${moment(sdate).format(dateFormat)} - ${moment(edate).format(dateFormat)}.xlsx`, data, options);
                         }
                         else
-                        response.xls(`Laporan Total Pembelian Per Kategori ${moment(new Date()).format(dateFormat)}.xlsx`, data,options);
+                        response.xls(`Laporan Total Pembelian Per Kategori.xlsx`, data,options);
                     }
                 })
                 .catch(e => {
