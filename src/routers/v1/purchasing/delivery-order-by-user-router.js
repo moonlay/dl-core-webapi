@@ -1,7 +1,7 @@
 var Router = require('restify-router').Router;
 var router = new Router();
 var db = require("../../../db");
-var CurrencyManager = require("dl-module").managers.master.CurrencyManager;
+var DeliveryOrderManager = require("dl-module").managers.purchasing.DeliveryOrderManager;
 var resultFormatter = require("../../../result-formatter");
 
 var passport = require('../../../passports/jwt-passport');
@@ -9,13 +9,21 @@ const apiVersion = '1.0.0';
 
 router.get("/", passport, function (request, response, next) {
     db.get().then(db => {
-        var manager = new CurrencyManager(db, request.user);
+        var manager = new DeliveryOrderManager(db, request.user);
 
         var sorting = {
             "_updatedDate": -1
         };
+        var filter = {
+            _createdBy: request.user.username
+        };
+
         var query = request.queryInfo;
+        query.filter = filter;
         query.order = sorting;
+        query.select = [
+            "no", "supplier.name", "items"
+        ]
         manager.read(query)
             .then(docs => {
                 var result = resultFormatter.ok(apiVersion, 200, docs.data);
@@ -33,12 +41,11 @@ router.get("/", passport, function (request, response, next) {
         })
 });
 
-router.get("/:id", passport, function (request, response, next) {
+router.get('/:id', passport, (request, response, next) => {
     db.get().then(db => {
-        var manager = new CurrencyManager(db, request.user);
+        var manager = new DeliveryOrderManager(db, request.user);
 
         var id = request.params.id;
-
         manager.getSingleById(id)
             .then(doc => {
                 var result = resultFormatter.ok(apiVersion, 200, doc);
@@ -53,7 +60,7 @@ router.get("/:id", passport, function (request, response, next) {
 
 router.post('/', passport, (request, response, next) => {
     db.get().then(db => {
-        var manager = new CurrencyManager(db, request.user);
+        var manager = new DeliveryOrderManager(db, request.user);
 
         var data = request.body;
 
@@ -67,13 +74,12 @@ router.post('/', passport, (request, response, next) => {
                 var error = resultFormatter.fail(apiVersion, 400, e);
                 response.send(400, error);
             })
-
     })
 });
 
 router.put('/:id', passport, (request, response, next) => {
     db.get().then(db => {
-        var manager = new CurrencyManager(db, request.user);
+        var manager = new DeliveryOrderManager(db, request.user);
 
         var id = request.params.id;
         var data = request.body;
@@ -93,7 +99,7 @@ router.put('/:id', passport, (request, response, next) => {
 
 router.del('/:id', passport, (request, response, next) => {
     db.get().then(db => {
-        var manager = new CurrencyManager(db, request.user);
+        var manager = new DeliveryOrderManager(db, request.user);
 
         var id = request.params.id;
         var data = request.body;
@@ -109,4 +115,5 @@ router.del('/:id', passport, (request, response, next) => {
             })
     })
 });
-module.exports = router;
+
+module.exports = router

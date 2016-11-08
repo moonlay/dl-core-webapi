@@ -1,25 +1,28 @@
 var Router = require('restify-router').Router;
 var router = new Router();
 var db = require("../../../db");
-var UnitPaymentPriceCorrectionNoteManager = require("dl-module").managers.purchasing.UnitPaymentPriceCorrectionNoteManager;
+var UnitReceiptNoteManager = require("dl-module").managers.purchasing.UnitReceiptNoteManager;
 var resultFormatter = require("../../../result-formatter");
 const apiVersion = '1.0.0';
 var passport = require('../../../passports/jwt-passport');
 
 router.get("/", passport, (request, response, next) => {
     db.get().then(db => {
-        var manager = new UnitPaymentPriceCorrectionNoteManager(db, {
-            username: 'router'
-        });
+        var manager = new UnitReceiptNoteManager(db, request.user);
+
         var sorting = {
             "_updatedDate": -1
         };
+        var filter = {
+            _createdBy: request.user.username
+        };
+
         var query = request.queryInfo;
+        query.filter = filter;
         query.order = sorting;
         query.select = [
-            "no", "date", "unitPaymentOrder.no", "unitPaymentOrder.supplier.name", "invoiceCorrectionNo","unitPaymentOrder.dueDate"
-        ]
-        
+            "unit.division", "no", "date", "supplier.name", "deliveryOrder.no"
+        ];
         manager.read(query)
             .then(docs => {
                 var result = resultFormatter.ok(apiVersion, 200, docs.data);
@@ -39,19 +42,19 @@ router.get("/", passport, (request, response, next) => {
 
 var handlePdfRequest = function (request, response, next) {
     db.get().then(db => {
-        var manager = new UnitPaymentPriceCorrectionNoteManager(db, request.user);
+        var manager = new UnitReceiptNoteManager(db, request.user);
 
         var id = request.params.id;
         manager.pdf(id)
             .then(docBinary => {
                 // var base64 = 'data:application/pdf;base64,' + docBinary.toString('base64')
                 var dateFormat = "DD MMMM YYYY";
-                    var locale = 'id-ID';
-                    var moment = require('moment');
-                    moment.locale(locale);
+                var locale = 'id-ID';
+                var moment = require('moment');
+                moment.locale(locale);
                 response.writeHead(200, {
                     'Content-Type': 'application/pdf',
-                    'Content-Disposition': `attachment; filename=Nota Debet - ${moment(new Date()).format(dateFormat)}.pdf`,
+                    'Content-Disposition': `attachment; filename=Bon Terima Unit - ${moment(new Date()).format(dateFormat)}.pdf`,
                     'Content-Length': docBinary.length
                 });
                 response.end(docBinary);
@@ -73,7 +76,7 @@ router.get('/:id', passport, (request, response, next) => {
             next();
         }
         else {
-            var manager = new UnitPaymentPriceCorrectionNoteManager(db, request.user);
+            var manager = new UnitReceiptNoteManager(db, request.user);
             var id = request.params.id;
             manager.getSingleById(id)
                 .then(doc => {
@@ -94,9 +97,8 @@ router.get('/:id', passport, (request, response, next) => {
 
 router.post('/', passport, (request, response, next) => {
     db.get().then(db => {
-        var manager = new UnitPaymentPriceCorrectionNoteManager(db, {
-            username: 'router'
-        });
+
+        var manager = new UnitReceiptNoteManager(db, request.user);
 
         var data = request.body;
         manager.create(data)
@@ -115,9 +117,8 @@ router.post('/', passport, (request, response, next) => {
 
 router.put('/:id', passport, (request, response, next) => {
     db.get().then(db => {
-        var manager = new UnitPaymentPriceCorrectionNoteManager(db, {
-            username: 'router'
-        });
+
+        var manager = new UnitReceiptNoteManager(db, request.user);
 
         var id = request.params.id;
         var data = request.body;
@@ -137,9 +138,8 @@ router.put('/:id', passport, (request, response, next) => {
 
 router.del('/:id', passport, (request, response, next) => {
     db.get().then(db => {
-        var manager = new UnitPaymentPriceCorrectionNoteManager(db, {
-            username: 'router'
-        });
+
+        var manager = new UnitReceiptNoteManager(db, request.user);
 
         var id = request.params.id;
         var data = request.body;
