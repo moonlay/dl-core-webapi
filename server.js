@@ -122,6 +122,9 @@ v1ReportPoCategoryPeriode.applyRoutes(server, "/v1/purchasing/po/reports/categor
 var v1ReportPoUnitPeriode = require('./src/routers/v1/purchasing/reports/purchase-order-report-unit-router');
 v1ReportPoUnitPeriode.applyRoutes(server, "/v1/purchasing/po/reports/units");
 
+var v1ReportPoSubUnitPeriode = require('./src/routers/v1/purchasing/reports/purchase-order-report-sub-unit-router');
+v1ReportPoSubUnitPeriode.applyRoutes(server, "/v1/purchasing/po/reports/subUnits");
+
 var v1UnitReceiptNote = require('./src/routers/v1/purchasing/unit-receipt-note-do-router');
 v1UnitReceiptNote.applyRoutes(server, "/v1/purchasing/receipt-note/unit/do");
 
