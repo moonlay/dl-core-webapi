@@ -11,14 +11,16 @@ router.get("/", passport, function(request, response, next) {
         var manager = new PurchaseOrderManager(db, request.user);
         var sdate = request.params.dateFrom;
         var edate = request.params.dateTo;
-        manager.getDataPOUnit(sdate, edate)
+        var unit = request.params.unit;
+
+        manager.getDataPODetailUnit(sdate, edate, unit)
             .then(docs => {
                 if ((request.headers.accept || '').toString().indexOf("application/xls") < 0) {
                     var result = resultFormatter.ok(apiVersion, 200, docs);
                     response.send(200, result);
                 }
                 else {
-                    var dateFormat = "DD MMMM YYYY";
+                     var dateFormat = "DD MMMM YYYY";
                         var dateFormat2 = "DD-MMMM-YYYY";
                         var locale = 'id-ID';
                         var moment = require('moment');
@@ -64,14 +66,13 @@ router.get("/", passport, function(request, response, next) {
                          }
                         if(sdate!="undefined" && edate!="undefined")
                         {
-                            response.xls(`Laporan Total Pembelian Per Unit ${moment(sdate).format(dateFormat)} - ${moment(edate).format(dateFormat)}.xlsx`, data,options);
+                            response.xls(`Laporan Total Pembelian Per Sub Unit ${moment(sdate).format(dateFormat)} - ${moment(edate).format(dateFormat)}.xlsx`, data,options);
                         }
                         else
-                        response.xls(`Laporan Total Pembelian Per Unit.xlsx`, data,options);
+                        response.xls(`Laporan Total Pembelian Per Sub Unit.xlsx`, data,options);
                         
-                    }
-            })
-            .catch(e => {
+                }
+            }).catch(e => {
                 response.send(500, "gagal ambil data");
             });
 
@@ -79,6 +80,7 @@ router.get("/", passport, function(request, response, next) {
         var error = resultFormatter.fail(apiVersion, 400, e);
         response.send(400, error);
     });
+
 });
 
 module.exports = router;
