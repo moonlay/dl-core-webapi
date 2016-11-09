@@ -7,22 +7,23 @@ var resultFormatter = require("../../../result-formatter");
 var passport = require('../../../passports/jwt-passport');
 const apiVersion = '1.0.0';
 
-router.get("/",passport, (request, response, next) => {
+router.get("/", passport, (request, response, next) => {
     db.get().then(db => {
-            var manager = new PurchaseRequestManager(db, request.user);
+        var manager = new PurchaseRequestManager(db, request.user);
 
-            var sorting = {
+        var sorting = {
             "_updatedDate": -1
         };
         var query = request.queryInfo;
         query.order = sorting;
-        query.select=[
-            "unit.division","category.name","date","no","expectedDeliveryDate","_createdBy","isPosted"
+        query.select = [
+            "unit.division", "category.name", "date", "no", "expectedDeliveryDate", "_createdBy", "isPosted"
         ];
         manager.read(query)
             .then(docs => {
                 var result = resultFormatter.ok(apiVersion, 200, docs.data);
                 delete docs.data;
+                delete docs.order;
                 result.info = docs;
                 response.send(200, result);
             })
@@ -36,30 +37,30 @@ router.get("/",passport, (request, response, next) => {
         });
 });
 
-var handlePdfRequest = function(request, response, next) {
+var handlePdfRequest = function (request, response, next) {
     db.get().then(db => {
-            var manager = new PurchaseRequestManager(db, request.user);
+        var manager = new PurchaseRequestManager(db, request.user);
 
-            var id = request.params.id;
-            var dateFormat = "DD MMMM YYYY";
-            var locale = 'id-ID';
-            var moment = require('moment');
-            moment.locale(locale);
-            manager.pdf(id)
-                .then(docBinary => {
-                    // var base64 = 'data:application/pdf;base64,' + docBinary.toString('base64')
-                    response.writeHead(200, {
-                        'Content-Type': 'application/pdf',
-                        'Content-Disposition': `attachment; filename=Purchase Request ${moment(new Date()).format(dateFormat)}.pdf`,
-                        'Content-Length': docBinary.length
-                    });
-                    response.end(docBinary);
-                })
-                .catch(e => {
-                    var error = resultFormatter.fail(apiVersion, 400, e);
-                    response.send(400, error);
+        var id = request.params.id;
+        var dateFormat = "DD MMMM YYYY";
+        var locale = 'id-ID';
+        var moment = require('moment');
+        moment.locale(locale);
+        manager.pdf(id)
+            .then(docBinary => {
+                // var base64 = 'data:application/pdf;base64,' + docBinary.toString('base64')
+                response.writeHead(200, {
+                    'Content-Type': 'application/pdf',
+                    'Content-Disposition': `attachment; filename=Purchase Request ${moment(new Date()).format(dateFormat)}.pdf`,
+                    'Content-Length': docBinary.length
                 });
-        })
+                response.end(docBinary);
+            })
+            .catch(e => {
+                var error = resultFormatter.fail(apiVersion, 400, e);
+                response.send(400, error);
+            });
+    })
         .catch(e => {
             var error = resultFormatter.fail(apiVersion, 400, e);
             response.send(400, error);
@@ -68,23 +69,23 @@ var handlePdfRequest = function(request, response, next) {
 
 router.get('/:id', passport, (request, response, next) => {
     db.get().then(db => {
-            if ((request.headers.accept || '').toString().indexOf("application/pdf") >= 0) {
-                next();
-            }
-            else {
-                var manager = new PurchaseRequestManager(db, request.user);
-                var id = request.params.id;
-                manager.getSingleById(id)
-                    .then(doc => {
-                        var result = resultFormatter.ok(apiVersion, 200, doc);
-                        response.send(200, result);
-                    })
-                    .catch(e => {
-                        var error = resultFormatter.fail(apiVersion, 400, e);
-                        response.send(400, error);
-                    });
-            }
-        })
+        if ((request.headers.accept || '').toString().indexOf("application/pdf") >= 0) {
+            next();
+        }
+        else {
+            var manager = new PurchaseRequestManager(db, request.user);
+            var id = request.params.id;
+            manager.getSingleById(id)
+                .then(doc => {
+                    var result = resultFormatter.ok(apiVersion, 200, doc);
+                    response.send(200, result);
+                })
+                .catch(e => {
+                    var error = resultFormatter.fail(apiVersion, 400, e);
+                    response.send(400, error);
+                });
+        }
+    })
         .catch(e => {
             var error = resultFormatter.fail(apiVersion, 400, e);
             response.send(400, error);
@@ -92,7 +93,7 @@ router.get('/:id', passport, (request, response, next) => {
 }, handlePdfRequest);
 
 
-router.get('/:id',passport, (request, response, next) => {
+router.get('/:id', passport, (request, response, next) => {
     db.get().then(db => {
         var manager = new PurchaseRequestManager(db, request.user);
 
@@ -109,7 +110,7 @@ router.get('/:id',passport, (request, response, next) => {
             });
 
     });
-}); 
+});
 
 router.post('/', passport, (request, response, next) => {
     db.get().then(db => {
@@ -128,7 +129,7 @@ router.post('/', passport, (request, response, next) => {
                 response.send(400, error);
             })
     })
-}); 
+});
 
 router.put('/:id', passport, (request, response, next) => {
     db.get().then(db => {
@@ -150,7 +151,7 @@ router.put('/:id', passport, (request, response, next) => {
     });
 });
 
-router.del('/:id',passport, (request, response, next) => {
+router.del('/:id', passport, (request, response, next) => {
     db.get().then(db => {
         var manager = new PurchaseRequestManager(db, request.user);
 

@@ -17,8 +17,9 @@ router.get('/', passport, (request, response, next) => {
         var supplierId = request.params.supplierId;
         var dateFrom = request.params.dateFrom;
         var dateTo = request.params.dateTo;
+        var createdBy = request.user.username;
 
-        manager.getDataDeliveryOrder(no, supplierId, dateFrom, dateTo)
+        manager.getDataDeliveryOrder(no, supplierId, dateFrom, dateTo,createdBy)
             .then(docs => {
 
                 var dateFormat = "DD MMM YYYY";

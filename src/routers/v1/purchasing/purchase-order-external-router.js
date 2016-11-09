@@ -33,6 +33,7 @@ router.get("/", passport, function (request, response, next) {
                 })
                 var result = resultFormatter.ok(apiVersion, 200, data);
                 delete docs.data;
+                delete docs.order;
                 result.info = docs;
                 response.send(200, result);
             })

@@ -22,12 +22,13 @@ router.get("/", passport, function (request, response, next) {
         query.filter = filter;
         query.order = sorting;
         query.select = [
-            "no", "supplier.name", "items"
+            "no", "date", "supplier.name", "items"
         ]
         manager.read(query)
             .then(docs => {
                 var result = resultFormatter.ok(apiVersion, 200, docs.data);
                 delete docs.data;
+                delete docs.order;
                 result.info = docs;
                 response.send(200, result);
             })

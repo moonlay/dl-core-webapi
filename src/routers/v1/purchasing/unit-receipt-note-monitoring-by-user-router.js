@@ -17,8 +17,9 @@ router.get('/', passport, (request, response, next) => {
         var unitId = request.params.unitId;
         var dateFrom = request.params.dateFrom;
         var dateTo = request.params.dateTo;
+        var createdBy = request.user.username;
 
-        manager.getUnitReceiptNotes(no, unitId, categoryId, supplierId, dateFrom, dateTo)
+        manager.getUnitReceiptNotes(no, unitId, categoryId, supplierId, dateFrom, dateTo,createdBy)
             .then(docs => {
                 var dateFormat = "DD MMM YYYY";
                     var locale = 'id-ID';
