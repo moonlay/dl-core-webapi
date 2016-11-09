@@ -50,12 +50,19 @@ var handlePdfRequest = function (request, response, next) {
         manager.pdf(id)
             .then(docBinary => {
                 // var base64 = 'data:application/pdf;base64,' + docBinary.toString('base64')
-                response.writeHead(200, {
-                    'Content-Type': 'application/pdf',
-                    'Content-Disposition': `attachment; filename=${id}.pdf`,
-                    'Content-Length': docBinary.length
-                });
-                response.end(docBinary);
+                manager.getSingleById(id)
+                    .then(doc => {
+                        response.writeHead(200, {
+                            'Content-Type': 'application/pdf',
+                            'Content-Disposition': `attachment; filename=${doc.no}.pdf`,
+                            'Content-Length': docBinary.length
+                        });
+                        response.end(docBinary);
+                    })
+                    .catch(e => {
+                        var error = resultFormatter.fail(apiVersion, 400, e);
+                        response.send(400, error);
+                    });
             })
             .catch(e => {
                 var error = resultFormatter.fail(apiVersion, 400, e);
