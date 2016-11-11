@@ -18,7 +18,7 @@ router.get("/", passport, (request, response, next) => {
         var query = request.queryInfo;
         query.order = sorting;
         query.select = [
-            "unit.division", "category.name", "purchaseRequest.date", "purchaseRequest.no", "purchaseRequest.expectedDeliveryDate","_createdBy", "isPosted"
+           "unit.division.name","unit.name", "category.name", "purchaseRequest.date", "purchaseRequest.no", "purchaseRequest.expectedDeliveryDate","_createdBy", "isPosted"
         ]
         manager.read(query)
             .then(docs => {
