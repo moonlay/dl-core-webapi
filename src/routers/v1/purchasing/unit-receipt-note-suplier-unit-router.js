@@ -13,16 +13,25 @@ router.get("/", passport, (request, response, next) => {
             username: 'router'
         });
 
-        var query = request.queryInfo;
-        
+        var query = request.queryInfo; 
         var filter = {
             "_deleted": false,
             "supplierId": new ObjectId(query.filter.supplierId),
-            "unitId": new ObjectId(query.filter.unitId) 
+            "unit.division.name": query.filter.division,
+            "items": {
+                $elemMatch:
+                {
+                    "purchaseOrder.categoryId": new ObjectId(query.filter.categoryId),
+                    "purchaseOrder.paymentMethod": query.filter.paymentMethod,
+                    "purchaseOrder.currency.code": query.filter.currencyCode,
+                    "purchaseOrder.vatRate": query.filter.vatRate,
+                    "purchaseOrder.useIncomeTax": query.filter.useIncomeTax
+                }
+
+            }
         };
-        
-        query.filter = filter;
-        
+
+        query.filter = filter; 
         manager.read(query)
             .then(docs => {
                 var result = resultFormatter.ok(apiVersion, 200, docs.data);
