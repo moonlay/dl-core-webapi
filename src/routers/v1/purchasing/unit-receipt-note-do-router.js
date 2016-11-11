@@ -17,6 +17,7 @@ router.get("/", passport, (request, response, next) => {
         
         var filter = {
             "_deleted": false,
+            "isClosed": false,
             "supplierId": new ObjectId(query.filter.supplierId),
             "items": {
                 $elemMatch: {
