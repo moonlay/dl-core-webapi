@@ -51,7 +51,7 @@ router.get('/', passport, (request, response, next) => {
                         index++;
                         var _item = {
                             "No": index,
-                            "Unit": `${item.purchaseOrder.unit.division} - ${item.purchaseOrder.unit.subDivision}`,
+                            "Unit": `${unitReceiptNote.unit.division.name} - ${unitReceiptNote.unit.name}`,
                             "Kategori": item.purchaseOrder.category.name,
                             "No PO Internal": item.purchaseOrder.refNo || "-",
                             "Nama Barang": item.product.name,
