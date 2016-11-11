@@ -17,7 +17,7 @@ router.get("/", passport, (request, response, next) => {
         var query = request.queryInfo;
         query.order = sorting;
         query.select = [
-            "no", "date", "unitPaymentOrder.no", "unitPaymentOrder.supplier.name", "invoiceCorrectionNo","unitPaymentOrder.dueDate"
+            "no", "date", "unitPaymentOrder.no", "unitPaymentOrder.useVat", "unitPaymentOrder.supplier.name", "invoiceCorrectionNo","unitPaymentOrder.dueDate"
         ]
         
         manager.read(query)
