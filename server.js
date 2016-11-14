@@ -144,7 +144,10 @@ var v1UnitReceiptNote = require('./src/routers/v1/purchasing/unit-receipt-note-r
 v1UnitReceiptNote.applyRoutes(server, "/v1/purchasing/receipt-note/unit");
 
 var v1UnitPaymentPriceCorrectionNoteByUser = require('./src/routers/v1/purchasing/unit-payment-price-correction-note-by-user-router');
-v1UnitPaymentPriceCorrectionNoteByUser.applyRoutes(server, "/v1/purchasing/unit-payment-note/price-correction/by-user");
+v1UnitPaymentPriceCorrectionNoteByUser.applyRoutes(server, "/v1/purchasing/unit-payment-note/price-correction/by-user"); 
+ 
+var v1UnitPaymentPriceCorrectionReturNote = require('./src/routers/v1/purchasing/unit-payment-price-correction-retur-note-router');
+v1UnitPaymentPriceCorrectionReturNote.applyRoutes(server, "/v1/purchasing/unit-payment-note/price-correction/retur"); 
 
 var v1UnitPaymentPriceCorrectionNote = require('./src/routers/v1/purchasing/unit-payment-price-correction-note-router');
 v1UnitPaymentPriceCorrectionNote.applyRoutes(server, "/v1/purchasing/unit-payment-note/price-correction");
