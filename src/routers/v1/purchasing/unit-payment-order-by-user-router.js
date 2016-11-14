@@ -55,7 +55,7 @@ var handlePdfRequest = function (request, response, next) {
                 moment.locale(locale);
                 response.writeHead(200, {
                     'Content-Type': 'application/pdf',
-                    'Content-Disposition': `attachment; filename=Nota Itern - ${moment(new Date()).format(dateFormat)}.pdf`,
+                    'Content-Disposition': `attachment; filename=Nota Intern - ${moment(new Date()).format(dateFormat)}.pdf`,
                     'Content-Length': docBinary.length
                 });
                 response.end(docBinary);
