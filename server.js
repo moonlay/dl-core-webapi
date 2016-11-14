@@ -23,7 +23,7 @@ server.use(restify.CORS({
 }));
 // server.use(restify.fullResponse());
 server.use(passport.initialize());
-server.use(function(request, response, next) {
+server.use(function (request, response, next) {
     var query = request.query;
     query.order = !query.order ? {} : JSON.parse(query.order);
     query.filter = !query.filter ? {} : JSON.parse(query.filter);
@@ -58,6 +58,9 @@ v1VatRouter.applyRoutes(server, "/v1/master/vats");
 
 var v1BudgetRouter = require('./src/routers/v1/master/budget-router');
 v1BudgetRouter.applyRoutes(server, "/v1/master/budgets");
+
+var v1UnitNiRouter = require('./src/routers/v1/master/division-router');
+v1UnitNiRouter.applyRoutes(server, "/v1/master/divisions");
 
 var v1PurchaseOrderExternalPostRouter = require('./src/routers/v1/purchasing/purchase-order-external-post-router');
 v1PurchaseOrderExternalPostRouter.applyRoutes(server, "/v1/purchasing/po/externals/post");
@@ -129,35 +132,35 @@ var v1UnitReceiptNote = require('./src/routers/v1/purchasing/unit-receipt-note-d
 v1UnitReceiptNote.applyRoutes(server, "/v1/purchasing/receipt-note/unit/do");
 
 var v1UnitReceiptNoteMonitoringByUser = require('./src/routers/v1/purchasing/unit-receipt-note-monitoring-by-user-router');
-v1UnitReceiptNoteMonitoringByUser.applyRoutes(server, "/v1/purchasing/receipt-note/unit/monitoring/by-user"); 
+v1UnitReceiptNoteMonitoringByUser.applyRoutes(server, "/v1/purchasing/receipt-note/unit/monitoring/by-user");
 
 var v1UnitReceiptNoteMonitoring = require('./src/routers/v1/purchasing/unit-receipt-note-monitoring-router');
-v1UnitReceiptNoteMonitoring.applyRoutes(server, "/v1/purchasing/receipt-note/unit/monitoring"); 
+v1UnitReceiptNoteMonitoring.applyRoutes(server, "/v1/purchasing/receipt-note/unit/monitoring");
 
 var v1UnitReceiptNoteByUser = require('./src/routers/v1/purchasing/unit-receipt-note-by-user-router');
 v1UnitReceiptNoteByUser.applyRoutes(server, "/v1/purchasing/receipt-note/unit/by-user");
 
 var v1UnitReceiptNote = require('./src/routers/v1/purchasing/unit-receipt-note-router');
 v1UnitReceiptNote.applyRoutes(server, "/v1/purchasing/receipt-note/unit");
- 
+
 var v1UnitPaymentPriceCorrectionNoteByUser = require('./src/routers/v1/purchasing/unit-payment-price-correction-note-by-user-router');
 v1UnitPaymentPriceCorrectionNoteByUser.applyRoutes(server, "/v1/purchasing/unit-payment-note/price-correction/by-user"); 
  
 var v1UnitPaymentPriceCorrectionReturNote = require('./src/routers/v1/purchasing/unit-payment-price-correction-retur-note-router');
 v1UnitPaymentPriceCorrectionReturNote.applyRoutes(server, "/v1/purchasing/unit-payment-note/price-correction/retur"); 
- 
+
 var v1UnitPaymentPriceCorrectionNote = require('./src/routers/v1/purchasing/unit-payment-price-correction-note-router');
-v1UnitPaymentPriceCorrectionNote.applyRoutes(server, "/v1/purchasing/unit-payment-note/price-correction"); 
+v1UnitPaymentPriceCorrectionNote.applyRoutes(server, "/v1/purchasing/unit-payment-note/price-correction");
 
 var v1UnitPaymentOrderByUser = require('./src/routers/v1/purchasing/unit-payment-order-by-user-router');
 v1UnitPaymentOrderByUser.applyRoutes(server, "/v1/purchasing/payment-order/unit/by-user");
 
 var v1UnitPaymentOrder = require('./src/routers/v1/purchasing/unit-payment-order-router');
 v1UnitPaymentOrder.applyRoutes(server, "/v1/purchasing/payment-order/unit");
- 
+
 var v1UnitPaymentOrderSupplier = require('./src/routers/v1/purchasing/unit-receipt-note-suplier-unit-router');
 v1UnitPaymentOrderSupplier.applyRoutes(server, "/v1/purchasing/unit-receipt-note-suplier-unit");
- 
+
 // var v1UnitReceiptNote = require('./src/routers/v1/purchasing/unit-receipt-note-pdf-router');
 // v1UnitReceiptNote.applyRoutes(server, "/v1/purchasing/receipt-note/unit/pdf"); 
 
