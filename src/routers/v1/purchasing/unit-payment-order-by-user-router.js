@@ -21,7 +21,7 @@ router.get("/", passport, (request, response, next) => {
         query.filter = filter;
         query.order = sorting;
         query.select = [
-            "unit.division.name","unit.name", "supplier.name", "date", "no", "items"
+            "division.name", "supplier.name", "date", "no", "items"
         ];
         manager.read(query)
             .then(docs => {

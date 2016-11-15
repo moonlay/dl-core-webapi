@@ -55,7 +55,7 @@ router.get('/', passport, (request, response, next) => {
                                 "Jumlah Barang yang Diminta": fulfillment.purchaseOrderQuantity,
                                 "Jumlah Barang yang Datang": fulfillment.deliveredQuantity,
                                 "Jumlah Sisa Barang": `${(fulfillment.purchaseOrderQuantity - sisa)}`,
-                                "Satuan Barang": fulfillment.product.uom.unit
+                                "Satuan Barang": fulfillment.purchaseOrderUom.unit
                             }
                             data.push(_item);
                         }

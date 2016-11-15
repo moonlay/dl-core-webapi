@@ -19,14 +19,14 @@ router.get('/', passport, (request, response, next) => {
         var dateTo = request.params.dateTo;
         var createdBy = request.user.username;
 
-        manager.getDataDeliveryOrder(no, supplierId, dateFrom, dateTo,createdBy)
+        manager.getDataDeliveryOrder(no, supplierId, dateFrom, dateTo, createdBy)
             .then(docs => {
 
                 var dateFormat = "DD MMM YYYY";
                 var locale = 'id-ID';
                 var moment = require('moment');
                 moment.locale(locale);
-                
+
                 var data = [];
                 var index = 0;
                 for (var deliveryOrder of docs) {
@@ -39,6 +39,8 @@ router.get('/', passport, (request, response, next) => {
                                 if (productIdPoItem.equals(productIdFulfillment)) {
                                     for (var poItemFulfillment of poItem.fulfillments) {
                                         sisa += poItemFulfillment.deliveryOderDeliveredQuantity;
+                                        if (poItemFulfillment.deliveryOderNo == deliveryOrder.no)
+                                            break;
                                     }
                                     break;
                                 }
@@ -56,7 +58,7 @@ router.get('/', passport, (request, response, next) => {
                                 "Jumlah Barang yang Diminta": fulfillment.purchaseOrderQuantity,
                                 "Jumlah Barang yang Datang": fulfillment.deliveredQuantity,
                                 "Jumlah Sisa Barang": `${(fulfillment.purchaseOrderQuantity - sisa)}`,
-                                "Satuan Barang": fulfillment.product.uom.unit
+                                "Satuan Barang": fulfillment.purchaseOrderUom.unit
                             }
                             data.push(_item);
                         }
