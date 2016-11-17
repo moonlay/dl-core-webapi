@@ -59,6 +59,12 @@ v1VatRouter.applyRoutes(server, "/v1/master/vats");
 var v1BudgetRouter = require('./src/routers/v1/master/budget-router');
 v1BudgetRouter.applyRoutes(server, "/v1/master/budgets");
 
+var v1MachineRouter = require('./src/routers/v1/master/machine-router');
+v1MachineRouter.applyRoutes(server, "/v1/master/machines");
+
+var v1UsterClassificationRouter = require('./src/routers/v1/master/uster-classification-router');
+v1UsterClassificationRouter.applyRoutes(server, "/v1/master/uster-classifications");
+
 var v1PurchaseOrderExternalPostRouter = require('./src/routers/v1/purchasing/purchase-order-external-post-router');
 v1PurchaseOrderExternalPostRouter.applyRoutes(server, "/v1/purchasing/po/externals/post");
 
@@ -154,6 +160,15 @@ v1UnitPaymentOrder.applyRoutes(server, "/v1/purchasing/payment-order/unit");
  
 var v1UnitPaymentOrderSupplier = require('./src/routers/v1/purchasing/unit-receipt-note-suplier-unit-router');
 v1UnitPaymentOrderSupplier.applyRoutes(server, "/v1/purchasing/unit-receipt-note-suplier-unit");
+ 
+var v1WindingQualitySampling = require('./src/routers/v1/production/spinning/winding/winding-quality-sampling-router');
+v1WindingQualitySampling.applyRoutes(server, "/v1/production/spinning/winding/winding-quality-samplings");
+ 
+var v1ThreadInUster = require('./src/routers/v1/production/spinning/winding/thread-in-uster-classification-router');
+v1ThreadInUster.applyRoutes(server, "/v1/production/spinning/winding/thread-in-uster-classifications");
+  
+var v1WindingQualitySamplingReport = require('./src/routers/v1/production/spinning/winding/reports/winding-quality-sampling-report-router');
+v1WindingQualitySamplingReport.applyRoutes(server, "/v1/production/spinning/winding/reports/winding-quality-samplings");
  
 // var v1UnitReceiptNote = require('./src/routers/v1/purchasing/unit-receipt-note-pdf-router');
 // v1UnitReceiptNote.applyRoutes(server, "/v1/purchasing/receipt-note/unit/pdf"); 
