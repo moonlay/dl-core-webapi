@@ -146,8 +146,8 @@ v1UnitReceiptNote.applyRoutes(server, "/v1/purchasing/receipt-note/unit");
 var v1UnitPaymentPriceCorrectionNoteByUser = require('./src/routers/v1/purchasing/unit-payment-price-correction-note-by-user-router');
 v1UnitPaymentPriceCorrectionNoteByUser.applyRoutes(server, "/v1/purchasing/unit-payment-note/price-correction/by-user"); 
  
-var v1UnitPaymentPriceCorrectionReturNote = require('./src/routers/v1/purchasing/unit-payment-price-correction-retur-note-router');
-v1UnitPaymentPriceCorrectionReturNote.applyRoutes(server, "/v1/purchasing/unit-payment-note/price-correction/retur"); 
+var v1UnitPaymentCorrectionReturNote = require('./src/routers/v1/purchasing/unit-payment-correction-retur-note-router');
+v1UnitPaymentCorrectionReturNote.applyRoutes(server, "/v1/purchasing/unit-payment-correction-note/retur"); 
 
 var v1UnitPaymentPriceCorrectionNote = require('./src/routers/v1/purchasing/unit-payment-price-correction-note-router');
 v1UnitPaymentPriceCorrectionNote.applyRoutes(server, "/v1/purchasing/unit-payment-note/price-correction");
@@ -160,6 +160,12 @@ v1UnitPaymentOrder.applyRoutes(server, "/v1/purchasing/payment-order/unit");
 
 var v1UnitPaymentOrderSupplier = require('./src/routers/v1/purchasing/unit-receipt-note-suplier-unit-router');
 v1UnitPaymentOrderSupplier.applyRoutes(server, "/v1/purchasing/unit-receipt-note-suplier-unit");
+
+var v1UnitPaymentQuantityCorrectionNoteByUser = require('./src/routers/v1/purchasing/unit-payment-quantity-correction-note-by-user-router');
+v1UnitPaymentQuantityCorrectionNoteByUser.applyRoutes(server, "/v1/purchasing/unit-payment-note/quantity-correction/by-user"); 
+
+var v1UnitPaymentQuantityCorrectionNote = require('./src/routers/v1/purchasing/unit-payment-quantity-correction-note-router');
+v1UnitPaymentQuantityCorrectionNote.applyRoutes(server, "/v1/purchasing/unit-payment-note/quantity-correction");
 
 // var v1UnitReceiptNote = require('./src/routers/v1/purchasing/unit-receipt-note-pdf-router');
 // v1UnitReceiptNote.applyRoutes(server, "/v1/purchasing/receipt-note/unit/pdf"); 
