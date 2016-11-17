@@ -37,7 +37,7 @@ router.get('/', passport, (request, response, next) => {
                                 index++;
                                 var _item = {
                                     "No":index,
-                                    "Unit": purchaseRequest.unit.subDivision,
+                                    "Unit": `${purchaseRequest.unit.division.name} - ${purchaseRequest.unit.name}`,
                                     "Budget": purchaseRequest.budget.name,
                                     "Kategori":purchaseRequest.category.name,
                                     "Tanggal PR": moment(new Date(purchaseRequest.date)).format(dateFormat2),
