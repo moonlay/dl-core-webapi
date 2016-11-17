@@ -20,7 +20,7 @@ router.get("/", passport, (request, response, next) => {
         query.filter = filter;
         query.order = sorting;
         query.select = [
-            "no", "date", "unitPaymentOrder.no", "unitPaymentOrder.supplier.name", "invoiceCorrectionNo", "unitPaymentOrder.dueDate"
+            "no", "date", "unitPaymentOrder.no", "unitPaymentOrder.useIncomeTax", "unitPaymentOrder.supplier.name", "invoiceCorrectionNo", "unitPaymentOrder.dueDate"
         ]
 
         manager.read(query)

@@ -19,51 +19,56 @@ router.get('/', passport, (request, response, next) => {
         var dateTo = request.params.dateTo;
         var createdBy = request.user.username;
 
-        manager.getUnitReceiptNotes(no, unitId, categoryId, supplierId, dateFrom, dateTo,createdBy)
+        manager.getUnitReceiptNotes(no, unitId, categoryId, supplierId, dateFrom, dateTo, createdBy)
             .then(docs => {
                 var dateFormat = "DD MMM YYYY";
-                    var locale = 'id-ID';
-                    var moment = require('moment');
-                    moment.locale(locale);
-                    
-                    var data = [];
-                    var index = 0;
-                    for (var unitReceiptNote of docs) {
-                        for (var item of unitReceiptNote.items) {
-                            var sisa = 0;
-                            for(var poItem of item.purchaseOrder.items){
-                                var productIdPoItem = new ObjectId(poItem.product._id);
-                                var productIdUnitReceiptNoteItem = new ObjectId(item.product._id);
-                                if (productIdPoItem.equals(productIdUnitReceiptNoteItem)) {
-                                    for (var poItemFulfillment of poItem.fulfillments) {
-                                        var qty = poItemFulfillment.unitReceiptNoteDeliveredQuantity || 0;
-                                        sisa += qty;
+                var locale = 'id-ID';
+                var moment = require('moment');
+                moment.locale(locale);
+
+                var data = [];
+                var index = 0;
+
+                for (var unitReceiptNote of docs) {
+                    for (var item of unitReceiptNote.items) {
+                        var sisa = 0;
+                        for (var doItem of unitReceiptNote.deliveryOrder.items) {
+                            if (doItem.purchaseOrderExternal._id.toString() == item.purchaseOrder.purchaseOrderExternal._id.toString()) {
+                                for (var fulfillment of doItem.fulfillments) {
+                                    if (item.product._id.toString() == fulfillment.product._id.toString()) {
+                                        for (var qty of fulfillment.realizationQuantity) {
+                                            sisa += qty.deliveredQuantity;
+                                            if (qty.no == unitReceiptNote.no)
+                                                break;
+                                        }
+                                        break;
                                     }
-                                    break;
                                 }
+                                break;
                             }
-                            
-                            index++;
-                            var _item = {
-                                "No": index,
-                                "Unit": `${item.purchaseOrder.unit.division} - ${item.purchaseOrder.unit.subDivision}`,
-                                "Kategori": item.purchaseOrder.category.name,
-                                "No PO Internal": item.purchaseOrder.refNo || "-",
-                                "Nama Barang": item.product.name,
-                                "Kode Barang": item.product.code,
-                                "Supplier": unitReceiptNote.supplier.name,
-                                "Tanggal Bon Terima Unit": moment(new Date(unitReceiptNote.date)).format(dateFormat),
-                                "No Bon Terima Unit": unitReceiptNote.no,
-                                "Jumlah Diminta": item.purchaseOrderQuantity,
-                                "Satuan Diminta": item.deliveredUom.unit,
-                                "Jumlah Diterima": item.deliveredQuantity,
-                                "Satuan Diterima": item.deliveredUom.unit,
-                                "Jumlah (+/-/0)": (item.purchaseOrderQuantity || 0) - sisa
-                            }
-                            data.push(_item);
                         }
+
+                        index++;
+                        var _item = {
+                            "No": index,
+                            "Unit": `${unitReceiptNote.unit.division.name} - ${unitReceiptNote.unit.name}`,
+                            "Kategori": item.purchaseOrder.category.name,
+                            "No PO Internal": item.purchaseOrder.refNo || "-",
+                            "Nama Barang": item.product.name,
+                            "Kode Barang": item.product.code,
+                            "Supplier": unitReceiptNote.supplier.name,
+                            "Tanggal Bon Terima Unit": moment(new Date(unitReceiptNote.date)).format(dateFormat),
+                            "No Bon Terima Unit": unitReceiptNote.no,
+                            "Jumlah Diminta": item.purchaseOrderQuantity,
+                            "Satuan Diminta": item.deliveredUom.unit,
+                            "Jumlah Diterima": item.deliveredQuantity,
+                            "Satuan Diterima": item.deliveredUom.unit,
+                            "Jumlah (+/-/0)": (item.purchaseOrderQuantity || 0) - sisa
+                        }
+                        data.push(_item);
                     }
-                    
+                }
+
                 if ((request.headers.accept || '').toString().indexOf("application/xls") < 0) {
                     var result = resultFormatter.ok(apiVersion, 200, data);
                     response.send(200, result);
