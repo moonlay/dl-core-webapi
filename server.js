@@ -26,34 +26,33 @@ server.use(function (request, response, next) {
 
 
 var v1BuyerRouter = require('./src/routers/v1/master/buyer-router');
-v1BuyerRouter.applyRoutes(server, "/v1/master/buyers");
-
 var v1SupplierRouter = require('./src/routers/v1/master/supplier-router');
-v1SupplierRouter.applyRoutes(server, "/v1/master/suppliers/");
-
 var v1ProductRouter = require('./src/routers/v1/master/product-router');
-v1ProductRouter.applyRoutes(server, "/v1/master/products");
-
 var v1UoMRouter = require('./src/routers/v1/master/uom-router');
-v1UoMRouter.applyRoutes(server, "/v1/master/uoms");
-
 var v1UnitRouter = require('./src/routers/v1/master/unit-router');
-v1UnitRouter.applyRoutes(server, "/v1/master/units");
-
 var v1CategoryRouter = require('./src/routers/v1/master/category-router');
-v1CategoryRouter.applyRoutes(server, "/v1/master/categories");
-
 var v1CurrencyRouter = require('./src/routers/v1/master/currency-router');
-v1CurrencyRouter.applyRoutes(server, "/v1/master/currencies");
-
 var v1VatRouter = require('./src/routers/v1/master/vat-router');
-v1VatRouter.applyRoutes(server, "/v1/master/vats");
-
 var v1BudgetRouter = require('./src/routers/v1/master/budget-router');
-v1BudgetRouter.applyRoutes(server, "/v1/master/budgets");
-
 var v1UnitNiRouter = require('./src/routers/v1/master/division-router');
-v1UnitNiRouter.applyRoutes(server, "/v1/master/divisions");
+
+
+v1BuyerRouter.applyRoutes(server,       "/v1/master/buyers");
+v1SupplierRouter.applyRoutes(server,    "/v1/master/suppliers/");
+v1ProductRouter.applyRoutes(server,     "/v1/master/products");
+v1UoMRouter.applyRoutes(server,         "/v1/master/uoms");
+v1UnitRouter.applyRoutes(server,        "/v1/master/units");
+v1CategoryRouter.applyRoutes(server,    "/v1/master/categories");
+v1CurrencyRouter.applyRoutes(server,    "/v1/master/currencies");
+v1VatRouter.applyRoutes(server,         "/v1/master/vats");
+v1BudgetRouter.applyRoutes(server,      "/v1/master/budgets");
+v1UnitNiRouter.applyRoutes(server,      "/v1/master/divisions");
+
+
+
+var v1PowerBiRouter = require('./src/routers/v1/core/power-bi-router');
+v1PowerBiRouter.applyRoutes(server,     "/v1/core/power-bi/reports");
+
 
 server.listen(process.env.PORT, process.env.IP);
 console.log(`server created at ${process.env.IP}:${process.env.PORT}`)
