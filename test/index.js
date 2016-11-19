@@ -30,10 +30,5 @@ describe('@dl-core-webapi', function () {
     test("/v1/master/general", "./routers/master/general-router-test");
     test("/v1/master/uoms", "./routers/master/uom-router-test");
     test("/v1/master/units", "./routers/master/unit-router-test");
-    test("/v1/master/categories", "./routers/master/category-router-test");
-   
-    //Purchasing
-    test("/v1/purchasing/purchase-orders", "./routers/purchasing/purchase-order-router-test");
-    test("/v1/purchasing/purchase-order-externals", "./routers/purchasing/purchase-order-external-router-test");
-    test("/v1/purchasing/delivery-orders", "./routers/purchasing/delivery-order-router-test");
+    test("/v1/master/categories", "./routers/master/category-router-test"); 
 });
