@@ -14,6 +14,8 @@ router.get("/", passport, function (request, response, next) {
         var sorting = {
             "_updatedDate": -1
         };
+
+
         var query = request.queryInfo;
         query.order = sorting;
         manager.read(query)
