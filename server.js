@@ -37,7 +37,8 @@ var v1BudgetRouter = require('./src/routers/v1/master/budget-router');
 var v1UnitNiRouter = require('./src/routers/v1/master/division-router');
 var v1MachineRouter = require('./src/routers/v1/master/machine-router');
 var v1UsterRouter = require('./src/routers/v1/master/uster-router');
-
+var v1LotMachineRouter = require('./src/routers/v1/master/lot-machine-router');
+var v1ThreadSpecificationRouter= require('./src/routers/v1/master/thread-specification-router');
 
 
 v1BuyerRouter.applyRoutes(server,       "/v1/master/buyers");
@@ -52,6 +53,8 @@ v1BudgetRouter.applyRoutes(server,      "/v1/master/budgets");
 v1UnitNiRouter.applyRoutes(server,      "/v1/master/divisions");
 v1MachineRouter.applyRoutes(server,     "/v1/master/machines");
 v1UsterRouter.applyRoutes(server,       "/v1/master/usters");
+v1LotMachineRouter.applyRoutes(server,     "/v1/master/lots");
+v1ThreadSpecificationRouter.applyRoutes(server,     "/v1/master/thread-specifications");
 
 
 
