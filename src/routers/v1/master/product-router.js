@@ -12,7 +12,7 @@ router.get("/", passport, function (request, response, next) {
         var manager = new ProductManager(db, request.user);
 
         var sorting = {
-            "_updatedDate": -1
+            "name": 1
         };
         var query = request.queryInfo;
         query.order = sorting;
