@@ -1,23 +1,18 @@
 function test(name, path) {
-    describe(name, function () {
+    describe(name, function() {
         require(path);
-    })
+    });
 }
 
-var server = require('./server');
-
-before('initialize server', function (done) {
-    server
-        .then(uri => {
-            console.log(uri);
+before("initialize server", function(done) {
+    var server = require("../server");
+    server()
+        .then((server) => {
             done();
-        })
-        .catch(e => done(e));
-})
-
-
-
-describe('@dl-core-webapi', function () {
+        });
+});
+ 
+describe('@dl-core-webapi', function() {
     this.timeout(2 * 60000);
     //Master
     test("/v1/master/buyers", "./routers/master/buyer-router-test");
@@ -30,5 +25,5 @@ describe('@dl-core-webapi', function () {
     test("/v1/master/general", "./routers/master/general-router-test");
     test("/v1/master/uoms", "./routers/master/uom-router-test");
     test("/v1/master/units", "./routers/master/unit-router-test");
-    test("/v1/master/categories", "./routers/master/category-router-test"); 
+    test("/v1/master/categories", "./routers/master/category-router-test");
 });
