@@ -5,6 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha test/index.js",
+    "cover": "istanbul cover _mocha",
+    "coveralls": "npm run cover -- --report lcovonly && cat ./coverage/lcov.info | coveralls",
     "start": "node index.js"
   },
   "engines": {
@@ -23,8 +25,10 @@
   "homepage": "https://github.com/danliris/dl-core-webapi#readme",
   "dependencies": {
     "assert": "^1.4.1",
+    "dl-models": "git+https://github.com/danliris/dl-models.git",
     "dl-module": "git+https://github.com/danliris/dl-module.git#dev",
     "json2xls": "^0.1.2",
+    "jsonwebtoken": "^7.2.0",
     "mongo-factory": "^1.0.0",
     "mongodb": "^2.2.5",
     "ms-rest": "^1.15.2",
@@ -36,7 +40,10 @@
     "restify-router": "^0.2.1"
   },
   "devDependencies": {
+    "coveralls": "^2.11.15",
+    "istanbul": "^0.4.5",
     "mocha": "^3.0.0",
+    "mocha-lcov-reporter": "^1.2.0",
     "should": "^10.0.0",
     "supertest": "^2.0.0"
   },

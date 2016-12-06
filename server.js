@@ -1,6 +1,6 @@
 'use strict';
 
-function server() {
+function server(manual) {
     try {
 
         var restify = require('restify');
@@ -30,8 +30,10 @@ function server() {
         require("./routes/default")(server);
         require("./routes/v1")(server);
 
-        server.listen(process.env.PORT, process.env.IP);
-        console.log(`server created at ${process.env.IP}:${process.env.PORT}`);
+        if (!manual) {
+            server.listen(process.env.PORT, process.env.IP);
+            console.log(`server created at ${process.env.IP}:${process.env.PORT}`);
+        }
 
         return Promise.resolve(server);
     }
