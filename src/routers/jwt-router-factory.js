@@ -8,7 +8,7 @@ function getJWTRouter(ManagerType, opts) {
     var options = opts || {
         version: "1.0.0"
     };
-    
+
     var apiVersion = options.version || "1.0.0";
     var defaultOrder = options.defaultOrder || {};
 
@@ -40,8 +40,11 @@ function getJWTRouter(ManagerType, opts) {
                 response.send(result.statusCode, result);
             })
             .catch((e) => {
-                var error = resultFormatter.fail(apiVersion, 500, e);
-                response.send(error.statusCode, error);
+                var statusCode = 500;
+                if (e.name === "ValidationError")
+                    statusCode = 400;
+                var error = resultFormatter.fail(apiVersion, statusCode, e);
+                response.send(statusCode, error);
             });
     });
 
@@ -68,8 +71,11 @@ function getJWTRouter(ManagerType, opts) {
                 response.send(result.statusCode, result);
             })
             .catch((e) => {
-                var error = resultFormatter.fail(apiVersion, 500, e);
-                response.send(500, error);
+                var statusCode = 500;
+                if (e.name === "ValidationError")
+                    statusCode = 400;
+                var error = resultFormatter.fail(apiVersion, statusCode, e);
+                response.send(statusCode, error);
             });
     });
 
@@ -90,12 +96,11 @@ function getJWTRouter(ManagerType, opts) {
                 response.send(result.statusCode, result);
             })
             .catch((e) => {
-                var result;
-                if (e.errors)
-                    result = resultFormatter.fail(apiVersion, 400, e);
-                else
-                    result = resultFormatter.fail(apiVersion, 500, e);
-                response.send(result.statusCode, result);
+                var statusCode = 500;
+                if (e.name === "ValidationError")
+                    statusCode = 400;
+                var error = resultFormatter.fail(apiVersion, statusCode, e);
+                response.send(statusCode, error);
             });
     });
 
@@ -126,8 +131,11 @@ function getJWTRouter(ManagerType, opts) {
                 response.send(result.statusCode, result);
             })
             .catch((e) => {
-                var error = resultFormatter.fail(apiVersion, 500, e);
-                response.send(500, error);
+                var statusCode = 500;
+                if (e.name === "ValidationError")
+                    statusCode = 400;
+                var error = resultFormatter.fail(apiVersion, statusCode, e);
+                response.send(statusCode, error);
             });
     });
 
@@ -157,8 +165,11 @@ function getJWTRouter(ManagerType, opts) {
                 response.send(result.statusCode, result);
             })
             .catch((e) => {
-                var error = resultFormatter.fail(apiVersion, 500, e);
-                response.send(500, error);
+                var statusCode = 500;
+                if (e.name === "ValidationError")
+                    statusCode = 400;
+                var error = resultFormatter.fail(apiVersion, statusCode, e);
+                response.send(statusCode, error);
             });
     });
 
