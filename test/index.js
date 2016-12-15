@@ -45,8 +45,8 @@ describe('@dl-core-webapi', function() {
     test("~/master/category", "./routes/master/category");
     test("~/master/category", "./routes/master/currency");
     test("~/master/division", "./routes/master/division");
-    // test("~/master/lot-machine", "./routes/master/lot-machine");
-    // test("~/master/machine", "./routes/master/machine");
+    test("~/master/lot-machine", "./routes/master/lot-machine");
+    test("~/master/machine", "./routes/master/machine");
     test("~/master/product", "./routes/master/product");
     test("~/master/supplier", "./routes/master/supplier"); 
     test("~/master/thread-specification", "./routes/master/thread-specification");
