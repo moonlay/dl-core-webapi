@@ -13,7 +13,6 @@
  var v1LotMachineRouter = require('../src/routers/v1/master/lot-machine-router');
  var v1ThreadSpecificationRouter = require('../src/routers/v1/master/thread-specification-router');
  var v1LampStandardRouter = require('../src/routers/v1/master/lamp-standard-router');
- var v1InstructionRouter = require('../src/routers/v1/master/instruction-router');
  var v1PowerBiRouter = require('../src/routers/v1/core/power-bi-router');
 
 
@@ -34,7 +33,6 @@
      v1LotMachineRouter().applyRoutes(server,               "/v1/master/lots");
      v1ThreadSpecificationRouter().applyRoutes(server,      "/v1/master/thread-specifications");
      v1LampStandardRouter().applyRoutes(server,             "/v1/master/lamp-standards");
-     v1InstructionRouter().applyRoutes(server,              "/v1/master/instructions");
 
      v1PowerBiRouter().applyRoutes(server,                  "/v1/core/power-bi/reports");
  };
