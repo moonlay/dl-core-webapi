@@ -23,6 +23,7 @@
  var v1UploadCategoryRouter = require('../src/routers/v1/master/upload-category-router');
  var v1UploadUnitRouter = require('../src/routers/v1/master/upload-unit-router');
  var v1PowerBiRouter = require('../src/routers/v1/core/power-bi-router');
+ var v1LampStandardRouter = require('../src/routers/v1/master/lamp-standard-router');
 
 
  module.exports = function(server) {
@@ -40,7 +41,7 @@
      v1MachineRouter().applyRoutes(server,                  "/master/machines");
      v1UsterRouter().applyRoutes(server,                    "/master/usters");
      v1LotMachineRouter().applyRoutes(server,               "/master/lots");
-     v1ThreadSpecificationRouter().applyRoutes(server,      "/master/thread-specifications");
+     v1ThreadSpecificationRouter().applyRoutes(server,      "/master/thread-specifications"); 
      v1UploadUomRouter().applyRoutes(server,                "/master/upload-uoms");
      v1UploadBuyerRouter().applyRoutes(server,              "/master/upload-buyers");
      v1UploadSupplierRouter().applyRoutes(server,           "/master/upload-suppliers");
@@ -50,7 +51,8 @@
      v1UploadCurrencyRouter().applyRoutes(server,           "/master/upload-currencies");
      v1UploadDivisionRouter().applyRoutes(server,           "/master/upload-divisions");
      v1UploadCategoryRouter().applyRoutes(server,           "/master/upload-categories");
-     v1UploadUnitRouter().applyRoutes(server,               "/master/upload-units");
+     v1UploadUnitRouter().applyRoutes(server,               "/master/upload-units"); 
+     v1LampStandardRouter().applyRoutes(server,             "/master/lamp-standards"); 
 
      v1PowerBiRouter().applyRoutes(server,                  "/core/power-bi/reports");
  };
