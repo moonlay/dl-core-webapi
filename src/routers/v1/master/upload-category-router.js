@@ -29,7 +29,7 @@ function getRouter() {
                 })
                 .on('end', function (data) {
                     dataAll = dataCsv;
-                    if (dataAll[0][0] === "Kode" && dataAll[0][1] === "Name" && dataAll[0][2] === "Kode Kebutuhan") {
+                    if (dataAll[0][0] === "Kode" && dataAll[0][1] === "Nama" && dataAll[0][2] === "Kode Kebutuhan") {
                         manager.insert(dataAll)
                             .then(doc => {
                                 if (doc[0]["Error"] === undefined) {
@@ -50,7 +50,7 @@ function getRouter() {
                                     }
                                     var options = {
                                         "Kode": "string",
-                                        "Name": "string",
+                                        "Nama": "string",
                                         "Kode Kebutuhan": "string",
                                         "Error": "string"
                                     };
