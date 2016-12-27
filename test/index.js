@@ -5,37 +5,7 @@ function test(name, path) {
 }
 
 describe('@dl-core-webapi', function () { 
-    before("initialize server", function (done) { 
-    this.timeout(2 * 60000);
-        var server = require("../server");
-        server(true)
-            .then((server) => {
-                const apiVersion = '1.0.0'; 
-                var Router = require('restify-router').Router;
-                var router = new Router();
-                var resultFormatter = require("../src/result-formatter");
-                var passport = require('../src/passports/local-passport'); 
-                router.post('/', passport, (request, response, next) => {
-                    var account = request.user; 
-                    var jwt = require("jsonwebtoken");
-                    var token = jwt.sign({
-                        username: account.username,
-                        profile: account.profile,
-                        roles: account.roles
-                    }, process.env.AUTH_SECRET);
-
-                    var result = resultFormatter.ok(apiVersion, 200, token);
-                    response.send(200, result);
-                }); 
-                router.applyRoutes(server, "/authenticate");
-                server.listen(process.env.PORT, process.env.IP);
-                console.log(`server created at ${process.env.IP}:${process.env.PORT}`); 
-                done();
-            })
-            .catch(e => {
-                done(e);
-            });
-    });
+  
     this.timeout(2 * 60000);
     //Master
     test("~/master/budget", "./routes/master/budget");
