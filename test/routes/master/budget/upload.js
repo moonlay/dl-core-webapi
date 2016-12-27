@@ -2,14 +2,20 @@ require("should");
 const host = `${process.env.IP}:${process.env.PORT}`;
 var Request = require("supertest");
 var ObjectId = require("mongodb").ObjectId;
-
-var request = Request(host);
+var server = require("../../../test-server");
+var request;// = Request(server);
 var jwt;
+
+before("#00. init server", function(done){
+    server().then(server=>{
+        request = Request(server);
+        done();
+    });
+})
 
 it(`#01. should error when upload invalid file`, function (done) {
     request
-        .post('/v1/master/upload-budgets')
-        .field('Kode', 'Nama')
+        .post('/v1/master/upload-budgets') 
         .attach('fileUpload', "test/files/Master Budget - Invalid.csv")
         .end(function (err, response) {
             if (err)
@@ -25,8 +31,7 @@ it(`#01. should error when upload invalid file`, function (done) {
 
 it(`#02. should succes when upload valid file`, function (done) {
     request
-        .post('/v1/master/upload-budgets')
-        .field('Kode', 'Nama')
+        .post('/v1/master/upload-budgets') 
         .attach('fileUpload', "test/files/Master Budget - Valid.csv")
         .end(function (err, response) {
             if (err)
