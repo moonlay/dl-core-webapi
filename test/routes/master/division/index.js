@@ -5,7 +5,6 @@ describe("BASIC SCENARIOS", function() {
 describe("UNAUTHORIZED SCENARIOS", function() {
     require("./unauthorized");
 });
-
 describe("UPLOAD SCENARIOS", function() {
     require("./upload");
 });
