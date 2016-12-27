@@ -29,7 +29,7 @@ router.post('/',(request, response, next) => {
             })
             .on('end', function (data) {
                 dataAll = dataCsv;
-                if (dataAll[0][0] === "Name" && dataAll[0][1] === "Rate" && dataAll[0][2] === "Description") {
+                if (dataAll[0][0] === "Nama" && dataAll[0][1] === "Rate" && dataAll[0][2] === "Deskripsi") {
                     manager.insert(dataAll)
                         .then(doc => {
                             if (doc[0]["Error"] === undefined) {
@@ -38,9 +38,9 @@ router.post('/',(request, response, next) => {
                             }
                             else {
                                 var options = {
-                                    "Name": "string", 
+                                    "Nama": "string", 
                                     "Rate": "string", 
-                                    "Description": "string", 
+                                    "Deskripsi": "string", 
                                     "Error": "string"
                                 };
                                 response.xls(`Error Log-VAT ${moment(new Date()).format(dateFormat)}.xlsx`, doc, options);
