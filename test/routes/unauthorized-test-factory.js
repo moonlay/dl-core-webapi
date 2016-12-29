@@ -1,6 +1,7 @@
 require("should");
 const host = `${process.env.IP}:${process.env.PORT}`;
 var Request = require("supertest");
+var getTestServer = require("../test-server");
 var ObjectId = require("mongodb").ObjectId;
 
 function getUnauthorizedTest(opt) {
@@ -8,14 +9,22 @@ function getUnauthorizedTest(opt) {
     var options = opt || {};
     var uri = options.uri;
 
-    var request = Request(host);
+    var request;
+    var jwt;
 
-    it(`#01. get list without security token - [GET]${uri}`, function(done) {
+    before("#00. get security token", function (done) {
+        getTestServer().then((server) => {
+            request = Request(server);
+            done();
+        });
+    });
+
+    it(`#01. get list without security token - [GET]${uri}`, function (done) {
         request
             .get(uri)
             .set("Accept", "application/json")
             .expect(401)
-            .end(function(err, response) {
+            .end(function (err, response) {
                 if (err)
                     done(err);
                 else {
@@ -24,12 +33,12 @@ function getUnauthorizedTest(opt) {
             });
     });
 
-    it(`#02. get data without security token - [GET]${uri}/:id`, function(done) {
+    it(`#02. get data without security token - [GET]${uri}/:id`, function (done) {
         request
             .get(`${uri}/${new ObjectId()}`)
             .set("Accept", "application/json")
             .expect(401)
-            .end(function(err, response) {
+            .end(function (err, response) {
                 if (err)
                     done(err);
                 else {
@@ -38,13 +47,13 @@ function getUnauthorizedTest(opt) {
             });
     });
 
-    it(`#03. create data without security token - [GET]${uri}`, function(done) {
+    it(`#03. create data without security token - [GET]${uri}`, function (done) {
         request
             .post(uri)
             .set("Accept", "application/json")
             .send({})
             .expect(401)
-            .end(function(err, response) {
+            .end(function (err, response) {
                 if (err)
                     done(err);
                 else {
@@ -54,13 +63,13 @@ function getUnauthorizedTest(opt) {
     });
 
 
-    it(`#04. update data without security token - [GET]${uri}/:id`, function(done) {
+    it(`#04. update data without security token - [GET]${uri}/:id`, function (done) {
         request
             .put(`${uri}/${new ObjectId()}`)
             .set("Accept", "application/json")
             .send({})
             .expect(401)
-            .end(function(err, response) {
+            .end(function (err, response) {
                 if (err)
                     done(err);
                 else {
@@ -70,12 +79,12 @@ function getUnauthorizedTest(opt) {
     });
 
 
-    it(`#05. delete data without security token - [GET]${uri}/:id`, function(done) {
+    it(`#05. delete data without security token - [GET]${uri}/:id`, function (done) {
         request
             .delete(`${uri}/${new ObjectId()}`)
             .set("Accept", "application/json")
             .expect(401)
-            .end(function(err, response) {
+            .end(function (err, response) {
                 if (err)
                     done(err);
                 else {
