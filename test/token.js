@@ -1,13 +1,10 @@
 require("should");
-var Request = require("supertest");
 var Account = require("dl-module").test.data.auth.account;
-const host = `${process.env.IP}:${process.env.PORT}`;
-var request = Request(host);
 
-function getToken() {
-    return new Promise((resolve, reject) => {
-        Account.getTestData()
-            .then((account) => {
+function getToken(request) {
+    return Account.getTestData()
+        .then((account) => {
+            return new Promise((resolve, reject) => { 
                 request
                     .post("/authenticate")
                     .send({
@@ -15,17 +12,16 @@ function getToken() {
                         password: "Standar123"
                     })
                     .expect(200)
-                    .end(function(err, response) {
+                    .end(function (err, response) {
                         if (err)
                             reject(err);
                         else {
-                            var result = response.body;
-                            // result.data.should.instanceOf(Array);
+                            var result = response.body; 
                             resolve(result.data);
                         }
                     });
-            });
-    });
+            })
+        });
 }
 
 
