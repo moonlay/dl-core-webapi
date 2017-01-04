@@ -54,4 +54,5 @@ describe('@dl-core-webapi', function() {
     test("~/master/uom", "./routes/master/uom");
     test("~/master/uster", "./routes/master/uster");
     test("~/master/vat", "./routes/master/vat");
+    test("~/master/step", "./routes/master/step");
 });
