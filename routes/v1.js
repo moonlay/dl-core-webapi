@@ -29,7 +29,7 @@
  module.exports = function(server) {
  
      v1BuyerRouter().applyRoutes(server,                    "/v1/master/buyers");
-     v1SupplierRouter().applyRoutes(server,                 "/v1/master/suppliers/");
+     v1SupplierRouter().applyRoutes(server,                 "/v1/master/suppliers");
      v1ProductRouter().applyRoutes(server,                  "/v1/master/products");
      v1UoMRouter().applyRoutes(server,                      "/v1/master/uoms");
      v1UnitRouter().applyRoutes(server,                     "/v1/master/units");
