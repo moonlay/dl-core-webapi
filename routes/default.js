@@ -31,7 +31,7 @@
  module.exports = function(server) {
  
      v1BuyerRouter().applyRoutes(server,                    "/master/buyers");
-     v1SupplierRouter().applyRoutes(server,                 "/master/suppliers/");
+     v1SupplierRouter().applyRoutes(server,                 "/master/suppliers");
      v1ProductRouter().applyRoutes(server,                  "/master/products");
      v1UoMRouter().applyRoutes(server,                      "/master/uoms");
      v1UnitRouter().applyRoutes(server,                     "/master/units");
