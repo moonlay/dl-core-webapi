@@ -23,6 +23,8 @@
  var v1UploadCategoryRouter = require('../src/routers/v1/master/upload-category-router');
  var v1UploadUnitRouter = require('../src/routers/v1/master/upload-unit-router'); 
  var v1LampStandardRouter = require('../src/routers/v1/master/lamp-standard-router'); 
+ var v1ProcessTypeRouter = require('../src/routers/v1/master/process-type-router');
+ var v1OrderTypeRouter = require('../src/routers/v1/master/order-type-router');
  var v1PowerBiRouter = require('../src/routers/v1/core/power-bi-router');
 
 
@@ -53,6 +55,8 @@
      v1UploadCategoryRouter().applyRoutes(server,           "/v1/master/upload-categories");
      v1UploadUnitRouter().applyRoutes(server,               "/v1/master/upload-units"); 
      v1LampStandardRouter().applyRoutes(server,             "/v1/master/lamp-standards"); 
+     v1ProcessTypeRouter().applyRoutes(server,              "/v1/master/process-types"); 
+     v1OrderTypeRouter().applyRoutes(server,                "/v1/master/order-types"); 
 
      v1PowerBiRouter().applyRoutes(server,                  "/v1/core/power-bi/reports");
  };

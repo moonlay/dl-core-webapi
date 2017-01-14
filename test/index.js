@@ -24,4 +24,6 @@ describe('@dl-core-webapi', function () {
     test("~/master/uster", "./routes/master/uster");
     test("~/master/vat", "./routes/master/vat");
     test("~/master/lamp-standard", "./routes/master/lamp-standard");
+    test("~/master/order-type", "./routes/master/order-type");
+    test("~/master/process-type", "./routes/master/process-type");
 });
