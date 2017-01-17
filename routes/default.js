@@ -24,12 +24,14 @@
  var v1UploadUnitRouter = require('../src/routers/v1/master/upload-unit-router');
  var v1PowerBiRouter = require('../src/routers/v1/core/power-bi-router');
  var v1LampStandardRouter = require('../src/routers/v1/master/lamp-standard-router');
+ var v1ProcessTypeRouter = require('../src/routers/v1/master/process-type-router');
+ var v1OrderTypeRouter = require('../src/routers/v1/master/order-type-router');
 
 
  module.exports = function(server) {
  
      v1BuyerRouter().applyRoutes(server,                    "/master/buyers");
-     v1SupplierRouter().applyRoutes(server,                 "/master/suppliers/");
+     v1SupplierRouter().applyRoutes(server,                 "/master/suppliers");
      v1ProductRouter().applyRoutes(server,                  "/master/products");
      v1UoMRouter().applyRoutes(server,                      "/master/uoms");
      v1UnitRouter().applyRoutes(server,                     "/master/units");
@@ -53,6 +55,8 @@
      v1UploadCategoryRouter().applyRoutes(server,           "/master/upload-categories");
      v1UploadUnitRouter().applyRoutes(server,               "/master/upload-units"); 
      v1LampStandardRouter().applyRoutes(server,             "/master/lamp-standards"); 
+     v1ProcessTypeRouter().applyRoutes(server,              "/master/process-types"); 
+     v1OrderTypeRouter().applyRoutes(server,                "/master/order-types"); 
 
      v1PowerBiRouter().applyRoutes(server,                  "/core/power-bi/reports");
  };
