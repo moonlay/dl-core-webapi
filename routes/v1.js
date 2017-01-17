@@ -14,6 +14,7 @@
  var v1ThreadSpecificationRouter = require('../src/routers/v1/master/thread-specification-router');
  var v1LampStandardRouter = require('../src/routers/v1/master/lamp-standard-router');
  var v1PowerBiRouter = require('../src/routers/v1/core/power-bi-router');
+ var v1MonitoringEventTypeRouter = require('../src/routers/v1/master/monitoring-event-type-router');
 
 
  module.exports = function(server) {
@@ -33,6 +34,7 @@
      v1LotMachineRouter().applyRoutes(server,               "/v1/master/lots");
      v1ThreadSpecificationRouter().applyRoutes(server,      "/v1/master/thread-specifications");
      v1LampStandardRouter().applyRoutes(server,             "/v1/master/lamp-standards");
+     v1MonitoringEventTypeRouter().applyRoutes(server,      "/v1/master/monitoring-event-types");
 
      v1PowerBiRouter().applyRoutes(server,                  "/v1/core/power-bi/reports");
  };
