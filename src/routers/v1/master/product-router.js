@@ -5,7 +5,7 @@ function getRouter() {
     var router = JwtRouterFactory(Manager, {
         version: apiVersion,
         defaultOrder: {
-            "name": 1
+            "code": 1
         }
     });
     return router;
