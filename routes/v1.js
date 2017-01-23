@@ -13,6 +13,19 @@
  var v1LotMachineRouter = require('../src/routers/v1/master/lot-machine-router');
  var v1ThreadSpecificationRouter = require('../src/routers/v1/master/thread-specification-router');
  var v1StepRouter = require('../src/routers/v1/master/step-router');
+ var v1InstructionRouter = require('../src/routers/v1/master/instruction-router');
+ var v1ThreadSpecificationRouter = require('../src/routers/v1/master/thread-specification-router'); 
+ var v1UploadUomRouter = require('../src/routers/v1/master/upload-uom-router');
+ var v1UploadBuyerRouter = require('../src/routers/v1/master/upload-buyer-router');
+ var v1UploadSupplierRouter = require('../src/routers/v1/master/upload-supplier-router');
+ var v1UploadProductRouter = require('../src/routers/v1/master/upload-product-router');
+ var v1UploadVatRouter = require('../src/routers/v1/master/upload-vat-router');
+ var v1UploadBudgetRouter = require('../src/routers/v1/master/upload-budget-router');
+ var v1UploadCurrencyRouter = require('../src/routers/v1/master/upload-currency-router');
+ var v1UploadDivisionRouter = require('../src/routers/v1/master/upload-division-router');
+ var v1UploadCategoryRouter = require('../src/routers/v1/master/upload-category-router');
+ var v1UploadUnitRouter = require('../src/routers/v1/master/upload-unit-router'); 
+ var v1LampStandardRouter = require('../src/routers/v1/master/lamp-standard-router'); 
  var v1PowerBiRouter = require('../src/routers/v1/core/power-bi-router');
 
 
@@ -33,6 +46,19 @@
      v1LotMachineRouter().applyRoutes(server,               "/v1/master/lots");
      v1ThreadSpecificationRouter().applyRoutes(server,      "/v1/master/thread-specifications");
      v1StepRouter().applyRoutes(server,                     "/v1/master/steps");
+     v1InstructionRouter().applyRoutes(server,              "/v1/master/instructions");
+     v1ThreadSpecificationRouter().applyRoutes(server,      "/v1/master/thread-specifications"); 
+     v1UploadUomRouter().applyRoutes(server,                "/v1/master/upload-uoms");
+     v1UploadBuyerRouter().applyRoutes(server,              "/v1/master/upload-buyers");
+     v1UploadSupplierRouter().applyRoutes(server,           "/v1/master/upload-suppliers");
+     v1UploadProductRouter().applyRoutes(server,            "/v1/master/upload-products");
+     v1UploadVatRouter().applyRoutes(server,                "/v1/master/upload-vats");
+     v1UploadBudgetRouter().applyRoutes(server,             "/v1/master/upload-budgets");
+     v1UploadCurrencyRouter().applyRoutes(server,           "/v1/master/upload-currencies");
+     v1UploadDivisionRouter().applyRoutes(server,           "/v1/master/upload-divisions");
+     v1UploadCategoryRouter().applyRoutes(server,           "/v1/master/upload-categories");
+     v1UploadUnitRouter().applyRoutes(server,               "/v1/master/upload-units"); 
+     v1LampStandardRouter().applyRoutes(server,             "/v1/master/lamp-standards"); 
 
      v1PowerBiRouter().applyRoutes(server,                  "/v1/core/power-bi/reports");
  };
