@@ -29,7 +29,7 @@ function server() {
 
         require("./routes/default")(server);
         require("./routes/v1")(server);
- 
+        
         return Promise.resolve(server);
     }
     catch (ex) {
