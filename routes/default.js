@@ -27,10 +27,10 @@
  var v1UploadUnitRouter = require('../src/routers/v1/master/upload-unit-router');
  var v1PowerBiRouter = require('../src/routers/v1/core/power-bi-router');
  var v1LampStandardRouter = require('../src/routers/v1/master/lamp-standard-router');
-var v1ProcessTypeRouter = require('../src/routers/v1/master/process-type-router');
-var v1OrderTypeRouter = require('../src/routers/v1/master/order-type-router');
-var v1MachineTypeRouter = require('../src/routers/v1/master/machine-type-router');
-
+ var v1MonitoringEventTypeRouter = require('../src/routers/v1/master/monitoring-event-type-router');
+ var v1ProcessTypeRouter = require('../src/routers/v1/master/process-type-router');
+ var v1OrderTypeRouter = require('../src/routers/v1/master/order-type-router');
+ var v1MachineTypeRouter = require('../src/routers/v1/master/machine-type-router');
 
  module.exports = function(server) {
  
@@ -47,6 +47,7 @@ var v1MachineTypeRouter = require('../src/routers/v1/master/machine-type-router'
      v1MachineRouter().applyRoutes(server,                  "/master/machines");
      v1UsterRouter().applyRoutes(server,                    "/master/usters");
      v1LotMachineRouter().applyRoutes(server,               "/master/lots");
+     v1MonitoringEventTypeRouter().applyRoutes(server,      "/master/monitoring-event-types");
      v1ThreadSpecificationRouter().applyRoutes(server,      "/master/thread-specifications");
      v1StepRouter().applyRoutes(server,                     "/master/steps");
      v1InstructionRouter().applyRoutes(server,              "/master/instructions");
@@ -61,11 +62,8 @@ var v1MachineTypeRouter = require('../src/routers/v1/master/machine-type-router'
      v1UploadCategoryRouter().applyRoutes(server,           "/master/upload-categories");
      v1UploadUnitRouter().applyRoutes(server,               "/master/upload-units"); 
      v1LampStandardRouter().applyRoutes(server,             "/master/lamp-standards");
-    v1ProcessTypeRouter().applyRoutes(server, "/master/process-types");
-    v1OrderTypeRouter().applyRoutes(server, "/master/order-types");
-    v1MachineTypeRouter().applyRoutes(server, "/master/machine-types")
-
-    v1PowerBiRouter().applyRoutes(server, "/core/power-bi/reports"); 
-
-
+     v1ProcessTypeRouter().applyRoutes(server,              "/master/process-types");
+     v1OrderTypeRouter().applyRoutes(server,                "/master/order-types");
+     v1MachineTypeRouter().applyRoutes(server,              "/master/machine-types")
+     v1PowerBiRouter().applyRoutes(server,                  "/core/power-bi/reports"); 
 };
