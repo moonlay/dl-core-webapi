@@ -31,6 +31,10 @@
  var v1ProcessTypeRouter = require('../src/routers/v1/master/process-type-router');
  var v1OrderTypeRouter = require('../src/routers/v1/master/order-type-router');
  var v1MachineTypeRouter = require('../src/routers/v1/master/machine-type-router');
+ var v1MaterialConstructionRouter = require('../src/routers/v1/master/material-construction-router');
+ var v1FinishTypeRouter = require('../src/routers/v1/master/finish-type-router');
+ var v1YarnMaterialRouter = require('../src/routers/v1/master/yarn-material-router');
+ var v1StandardTestRouter = require('../src/routers/v1/master/standard-test-router');
 
  module.exports = function(server) {
  
@@ -64,6 +68,10 @@
      v1LampStandardRouter().applyRoutes(server,             "/master/lamp-standards");
      v1ProcessTypeRouter().applyRoutes(server,              "/master/process-types");
      v1OrderTypeRouter().applyRoutes(server,                "/master/order-types");
-     v1MachineTypeRouter().applyRoutes(server,              "/master/machine-types")
+     v1MachineTypeRouter().applyRoutes(server,              "/master/machine-types");
+     v1MaterialConstructionRouter().applyRoutes(server,     "/master/material-constructions");
+     v1FinishTypeRouter().applyRoutes(server,               "/master/finish-types");
+     v1YarnMaterialRouter().applyRoutes(server,             "/master/yarn-materials");
+     v1StandardTestRouter().applyRoutes(server,             "/master/standard-tests");
      v1PowerBiRouter().applyRoutes(server,                  "/core/power-bi/reports"); 
 };
