@@ -30,6 +30,7 @@
  var v1OrderTypeRouter = require('../src/routers/v1/master/order-type-router');
  var v1MonitoringEventTypeRouter = require('../src/routers/v1/master/monitoring-event-type-router');
  var v1MachineTypeRouter = require('../src/routers/v1/master/machine-type-router');
+ var v1MachineEventRouter = require('../src/routers/v1/master/machine-event-router');
 
  module.exports = function(server) {
  
@@ -64,5 +65,6 @@
      v1ProcessTypeRouter().applyRoutes(server,              "/v1/master/process-types");
      v1OrderTypeRouter().applyRoutes(server,                "/v1/master/order-types");
      v1MachineTypeRouter().applyRoutes(server,              "/v1/master/machine-types");
+     v1MachineEventRouter().applyRoutes(server,             "/v1/master/machine-events");
      v1PowerBiRouter().applyRoutes(server,                  "/v1/core/power-bi/reports");
 };
