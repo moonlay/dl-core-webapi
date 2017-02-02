@@ -29,7 +29,6 @@ describe('@dl-core-webapi', function () {
     test("~/master/instruction", "./routes/master/instruction");
     test("~/master/order-type", "./routes/master/order-type");
     test("~/master/process-type", "./routes/master/process-type");
-    test("~/master/monitoring-event-type", "./routes/master/monitoring-event-type");
     test("~/master/material-construction", "./routes/master/material-construction");
     test("~/master/finish-type", "./routes/master/finish-type");
     test("~/master/standard-test", "./routes/master/standard-test");
