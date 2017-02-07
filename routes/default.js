@@ -35,6 +35,7 @@
  var v1FinishTypeRouter = require('../src/routers/v1/master/finish-type-router');
  var v1YarnMaterialRouter = require('../src/routers/v1/master/yarn-material-router');
  var v1StandardTestRouter = require('../src/routers/v1/master/standard-test-router');
+ var v1ColorTypeRouter = require('../src/routers/v1/master/color-type-router');
 
  module.exports = function(server) {
  
@@ -73,5 +74,6 @@
      v1FinishTypeRouter().applyRoutes(server,               "/master/finish-types");
      v1YarnMaterialRouter().applyRoutes(server,             "/master/yarn-materials");
      v1StandardTestRouter().applyRoutes(server,             "/master/standard-tests");
+     v1ColorTypeRouter().applyRoutes(server,                "/master/color-types");
      v1PowerBiRouter().applyRoutes(server,                  "/core/power-bi/reports"); 
 };
