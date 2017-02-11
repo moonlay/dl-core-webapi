@@ -1,5 +1,5 @@
  var unauthorizedTest = require("../../unauthorized-test-factory");
  unauthorizedTest({
-     uri: "/master/monitoring-event-types"
+     uri: "/master/material-constructions"
  });
  
