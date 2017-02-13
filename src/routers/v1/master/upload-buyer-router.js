@@ -29,7 +29,7 @@ function getRouter() {
                 })
                 .on('end', function (data) {
                     dataAll = dataCsv;
-                    if (dataAll[0][0] === "Kode Buyer" && dataAll[0][1] === "Nama" && dataAll[0][2] === "Alamat" && dataAll[0][3] === "Negara" && dataAll[0][4] === "Jenis Buyer" && dataAll[0][5] === "Kontak" && dataAll[0][6] === "Tempo") {
+                    if (dataAll[0][0] === "Kode Buyer" && dataAll[0][1] === "Nama" && dataAll[0][2] === "Alamat" && dataAll[0][3] === "Kota" && dataAll[0][4] === "Negara" && dataAll[0][5] === "Jenis Buyer" && dataAll[0][6] === "Kontak" && dataAll[0][7] === "Tempo") {
                         manager.insert(dataAll)
                             .then(doc => {
                                 if (doc[0]["Error"] === undefined) {
@@ -43,6 +43,7 @@ function getRouter() {
                                             "Kode Buyer": item.code,
                                             "Nama": item.name,
                                             "Alamat": item.address,
+                                            "Kota": item.city,
                                             "Negara": item.country,
                                             "Jenis Buyer":item.type,
                                             "Kontak": item.contact,
@@ -56,6 +57,7 @@ function getRouter() {
                                         "Kode Buyer": "string",
                                         "Nama": "string",
                                         "Alamat": "string",
+                                        "Kota": "string",
                                         "Negara": "string",
                                         "Jenis Buyer": "string",
                                         "Kontak": "string",
