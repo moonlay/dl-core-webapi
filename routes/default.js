@@ -2,6 +2,7 @@
  var v1BuyerRouter = require('../src/routers/v1/master/buyer-router');
  var v1SupplierRouter = require('../src/routers/v1/master/supplier-router');
  var v1ProductRouter = require('../src/routers/v1/master/product-router');
+ var v1ProductByIdRouter = require('../src/routers/v1/master/product-by-id-router');
  var v1UoMRouter = require('../src/routers/v1/master/uom-router');
  var v1UnitRouter = require('../src/routers/v1/master/unit-router');
  var v1CategoryRouter = require('../src/routers/v1/master/category-router');
@@ -41,6 +42,7 @@
  
      v1BuyerRouter().applyRoutes(server,                    "/master/buyers");
      v1SupplierRouter().applyRoutes(server,                 "/master/suppliers/");
+     v1ProductByIdRouter().applyRoutes(server,              "/master/products/byId");
      v1ProductRouter().applyRoutes(server,                  "/master/products");
      v1UoMRouter().applyRoutes(server,                      "/master/uoms");
      v1UnitRouter().applyRoutes(server,                     "/master/units");
