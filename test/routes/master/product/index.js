@@ -9,3 +9,7 @@ describe("UNAUTHORIZED SCENARIOS", function() {
 describe("UPLOAD SCENARIOS", function() {
     require("./upload");
 });
+
+describe("READ SCENARIOS", function() {
+    require("./read-by-id");
+});
