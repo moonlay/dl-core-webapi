@@ -1,52 +1,22 @@
 function test(name, path) {
-    describe(name, function() {
+    describe(name, function () {
         require(path);
     });
 }
 
-before("initialize server", function(done) {
-    var server = require("../server");
-    server(true)
-        .then((server) => {
-            const apiVersion = '1.0.0';
-
-            var Router = require('restify-router').Router;
-            var router = new Router();
-            var resultFormatter = require("../src/result-formatter");
-            var passport = require('../src/passports/local-passport');
-
-            router.post('/', passport, (request, response, next) => {
-                var account = request.user;
-
-                var jwt = require("jsonwebtoken");
-                var token = jwt.sign({
-                    username: account.username,
-                    profile: account.profile,
-                    roles: account.roles
-                }, process.env.AUTH_SECRET);
-
-                var result = resultFormatter.ok(apiVersion, 200, token);
-                response.send(200, result);
-            });
-
-            router.applyRoutes(server, "/authenticate");
-            server.listen(process.env.PORT, process.env.IP);
-            console.log(`server created at ${process.env.IP}:${process.env.PORT}`);
-
-            done();
-        });
-});
-
-describe('@dl-core-webapi', function() {
+describe('@dl-core-webapi', function () { 
+  
     this.timeout(2 * 60000);
     //Master
     test("~/master/budget", "./routes/master/budget");
+    test('~/master/budget/upload', './routes/master/budget/upload');
     test("~/master/buyer", "./routes/master/buyer");
     test("~/master/category", "./routes/master/category");
     test("~/master/category", "./routes/master/currency");
     test("~/master/division", "./routes/master/division");
     test("~/master/lot-machine", "./routes/master/lot-machine");
     test("~/master/machine", "./routes/master/machine");
+    test("~/master/machine-type","./routes/master/machine-type");
     test("~/master/product", "./routes/master/product");
     test("~/master/supplier", "./routes/master/supplier"); 
     test("~/master/thread-specification", "./routes/master/thread-specification");
@@ -54,5 +24,14 @@ describe('@dl-core-webapi', function() {
     test("~/master/uom", "./routes/master/uom");
     test("~/master/uster", "./routes/master/uster");
     test("~/master/vat", "./routes/master/vat");
+    test("~/master/step", "./routes/master/step");
     test("~/master/lamp-standard", "./routes/master/lamp-standard");
+    test("~/master/instruction", "./routes/master/instruction");
+    test("~/master/order-type", "./routes/master/order-type");
+    test("~/master/process-type", "./routes/master/process-type");
+    test("~/master/material-construction", "./routes/master/material-construction");
+    test("~/master/finish-type", "./routes/master/finish-type");
+    test("~/master/standard-test", "./routes/master/standard-test");
+    test("~/master/yarn-material", "./routes/master/yarn-material");
+    test("~/master/color-type", "./routes/master/color-type");
 });
