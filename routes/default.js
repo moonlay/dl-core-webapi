@@ -39,6 +39,7 @@
  var v1ColorTypeRouter = require('../src/routers/v1/master/color-type-router');
  var v1ComodityRouter = require('../src/routers/v1/master/comodity-router');
  var v1QualityRouter = require('../src/routers/v1/master/quality-router');
+ var v1AccountBankRouter = require('../src/routers/v1/master/account-bank-router');
 
  module.exports = function(server) {
  
@@ -81,6 +82,7 @@
      v1ColorTypeRouter().applyRoutes(server,                "/master/color-types");
      v1ComodityRouter().applyRoutes(server,                 "/master/comodities");
      v1QualityRouter().applyRoutes(server,                  "/master/qualities");
-     
+     v1AccountBankRouter().applyRoutes(server,              "/master/account-banks");
+
      v1PowerBiRouter().applyRoutes(server,                  "/core/power-bi/reports"); 
 };
