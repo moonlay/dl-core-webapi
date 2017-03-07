@@ -1,11 +1,12 @@
-var Manager = require("dl-module").managers.master.ProductManager;
+var Manager = require("dl-module").managers.master.QualityManager;
 var JwtRouterFactory = require("../../jwt-router-factory");
 const apiVersion = '1.0.0';
+
 function getRouter() {
     var router = JwtRouterFactory(Manager, {
         version: apiVersion,
         defaultOrder: {
-            "code": 1
+            "_updatedDate": -1
         }
     });
     return router;
