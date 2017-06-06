@@ -41,6 +41,7 @@
  var v1AccountBankRouter = require('../src/routers/v1/master/account-bank-router');
  var v1TermOfPaymentRouter = require('../src/routers/v1/master/term-of-payment-router');
  var v1DesignMotiveRouter = require('../src/routers/v1/master/design-motive-router');
+ var v1StorageBankRouter = require('../src/routers/v1/master/storage-router');
 
  module.exports = function(server) {
  
@@ -86,6 +87,7 @@
      v1AccountBankRouter().applyRoutes(server,              "/v1/master/account-banks");
      v1TermOfPaymentRouter().applyRoutes(server,            "/v1/master/term-of-payments");
      v1DesignMotiveRouter().applyRoutes(server,             "/v1/master/design-motives");
+     v1StorageBankRouter().applyRoutes(server,              "/v1/master/storages");
 
      v1PowerBiRouter().applyRoutes(server,                  "/v1/core/power-bi/reports");
 };
