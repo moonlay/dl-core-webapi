@@ -18,6 +18,7 @@ describe('@dl-core-webapi', function () {
     test("~/master/machine", "./routes/master/machine");
     test("~/master/machine-type","./routes/master/machine-type");
     test("~/master/product", "./routes/master/product");
+    test("~/master/garment-product", "./routes/master/garment-product");
     test("~/master/supplier", "./routes/master/supplier"); 
     test("~/master/thread-specification", "./routes/master/thread-specification");
     test("~/master/unit", "./routes/master/unit");
