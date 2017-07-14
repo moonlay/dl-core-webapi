@@ -2,6 +2,7 @@
  var v1BuyerRouter = require('../src/routers/v1/master/buyer-router');
  var v1SupplierRouter = require('../src/routers/v1/master/supplier-router');
  var v1ProductRouter = require('../src/routers/v1/master/product-router');
+ var v1GarmentProductRouter = require('../src/routers/v1/master/garment-product-router');
  var v1ProductByIdRouter = require('../src/routers/v1/master/product-by-id-router');
  var v1UoMRouter = require('../src/routers/v1/master/uom-router');
  var v1UnitRouter = require('../src/routers/v1/master/unit-router');
@@ -20,6 +21,7 @@
  var v1UploadBuyerRouter = require('../src/routers/v1/master/upload-buyer-router');
  var v1UploadSupplierRouter = require('../src/routers/v1/master/upload-supplier-router');
  var v1UploadProductRouter = require('../src/routers/v1/master/upload-product-router');
+ var v1UploadGarmentProductRouter = require('../src/routers/v1/master/upload-garment-product-router');
  var v1UploadVatRouter = require('../src/routers/v1/master/upload-vat-router');
  var v1UploadBudgetRouter = require('../src/routers/v1/master/upload-budget-router');
  var v1UploadCurrencyRouter = require('../src/routers/v1/master/upload-currency-router');
@@ -43,6 +45,8 @@
  var v1TermOfPaymentRouter = require('../src/routers/v1/master/term-of-payment-router');
  var v1DesignMotiveRouter = require('../src/routers/v1/master/design-motive-router');
  var v1StorageBankRouter = require('../src/routers/v1/master/storage-router');
+ var v1CompanyRouter = require('../src/routers/v1/master/company-router');
+ var v1ContactRouter = require('../src/routers/v1/master/contact-router');
 
  module.exports = function(server) {
  
@@ -50,6 +54,7 @@
      v1SupplierRouter().applyRoutes(server,                 "/master/suppliers/");
      v1ProductByIdRouter().applyRoutes(server,              "/master/products/byId");
      v1ProductRouter().applyRoutes(server,                  "/master/products");
+     v1GarmentProductRouter().applyRoutes(server,           "/master/garment-products");
      v1UoMRouter().applyRoutes(server,                      "/master/uoms");
      v1UnitRouter().applyRoutes(server,                     "/master/units");
      v1CategoryRouter().applyRoutes(server,                 "/master/categories");
@@ -67,6 +72,7 @@
      v1UploadBuyerRouter().applyRoutes(server,              "/master/upload-buyers");
      v1UploadSupplierRouter().applyRoutes(server,           "/master/upload-suppliers");
      v1UploadProductRouter().applyRoutes(server,            "/master/upload-products");
+     v1UploadGarmentProductRouter().applyRoutes(server,     "/master/upload-garment-products");
      v1UploadVatRouter().applyRoutes(server,                "/master/upload-vats");
      v1UploadBudgetRouter().applyRoutes(server,             "/master/upload-budgets");
      v1UploadCurrencyRouter().applyRoutes(server,           "/master/upload-currencies");
@@ -89,6 +95,8 @@
      v1TermOfPaymentRouter().applyRoutes(server,            "/master/term-of-payments");
      v1DesignMotiveRouter().applyRoutes(server,             "/master/design-motives");
      v1StorageBankRouter().applyRoutes(server,              "/master/storages");
+     v1CompanyRouter().applyRoutes(server,                  "/master/companies");
+     v1ContactRouter().applyRoutes(server,                  "/master/contacts");
 
      v1PowerBiRouter().applyRoutes(server,                  "/core/power-bi/reports"); 
 };
