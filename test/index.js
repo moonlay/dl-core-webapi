@@ -18,6 +18,7 @@ describe('@dl-core-webapi', function () {
     test("~/master/machine", "./routes/master/machine");
     test("~/master/machine-type","./routes/master/machine-type");
     test("~/master/product", "./routes/master/product");
+    test("~/master/garment-product", "./routes/master/garment-product");
     test("~/master/supplier", "./routes/master/supplier"); 
     test("~/master/thread-specification", "./routes/master/thread-specification");
     test("~/master/unit", "./routes/master/unit");
@@ -39,4 +40,6 @@ describe('@dl-core-webapi', function () {
     test("~/master/account-bank", "./routes/master/account-bank");
     test("~/master/term-of-payment", "./routes/master/term-of-payment");
     test("~/master/design-motive", "./routes/master/design-motive");
+    test("~/master/company", "./routes/master/company");
+    test("~/master/contact", "./routes/master/contact");
 });
