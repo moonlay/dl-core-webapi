@@ -1,11 +1,13 @@
  var v1BuyerRouter = require('../src/routers/v1/master/buyer-router');
  var v1SupplierRouter = require('../src/routers/v1/master/supplier-router');
+ var v1GarmentSupplierRouter = require('../src/routers/v1/master/garment-supplier-router');
  var v1ProductRouter = require('../src/routers/v1/master/product-router');
  var v1GarmentProductRouter = require('../src/routers/v1/master/garment-product-router');
  var v1ProductByIdRouter = require('../src/routers/v1/master/product-by-id-router');
  var v1UoMRouter = require('../src/routers/v1/master/uom-router');
  var v1UnitRouter = require('../src/routers/v1/master/unit-router');
  var v1CategoryRouter = require('../src/routers/v1/master/category-router');
+ var v1GarmentCategoryRouter = require('../src/routers/v1/master/garment-category-router');
  var v1CurrencyRouter = require('../src/routers/v1/master/currency-router');
  var v1VatRouter = require('../src/routers/v1/master/vat-router');
  var v1BudgetRouter = require('../src/routers/v1/master/budget-router');
@@ -51,12 +53,14 @@
  
      v1BuyerRouter().applyRoutes(server,                    "/v1/master/buyers");
      v1SupplierRouter().applyRoutes(server,                 "/v1/master/suppliers/");
+     v1GarmentSupplierRouter().applyRoutes(server,          "/v1/master/garment-suppliers/");
      v1ProductByIdRouter().applyRoutes(server,              "/v1/master/products/byId");
      v1ProductRouter().applyRoutes(server,                  "/v1/master/products");
      v1GarmentProductRouter().applyRoutes(server,           "/v1/master/garment-products");
      v1UoMRouter().applyRoutes(server,                      "/v1/master/uoms");
      v1UnitRouter().applyRoutes(server,                     "/v1/master/units");
      v1CategoryRouter().applyRoutes(server,                 "/v1/master/categories");
+     v1GarmentCategoryRouter().applyRoutes(server,          "/v1/master/garment-categories");
      v1CurrencyRouter().applyRoutes(server,                 "/v1/master/currencies");
      v1VatRouter().applyRoutes(server,                      "/v1/master/vats");
      v1BudgetRouter().applyRoutes(server,                   "/v1/master/budgets");
