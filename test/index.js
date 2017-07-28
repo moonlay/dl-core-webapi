@@ -40,4 +40,6 @@ describe('@dl-core-webapi', function () {
     test("~/master/account-bank", "./routes/master/account-bank");
     test("~/master/term-of-payment", "./routes/master/term-of-payment");
     test("~/master/design-motive", "./routes/master/design-motive");
+    test("~/master/company", "./routes/master/company");
+    test("~/master/contact", "./routes/master/contact");
 });
