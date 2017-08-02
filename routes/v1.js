@@ -21,7 +21,9 @@
  var v1InstructionRouter = require('../src/routers/v1/master/instruction-router'); 
  var v1UploadUomRouter = require('../src/routers/v1/master/upload-uom-router');
  var v1UploadBuyerRouter = require('../src/routers/v1/master/upload-buyer-router');
+ var v1UploadGarmentBuyerRouter = require('../src/routers/v1/master/upload-garment-buyer-router');
  var v1UploadSupplierRouter = require('../src/routers/v1/master/upload-supplier-router');
+ var v1UploadGarmentSupplierRouter = require('../src/routers/v1/master/upload-garment-supplier-router');
  var v1UploadProductRouter = require('../src/routers/v1/master/upload-product-router');
  var v1UploadGarmentProductRouter = require('../src/routers/v1/master/upload-garment-product-router');
  var v1UploadVatRouter = require('../src/routers/v1/master/upload-vat-router');
@@ -29,6 +31,7 @@
  var v1UploadCurrencyRouter = require('../src/routers/v1/master/upload-currency-router');
  var v1UploadDivisionRouter = require('../src/routers/v1/master/upload-division-router');
  var v1UploadCategoryRouter = require('../src/routers/v1/master/upload-category-router');
+ var v1UploadGarmentCategoryRouter = require('../src/routers/v1/master/upload-garment-category-router');
  var v1UploadUnitRouter = require('../src/routers/v1/master/upload-unit-router'); 
  var v1LampStandardRouter = require('../src/routers/v1/master/lamp-standard-router'); 
  var v1PowerBiRouter = require('../src/routers/v1/core/power-bi-router');
@@ -75,7 +78,9 @@
      v1InstructionRouter().applyRoutes(server,              "/v1/master/instructions"); 
      v1UploadUomRouter().applyRoutes(server,                "/v1/master/upload-uoms");
      v1UploadBuyerRouter().applyRoutes(server,              "/v1/master/upload-buyers");
+     v1UploadGarmentBuyerRouter().applyRoutes(server,       "/v1/master/upload-garment-buyers");
      v1UploadSupplierRouter().applyRoutes(server,           "/v1/master/upload-suppliers");
+     v1UploadGarmentSupplierRouter().applyRoutes(server,    "/v1/master/upload-garment-suppliers");
      v1UploadProductRouter().applyRoutes(server,            "/v1/master/upload-products");
      v1UploadGarmentProductRouter().applyRoutes(server,     "/v1/master/upload-garment-products");
      v1UploadVatRouter().applyRoutes(server,                "/v1/master/upload-vats");
@@ -83,6 +88,7 @@
      v1UploadCurrencyRouter().applyRoutes(server,           "/v1/master/upload-currencies");
      v1UploadDivisionRouter().applyRoutes(server,           "/v1/master/upload-divisions");
      v1UploadCategoryRouter().applyRoutes(server,           "/v1/master/upload-categories");
+     v1UploadGarmentCategoryRouter().applyRoutes(server,    "/v1/master/upload-garment-categories");
      v1UploadUnitRouter().applyRoutes(server,               "/v1/master/upload-units"); 
      v1LampStandardRouter().applyRoutes(server,             "/v1/master/lamp-standards"); 
      v1ProcessTypeRouter().applyRoutes(server,              "/v1/master/process-types");

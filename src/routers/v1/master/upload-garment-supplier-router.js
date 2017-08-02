@@ -4,7 +4,7 @@ var resultFormatter = require("../../../result-formatter");
 var passport = require("../../../passports/jwt-passport");
 var fs = require('fs');
 var csv = require('fast-csv');
-var ProductManager = require('dl-module').managers.master.GarmentProductManager;
+var SupplierManager = require('dl-module').managers.master.GarmentSupplierManager;
 const apiVersion = '1.0.0';
 
 function getRouter() {
@@ -18,7 +18,7 @@ function getRouter() {
         db.get().then(db => {
             var dataCsv = [];
             var dataAll;
-            var manager = new ProductManager(db, {
+            var manager = new SupplierManager(db, {
                 username: 'router'
             });
 
@@ -29,7 +29,7 @@ function getRouter() {
                 })
                 .on('end', function (data) {
                     dataAll = dataCsv;
-                    if (dataAll[0][0] === "Kode Barang" && dataAll[0][1] === "Nama Barang" && dataAll[0][2] === "Satuan" && dataAll[0][3] === "Mata Uang" && dataAll[0][4] === "Harga" && dataAll[0][5] === "Tags" && dataAll[0][6] === "Keterangan" && dataAll[0][7] === "Const" && dataAll[0][8] === "Yarn" && dataAll[0][9] === "Width") {
+                    if (dataAll[0][0] === "Kode" && dataAll[0][1] === "Nama Supplier" && dataAll[0][2] === "Alamat" && dataAll[0][3] === "Kontak" && dataAll[0][4] === "PIC" && dataAll[0][5] === "Import" && dataAll[0][6] === "NPWP" && dataAll[0][7] === "Serial Number") {
                         manager.insert(dataAll)
                             .then(doc => {
                                 if (doc[0]["Error"] === undefined) {
@@ -37,37 +37,33 @@ function getRouter() {
                                     response.send(201, result);
                                 }
                                 else {
-                                    var product = [];
+                                    var supplier = [];
                                     for (var item of doc) {
                                         var _item = {
-                                            "Kode Barang": item.code,
-                                            "Nama Barang": item.name,
-                                            "Satuan": item.uom,
-                                            "Mata Uang": item.currency,
-                                            "Harga": item.price,
-                                            "Tags": item.tags,
-                                            "Keterangan": item.description,
-                                            "Const": item.properties[0],
-                                            "Yarn": item.properties[1],
-                                            "Width": item.properties[2],
+                                            "Kode": item.code,
+                                            "Nama Supplier": item.name,
+                                            "Alamat": item.address,
+                                            "Kontak": item.contact,
+                                            "PIC": item.PIC,
+                                            "Import": item.import,
+                                            "NPWP": item.NPWP,
+                                            "Serial Number": item.serialNumber, 
                                             "Error": item.Error
                                         }
-                                        product.push(_item);
+                                        supplier.push(_item);
                                     }
                                     var options = {
-                                        "Kode Barang": "string",
-                                        "Nama Barang": "string",
-                                        "Satuan": "string",
-                                        "Mata Uang": "string",
-                                        "Harga": "string",
-                                        "Tags": "string",
-                                        "Keterangan": "string",
-                                        "Const": "string",
-                                        "Yarn": "string",
-                                        "Width": "string",
+                                        "Kode": "string",
+                                        "Nama Supplier": "string",
+                                        "Alamat": "string",
+                                        "Kontak": "string",
+                                        "PIC": "string",
+                                        "Import": "string",
+                                        "NPWP": "string",
+                                        "Serial Number": "string",
                                         "Error": "string"
                                     };
-                                    response.xls(`Error Log-Garment Barang ${moment(new Date()).format(dateFormat)}.xlsx`, product, options);
+                                    response.xls(`Error Log-Garment Supplier ${moment(new Date()).format(dateFormat)}.xlsx`, supplier, options);
 
                                 }
                             })
