@@ -1,5 +1,6 @@
 
  var v1BuyerRouter = require('../src/routers/v1/master/buyer-router');
+ var v1GarmentBuyerRouter = require('../src/routers/v1/master/garment-buyer-router');
  var v1SupplierRouter = require('../src/routers/v1/master/supplier-router');
  var v1GarmentSupplierRouter = require('../src/routers/v1/master/garment-supplier-router');
  var v1ProductRouter = require('../src/routers/v1/master/product-router');
@@ -53,8 +54,9 @@
  module.exports = function(server) {
  
      v1BuyerRouter().applyRoutes(server,                    "/master/buyers");
-     v1SupplierRouter().applyRoutes(server,                 "/master/suppliers/");
-     v1GarmentSupplierRouter().applyRoutes(server,          "/master/garment-suppliers/");
+     v1GarmentBuyerRouter().applyRoutes(server,             "/master/garment-buyers");
+     v1SupplierRouter().applyRoutes(server,                 "/master/suppliers");
+     v1GarmentSupplierRouter().applyRoutes(server,          "/master/garment-suppliers");
      v1ProductByIdRouter().applyRoutes(server,              "/master/products/byId");
      v1ProductRouter().applyRoutes(server,                  "/master/products");
      v1GarmentProductRouter().applyRoutes(server,           "/master/garment-products");
