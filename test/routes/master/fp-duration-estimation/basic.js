@@ -4,5 +4,5 @@
      model: require("dl-models").master.FinishingPrintingDurationEstimation,
      validate: require("dl-models").validator.master.finishingPrintingDurationEstimation,
      util: require("dl-module").test.data.master.fpDurationEstimation,
-     keyword: "name"
+     keyword: null
  });
