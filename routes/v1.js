@@ -52,6 +52,7 @@
  var v1StorageBankRouter = require('../src/routers/v1/master/storage-router');
  var v1CompanyRouter = require('../src/routers/v1/master/company-router');
  var v1ContactRouter = require('../src/routers/v1/master/contact-router');
+ var v1FPDurationEstimationRouter = require('../src/routers/v1/master/fp-duration-estimation-router');
 
  module.exports = function(server) {
  
@@ -108,6 +109,7 @@
      v1StorageBankRouter().applyRoutes(server,              "/v1/master/storages");
      v1CompanyRouter().applyRoutes(server,                  "/v1/master/companies");
      v1ContactRouter().applyRoutes(server,                  "/v1/master/contacts");
+     v1FPDurationEstimationRouter().applyRoutes(server,     "/v1/master/fp-duration-estimations");
 
      v1PowerBiRouter().applyRoutes(server,                  "/v1/core/power-bi/reports");
 };
