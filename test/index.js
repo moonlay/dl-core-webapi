@@ -45,4 +45,5 @@ describe('@dl-core-webapi', function () {
     test("~/master/design-motive", "./routes/master/design-motive");
     test("~/master/company", "./routes/master/company");
     test("~/master/contact", "./routes/master/contact");
+    test("~/master/fp-duration-estimation", "./routes/master/fp-duration-estimation");
 });
