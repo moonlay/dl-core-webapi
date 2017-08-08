@@ -52,11 +52,8 @@
  var v1StorageBankRouter = require('../src/routers/v1/master/storage-router');
  var v1CompanyRouter = require('../src/routers/v1/master/company-router');
  var v1ContactRouter = require('../src/routers/v1/master/contact-router');
-<<<<<<< HEAD
  var v1BadOutputReasonRouter = require('../src/routers/v1/master/bad-output-reason-router');
-=======
  var v1FPDurationEstimationRouter = require('../src/routers/v1/master/fp-duration-estimation-router');
->>>>>>> upstream/dev
 
  module.exports = function(server) {
  
