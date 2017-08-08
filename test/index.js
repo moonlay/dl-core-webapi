@@ -8,11 +8,14 @@ describe('@dl-core-webapi', function () {
   
     this.timeout(2 * 60000);
     //Master
+    
     test("~/master/budget", "./routes/master/budget");
     test('~/master/budget/upload', './routes/master/budget/upload');
     test("~/master/buyer", "./routes/master/buyer");
+    test("~/master/garment-buyer", "./routes/master/garment-buyer");
     test("~/master/category", "./routes/master/category");
-    test("~/master/category", "./routes/master/currency");
+    test("~/master/garment-category", "./routes/master/garment-category");
+    test("~/master/currency", "./routes/master/currency");
     test("~/master/division", "./routes/master/division");
     test("~/master/lot-machine", "./routes/master/lot-machine");
     test("~/master/machine", "./routes/master/machine");
@@ -20,6 +23,7 @@ describe('@dl-core-webapi', function () {
     test("~/master/product", "./routes/master/product");
     test("~/master/garment-product", "./routes/master/garment-product");
     test("~/master/supplier", "./routes/master/supplier"); 
+    test("~/master/garment-supplier", "./routes/master/garment-supplier"); 
     test("~/master/thread-specification", "./routes/master/thread-specification");
     test("~/master/unit", "./routes/master/unit");
     test("~/master/uom", "./routes/master/uom");
@@ -42,6 +46,6 @@ describe('@dl-core-webapi', function () {
     test("~/master/design-motive", "./routes/master/design-motive");
     test("~/master/company", "./routes/master/company");
     test("~/master/contact", "./routes/master/contact");
-    test("~/master/bad-output-reason", "./routes/master/bad-output-reason");
     test("~/master/fp-duration-estimation", "./routes/master/fp-duration-estimation");
+    test("~/master/bad-output-reason", "./routes/master/bad-output-reason");
 });
