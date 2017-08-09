@@ -4,7 +4,7 @@ var resultFormatter = require("../../../result-formatter");
 var passport = require("../../../passports/jwt-passport");
 var fs = require('fs');
 var csv = require('fast-csv');
-var ProductManager = require('dl-module').managers.master.GarmentProductManager;
+var BuyerManager = require('dl-module').managers.master.GarmentBuyerManager;
 const apiVersion = '1.0.0';
 
 function getRouter() {
@@ -18,7 +18,7 @@ function getRouter() {
         db.get().then(db => {
             var dataCsv = [];
             var dataAll;
-            var manager = new ProductManager(db, {
+            var manager = new BuyerManager(db, {
                 username: 'router'
             });
 
@@ -29,7 +29,7 @@ function getRouter() {
                 })
                 .on('end', function (data) {
                     dataAll = dataCsv;
-                    if (dataAll[0][0] === "Kode Barang" && dataAll[0][1] === "Nama Barang" && dataAll[0][2] === "Satuan" && dataAll[0][3] === "Mata Uang" && dataAll[0][4] === "Harga" && dataAll[0][5] === "Tags" && dataAll[0][6] === "Keterangan" && dataAll[0][7] === "Const" && dataAll[0][8] === "Yarn" && dataAll[0][9] === "Width") {
+                    if (dataAll[0][0] === "Kode Buyer" && dataAll[0][1] === "Nama" && dataAll[0][2] === "Alamat" && dataAll[0][3] === "Kota" && dataAll[0][4] === "Negara" && dataAll[0][5] === "NPWP" && dataAll[0][6] === "Jenis Buyer" && dataAll[0][7] === "Kontak" && dataAll[0][8] === "Tempo") {
                         manager.insert(dataAll)
                             .then(doc => {
                                 if (doc[0]["Error"] === undefined) {
@@ -37,37 +37,36 @@ function getRouter() {
                                     response.send(201, result);
                                 }
                                 else {
-                                    var product = [];
+                                    var buyer=[];
                                     for (var item of doc) {
                                         var _item = {
-                                            "Kode Barang": item.code,
-                                            "Nama Barang": item.name,
-                                            "Satuan": item.uom,
-                                            "Mata Uang": item.currency,
-                                            "Harga": item.price,
-                                            "Tags": item.tags,
-                                            "Keterangan": item.description,
-                                            "Const": item.properties[0],
-                                            "Yarn": item.properties[1],
-                                            "Width": item.properties[2],
+                                            "Kode Buyer": item.code,
+                                            "Nama": item.name,
+                                            "Alamat": item.address,
+                                            "Kota": item.city,
+                                            "Negara": item.country,
+                                            "NPWP":item.NPWP,
+                                            "Jenis Buyer":item.type,
+                                            "Kontak": item.contact,
+                                            "Tempo": item.tempo,
                                             "Error": item.Error
+
                                         }
-                                        product.push(_item);
-                                    }
+                                        buyer.push(_item);
+                                    }  
                                     var options = {
-                                        "Kode Barang": "string",
-                                        "Nama Barang": "string",
-                                        "Satuan": "string",
-                                        "Mata Uang": "string",
-                                        "Harga": "string",
-                                        "Tags": "string",
-                                        "Keterangan": "string",
-                                        "Const": "string",
-                                        "Yarn": "string",
-                                        "Width": "string",
+                                        "Kode Buyer": "string",
+                                        "Nama": "string",
+                                        "Alamat": "string",
+                                        "Kota": "string",
+                                        "Negara": "string",
+                                        "NPWP": "string",
+                                        "Jenis Buyer": "string",
+                                        "Kontak": "string",
+                                        "Tempo": "string",
                                         "Error": "string"
                                     };
-                                    response.xls(`Error Log-Garment Barang ${moment(new Date()).format(dateFormat)}.xlsx`, product, options);
+                                    response.xls(`Error Log-Garment Buyer ${moment(new Date()).format(dateFormat)}.xlsx`, buyer, options);
 
                                 }
                             })
