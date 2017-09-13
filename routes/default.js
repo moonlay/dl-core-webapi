@@ -54,6 +54,7 @@ var v1BuyerRouter = require('../src/routers/v1/master/buyer-router');
  var v1ContactRouter = require('../src/routers/v1/master/contact-router');
  var v1FPDurationEstimationRouter = require('../src/routers/v1/master/fp-duration-estimation-router');
  var v1BadOutputReasonRouter = require('../src/routers/v1/master/bad-output-reason-router');
+ var v1DealTrackingReasonRouter = require('../src/routers/v1/master/deal-tracking-reason-router');
 
  module.exports = function(server) {
  
@@ -111,6 +112,7 @@ var v1BuyerRouter = require('../src/routers/v1/master/buyer-router');
      v1ContactRouter().applyRoutes(server,                  "/master/contacts");
      v1FPDurationEstimationRouter().applyRoutes(server,     "/master/fp-duration-estimations");
      v1BadOutputReasonRouter().applyRoutes(server,          "/master/bad-output-reasons");
+     v1DealTrackingReasonRouter().applyRoutes(server,       "/master/deal-tracking-reasons");
 
      v1PowerBiRouter().applyRoutes(server,                  "/core/power-bi/reports"); 
 };
