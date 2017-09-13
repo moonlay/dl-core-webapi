@@ -54,6 +54,7 @@
  var v1ContactRouter = require('../src/routers/v1/master/contact-router');
  var v1FPDurationEstimationRouter = require('../src/routers/v1/master/fp-duration-estimation-router');
  var v1BadOutputReasonRouter = require('../src/routers/v1/master/bad-output-reason-router');
+ var v1DealTrackingReasonRouter = require('../src/routers/v1/master/deal-tracking-reason-router');
 
  module.exports = function(server) {
  
@@ -112,6 +113,7 @@
      v1ContactRouter().applyRoutes(server,                  "/v1/master/contacts");
      v1FPDurationEstimationRouter().applyRoutes(server,     "/v1/master/fp-duration-estimations");
      v1BadOutputReasonRouter().applyRoutes(server,          "/v1/master/bad-output-reasons");
+     v1DealTrackingReasonRouter().applyRoutes(server,       "/v1/master/deal-tracking-reasons");
 
      v1PowerBiRouter().applyRoutes(server,                  "/v1/core/power-bi/reports");
 };

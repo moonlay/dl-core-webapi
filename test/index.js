@@ -47,4 +47,5 @@ describe('@dl-core-webapi', function () {
     test("~/master/contact", "./routes/master/contact");
     test("~/master/fp-duration-estimation", "./routes/master/fp-duration-estimation");
     test("~/master/bad-output-reason", "./routes/master/bad-output-reason");
+    test("~/master/deal-tracking-reason", "./routes/master/deal-tracking-reason");
 });
