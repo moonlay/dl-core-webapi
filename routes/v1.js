@@ -56,7 +56,6 @@
  var v1BadOutputReasonRouter = require('../src/routers/v1/master/bad-output-reason-router');
  var v1DealTrackingReasonRouter = require('../src/routers/v1/master/deal-tracking-reason-router');
  var v1HolidayRouter = require('../src/routers/v1/master/holiday-router');
- var v1HolidayByIdRouter = require('../src/routers/v1/master/holiday-by-id-router');
 
  module.exports = function(server) {
  
@@ -117,7 +116,6 @@
      v1BadOutputReasonRouter().applyRoutes(server,          "/v1/master/bad-output-reasons");
      v1DealTrackingReasonRouter().applyRoutes(server,       "/v1/master/deal-tracking-reasons");
      v1HolidayRouter().applyRoutes(server,                  "/v1/master/holidays");
-     v1HolidayByIdRouter().applyRoutes(server,              "/v1/master/holidays/byId");
-
+ 
      v1PowerBiRouter().applyRoutes(server,                  "/v1/core/power-bi/reports");
 };
