@@ -33,7 +33,7 @@ it(`#01. should error when upload invalid file`, function (done) {
 it(`#02. should succes when upload valid file`, function (done) {
     request
         .post('/v1/master/upload-garment-categories') 
-        .attach('fileUpload', "test/files/Master Garment Kategori - Valid.csv")
+        .attach('fileUpload', "test/files/Master Kategori - Valid.csv")
         .end(function (err, response) {
             if (err)
                 done(err);
