@@ -29,7 +29,7 @@ function getRouter() {
                 })
                 .on('end', function (data) {
                     dataAll = dataCsv;
-                    if (dataAll[0][0] === "Kode" && dataAll[0][1] === "Nama" && dataAll[0][2] === "Kode Kebutuhan") {
+                    if (dataAll[0][0] === "Kode" && dataAll[0][1] === "Nama" && dataAll[0][2] === "Kode Kebutuhan" && dataAll[0][3] === "UOM") {
                         manager.insert(dataAll)
                             .then(doc => {
                                 if (doc[0]["Error"] === undefined) {
@@ -43,6 +43,7 @@ function getRouter() {
                                             "Kode": item.code,
                                             "Nama": item.name,
                                             "Kode Kebutuhan": item.codeRequirement,
+                                            "UOM": item.uom,
                                             "Error": item.Error
 
                                         }
@@ -52,6 +53,7 @@ function getRouter() {
                                         "Kode": "string",
                                         "Nama": "string",
                                         "Kode Kebutuhan": "string",
+                                        "UOM":"string",
                                         "Error": "string"
                                     };
                                     response.xls(`Error Log-Garment Category ${moment(new Date()).format(dateFormat)}.xlsx`, category, options);

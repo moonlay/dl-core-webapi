@@ -29,7 +29,7 @@ function getRouter() {
                 })
                 .on('end', function (data) {
                     dataAll = dataCsv;
-                    if (dataAll[0][0] === "Kode Buyer" && dataAll[0][1] === "Nama" && dataAll[0][2] === "Alamat" && dataAll[0][3] === "Kota" && dataAll[0][4] === "Negara" && dataAll[0][5] === "NPWP" && dataAll[0][6] === "Jenis Buyer" && dataAll[0][7] === "Kontak" && dataAll[0][8] === "Tempo") {
+                    if (dataAll[0][0].trim() === "Kode Buyer" && dataAll[0][1].trim() === "Nama" && dataAll[0][2].trim() === "Alamat" && dataAll[0][3].trim() === "Kota" && dataAll[0][4].trim() === "Negara" && dataAll[0][5].trim() === "NPWP" && dataAll[0][6].trim() === "Jenis Buyer" && dataAll[0][7].trim() === "Kontak" && dataAll[0][8].trim() === "Tempo") {
                         manager.insert(dataAll)
                             .then(doc => {
                                 if (doc[0]["Error"] === undefined) {
@@ -37,7 +37,7 @@ function getRouter() {
                                     response.send(201, result);
                                 }
                                 else {
-                                    var buyer=[];
+                                    var buyer = [];
                                     for (var item of doc) {
                                         var _item = {
                                             "Kode Buyer": item.code,
@@ -45,15 +45,15 @@ function getRouter() {
                                             "Alamat": item.address,
                                             "Kota": item.city,
                                             "Negara": item.country,
-                                            "NPWP":item.NPWP,
-                                            "Jenis Buyer":item.type,
+                                            "NPWP": item.NPWP,
+                                            "Jenis Buyer": item.type,
                                             "Kontak": item.contact,
                                             "Tempo": item.tempo,
                                             "Error": item.Error
 
                                         }
                                         buyer.push(_item);
-                                    }  
+                                    }
                                     var options = {
                                         "Kode Buyer": "string",
                                         "Nama": "string",
