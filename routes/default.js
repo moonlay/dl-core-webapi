@@ -116,5 +116,5 @@ var v1BuyerRouter = require('../src/routers/v1/master/buyer-router');
      v1DealTrackingReasonRouter().applyRoutes(server,       "/master/deal-tracking-reasons");
 
      v1PowerBiRouter().applyRoutes(server,                  "/core/power-bi/reports"); 
-     v1MigrationLogRouter().applyRoutes(server,             "/v1/migrationLog");
+     v1MigrationLogRouter().applyRoutes(server,             "/migrationLog");
 };
