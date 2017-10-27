@@ -4,8 +4,8 @@ function test(name, path) {
     });
 }
 
-describe('@dl-core-webapi', function () { 
-  
+describe('@dl-core-webapi', function () {
+
     this.timeout(2 * 60000);
     //Master
     test("~/master/budget", "./routes/master/budget");
@@ -48,4 +48,5 @@ describe('@dl-core-webapi', function () {
     test("~/master/fp-duration-estimation", "./routes/master/fp-duration-estimation");
     test("~/master/bad-output-reason", "./routes/master/bad-output-reason");
     test("~/master/deal-tracking-reason", "./routes/master/deal-tracking-reason");
+    test("~/migration-log", "./routes/migration-log");
 });
