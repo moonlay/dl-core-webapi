@@ -1,4 +1,4 @@
-var Manager = require("dl-module").managers.master.LotMachineManager;
+var Manager = require("dl-module").managers.master.SpinningProductionLotManager;
 var JwtRouterFactory = require("../../jwt-router-factory");
 const apiVersion = '1.0.0';
 
