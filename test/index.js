@@ -16,7 +16,7 @@ describe('@dl-core-webapi', function () {
     test("~/master/garment-category", "./routes/master/garment-category");
     test("~/master/currency", "./routes/master/currency");
     test("~/master/division", "./routes/master/division");
-    test("~/master/lot-machine", "./routes/master/lot-machine");
+    test("~/master/spinning-production-lot", "./routes/master/spinning-production-lot");
     test("~/master/machine", "./routes/master/machine");
     test("~/master/machine-type","./routes/master/machine-type");
     test("~/master/product", "./routes/master/product");
@@ -49,4 +49,5 @@ describe('@dl-core-webapi', function () {
     test("~/master/bad-output-reason", "./routes/master/bad-output-reason");
     test("~/master/deal-tracking-reason", "./routes/master/deal-tracking-reason");
     test("~/migration-log", "./routes/migration-log");
+    test("~/spinning-yarn", "./routes/master/spinning-yarn");
 });
