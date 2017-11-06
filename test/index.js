@@ -49,5 +49,5 @@ describe('@dl-core-webapi', function () {
     test("~/master/bad-output-reason", "./routes/master/bad-output-reason");
     test("~/master/deal-tracking-reason", "./routes/master/deal-tracking-reason");
     test("~/migration-log", "./routes/migration-log");
-    test("~/spinning-yarn", "./routes/spinning-yarn");
+    test("~/spinning-yarn", "./routes/master/spinning-yarn");
 });
