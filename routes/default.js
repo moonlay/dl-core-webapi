@@ -15,7 +15,7 @@ var v1BuyerRouter = require('../src/routers/v1/master/buyer-router');
  var v1UnitNiRouter = require('../src/routers/v1/master/division-router');
  var v1MachineRouter = require('../src/routers/v1/master/machine-router');
  var v1UsterRouter = require('../src/routers/v1/master/uster-router');
- var v1LotMachineRouter = require('../src/routers/v1/master/lot-machine-router');
+ var v1SpinningProductionLotRouter = require('../src/routers/v1/master/spinning-production-lot-router');
  var v1ThreadSpecificationRouter = require('../src/routers/v1/master/thread-specification-router');
  var v1StepRouter = require('../src/routers/v1/master/step-router');
  var v1InstructionRouter = require('../src/routers/v1/master/instruction-router'); 
@@ -56,6 +56,7 @@ var v1BuyerRouter = require('../src/routers/v1/master/buyer-router');
  var v1BadOutputReasonRouter = require('../src/routers/v1/master/bad-output-reason-router');
  var v1DealTrackingReasonRouter = require('../src/routers/v1/master/deal-tracking-reason-router');
  var v1MigrationLogRouter = require('../src/routers/v1/migration-log/migration-log-router.js');
+ var v1SpinningYarnRouter = require('../src/routers/v1/master/spinning-yarn-router');
 
  module.exports = function(server) {
  
@@ -76,7 +77,7 @@ var v1BuyerRouter = require('../src/routers/v1/master/buyer-router');
      v1UnitNiRouter().applyRoutes(server,                   "/master/divisions");
      v1MachineRouter().applyRoutes(server,                  "/master/machines");
      v1UsterRouter().applyRoutes(server,                    "/master/usters");
-     v1LotMachineRouter().applyRoutes(server,               "/master/lots");
+     v1SpinningProductionLotRouter().applyRoutes(server,    "/master/production-lots");
      v1ThreadSpecificationRouter().applyRoutes(server,      "/master/thread-specifications");
      v1StepRouter().applyRoutes(server,                     "/master/steps");
      v1InstructionRouter().applyRoutes(server,              "/master/instructions");
@@ -114,6 +115,7 @@ var v1BuyerRouter = require('../src/routers/v1/master/buyer-router');
      v1FPDurationEstimationRouter().applyRoutes(server,     "/master/fp-duration-estimations");
      v1BadOutputReasonRouter().applyRoutes(server,          "/master/bad-output-reasons");
      v1DealTrackingReasonRouter().applyRoutes(server,       "/master/deal-tracking-reasons");
+     v1SpinningYarnRouter().applyRoutes(server,             "/master/spinning-yarns");
 
      v1PowerBiRouter().applyRoutes(server,                  "/core/power-bi/reports"); 
      v1MigrationLogRouter().applyRoutes(server,             "/migrationLog");
