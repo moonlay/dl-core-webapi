@@ -59,6 +59,7 @@ var v1HolidayRouter = require('../src/routers/v1/master/holiday-router');
 var v1MigrationLogRouter = require('../src/routers/v1/migration-log/migration-log-router.js');
 var v1SpinningYarnRouter = require('../src/routers/v1/master/spinning-yarn-router');
 var v1KursBudgetRouter = require('../src/routers/v1/master/kurs-budget-router');
+var v1KursBudgetGetByCodeRouter = require('../src/routers/v1/master/kurs-budget-get-by-code-router');
 var v1UploadKursBudgetRouter = require('../src/routers/v1/master/upload-kurs-budget-router');
 
 module.exports = function (server) {
@@ -122,6 +123,7 @@ module.exports = function (server) {
     v1HolidayRouter().applyRoutes(server, "/v1/master/holidays");
     v1SpinningYarnRouter().applyRoutes(server, "/v1/master/spinning-yarns");
     v1KursBudgetRouter().applyRoutes(server, "/v1/master/kurs-budgets");
+    v1KursBudgetGetByCodeRouter.applyRoutes(server, "/v1/master/kurs-budgets/by-code");
     v1UploadKursBudgetRouter().applyRoutes(server, "/v1/master/upload-kurs-budgets");
 
     v1PowerBiRouter().applyRoutes(server, "/v1/core/power-bi/reports");
