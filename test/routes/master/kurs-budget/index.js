@@ -9,3 +9,7 @@ describe("UNAUTHORIZED SCENARIOS", function() {
 describe("UPLOAD SCENARIOS", function() {
     require("./upload");
 });
+
+describe("GET KURS BY CODE SCENARIOS", function() {
+    require("./get-by-code");
+});
