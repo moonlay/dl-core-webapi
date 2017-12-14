@@ -57,6 +57,9 @@ var v1BuyerRouter = require('../src/routers/v1/master/buyer-router');
  var v1DealTrackingReasonRouter = require('../src/routers/v1/master/deal-tracking-reason-router');
  var v1MigrationLogRouter = require('../src/routers/v1/migration-log/migration-log-router.js');
  var v1SpinningYarnRouter = require('../src/routers/v1/master/spinning-yarn-router');
+ var v1KursBudgetRouter = require('../src/routers/v1/master/kurs-budget-router');
+ var v1KursBudgetGetByCodeRouter = require('../src/routers/v1/master/kurs-budget-get-by-code-router');
+ var v1UploadKursBudgetRouter = require('../src/routers/v1/master/upload-kurs-budget-router');
 
  module.exports = function(server) {
  
@@ -116,6 +119,9 @@ var v1BuyerRouter = require('../src/routers/v1/master/buyer-router');
      v1BadOutputReasonRouter().applyRoutes(server,          "/master/bad-output-reasons");
      v1DealTrackingReasonRouter().applyRoutes(server,       "/master/deal-tracking-reasons");
      v1SpinningYarnRouter().applyRoutes(server,             "/master/spinning-yarns");
+     v1KursBudgetGetByCodeRouter().applyRoutes(server,      "/master/kurs-budgets/by-code");
+     v1KursBudgetRouter().applyRoutes(server,               "/master/kurs-budgets");
+     v1UploadKursBudgetRouter().applyRoutes(server,         "/master/upload-kurs-budgets");
 
      v1PowerBiRouter().applyRoutes(server,                  "/core/power-bi/reports"); 
      v1MigrationLogRouter().applyRoutes(server,             "/migrationLog");

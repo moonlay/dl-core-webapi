@@ -50,4 +50,5 @@ describe('@dl-core-webapi', function () {
     test("~/master/deal-tracking-reason", "./routes/master/deal-tracking-reason");
     test("~/migration-log", "./routes/migration-log");
     test("~/spinning-yarn", "./routes/master/spinning-yarn");
+    test("~/kurs-budget", "./routes/master/kurs-budget");
 });
