@@ -30,7 +30,23 @@ it(`#01. should error when upload invalid file`, function (done) {
         });
 });
 
-it(`#02. should succes when upload valid file`, function (done) {
+it(`#02. should error when upload invalid file`, function (done) {
+    request
+        .post('/v1/master/upload-kurs-budgets') 
+        .attach('fileUpload', "test/files/Master Kurs Budget- Invalid2.csv")
+        .end(function (err, response) {
+            if (err)
+                done(err);
+            else {
+                var result= response.header;
+                result.should.have.property("content-type");
+                result.should.have.property("date"); 
+                done();
+            }
+        });
+});
+
+it(`#03. should succes when upload valid file`, function (done) {
     request
         .post('/v1/master/upload-kurs-budgets') 
         .attach('fileUpload', "test/files/Master Kurs Budget- Valid.csv")
