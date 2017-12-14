@@ -17,7 +17,7 @@ before("#00. init server", function(done){
 it(`#01. should error when upload invalid file`, function (done) {
     request
         .post('/v1/master/upload-kurs-budgets') 
-        .attach('fileUpload', "test/files/Master Kurs Budget - Invalid.csv")
+        .attach('fileUpload', "test/files/Master Kurs Budget- Invalid.csv")
         .end(function (err, response) {
             if (err)
                 done(err);
@@ -33,7 +33,7 @@ it(`#01. should error when upload invalid file`, function (done) {
 it(`#02. should succes when upload valid file`, function (done) {
     request
         .post('/v1/master/upload-kurs-budgets') 
-        .attach('fileUpload', "test/files/Master Kurs Budget - Valid.csv")
+        .attach('fileUpload', "test/files/Master Kurs Budget- Valid.csv")
         .end(function (err, response) {
             if (err)
                 done(err);
