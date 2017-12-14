@@ -119,8 +119,8 @@ var v1BuyerRouter = require('../src/routers/v1/master/buyer-router');
      v1BadOutputReasonRouter().applyRoutes(server,          "/master/bad-output-reasons");
      v1DealTrackingReasonRouter().applyRoutes(server,       "/master/deal-tracking-reasons");
      v1SpinningYarnRouter().applyRoutes(server,             "/master/spinning-yarns");
+     v1KursBudgetGetByCodeRouter().applyRoutes(server,      "/master/kurs-budgets/by-code");
      v1KursBudgetRouter().applyRoutes(server,               "/master/kurs-budgets");
-     v1KursBudgetGetByCodeRouter.applyRoutes(server,         "/master/kurs-budgets/by-code");
      v1UploadKursBudgetRouter().applyRoutes(server,         "/master/upload-kurs-budgets");
 
      v1PowerBiRouter().applyRoutes(server,                  "/core/power-bi/reports"); 

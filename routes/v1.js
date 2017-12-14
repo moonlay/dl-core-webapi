@@ -122,8 +122,8 @@ module.exports = function (server) {
     v1DealTrackingReasonRouter().applyRoutes(server, "/v1/master/deal-tracking-reasons");
     v1HolidayRouter().applyRoutes(server, "/v1/master/holidays");
     v1SpinningYarnRouter().applyRoutes(server, "/v1/master/spinning-yarns");
+    v1KursBudgetGetByCodeRouter().applyRoutes(server, "/v1/master/kurs-budgets/by-code");
     v1KursBudgetRouter().applyRoutes(server, "/v1/master/kurs-budgets");
-    v1KursBudgetGetByCodeRouter.applyRoutes(server, "/v1/master/kurs-budgets/by-code");
     v1UploadKursBudgetRouter().applyRoutes(server, "/v1/master/upload-kurs-budgets");
 
     v1PowerBiRouter().applyRoutes(server, "/v1/core/power-bi/reports");
