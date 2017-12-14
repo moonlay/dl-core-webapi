@@ -17,7 +17,7 @@ function getRouter() {
 
         db.get().then(db => {
             var dataCsv = [];
-            var dataAll;
+            var dataAll = {};
             var manager = new Manager(db, {
                 username: 'router'
             });
@@ -28,8 +28,9 @@ function getRouter() {
                     dataCsv.push(data);
                 })
                 .on('end', function (data) {
-                    dataAll = dataCsv;
-                    if (dataAll[0][0] === "Mata Uang" && dataAll[0][1] === "Kurs") {
+                    dataAll.data = dataCsv;
+                    dataAll.date = (request.body.date); 
+                    if (dataAll.data[0][0] === "Mata Uang" && dataAll.data[0][1] === "Kurs") {
                         manager.insert(dataAll)
                             .then(doc => {
                                 if (doc[0]["Error"] === undefined) {
