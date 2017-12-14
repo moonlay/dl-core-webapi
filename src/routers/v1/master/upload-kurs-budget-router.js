@@ -29,7 +29,7 @@ function getRouter() {
                 })
                 .on('end', function (data) {
                     dataAll = dataCsv;
-                    if (dataAll.data[0][0] === "Mata Uang" && dataAll.data[0][1] === "Kurs") {
+                    if (dataAll[0][0] === "Mata Uang" && dataAll[0][1] === "Kurs") {
                         manager.insert(dataAll)
                             .then(doc => {
                                 if (doc[0]["Error"] === undefined) {
