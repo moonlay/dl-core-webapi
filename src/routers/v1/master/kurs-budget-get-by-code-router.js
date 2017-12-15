@@ -12,7 +12,7 @@ function getRouter() {
         db.get().then(db => {
             var manager = new Manager(db, request.user);
             var code = request.params.code;
-            var date = request.params.date || new Date();
+            var date = request.params.date ? new Date(request.params.date) : new Date();
             manager.collection.aggregate([
                 {
                     $match:
@@ -27,7 +27,7 @@ function getRouter() {
                 { $limit: 1 }])
                 .toArray()
                 .then(doc => {
-                    var data = doc.length>0 ? doc[0] : {};
+                    var data = doc.length > 0 ? doc[0] : {};
                     var result = resultFormatter.ok(apiVersion, 200, data);
                     response.send(200, result);
                 })
