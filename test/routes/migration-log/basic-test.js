@@ -25,7 +25,7 @@ before("#00. get security token", function (done) {
 it(`#01. should success when get data`, function (done) {
     request
         .get('/v1/migrationLog/get/report')
-        .set("authorization", `JWT ${jwt}`)
+        .set("authorization", `Bearer ${jwt}`)
         .expect(200)
         .end(function (err, response) {
             if (err)
