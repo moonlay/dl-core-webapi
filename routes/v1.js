@@ -15,7 +15,7 @@ var v1BudgetRouter = require('../src/routers/v1/master/budget-router');
 var v1UnitNiRouter = require('../src/routers/v1/master/division-router');
 var v1MachineRouter = require('../src/routers/v1/master/machine-router');
 var v1UsterRouter = require('../src/routers/v1/master/uster-router');
-var v1LotMachineRouter = require('../src/routers/v1/master/lot-machine-router');
+var v1SpinningProductionLotRouter = require('../src/routers/v1/master/spinning-production-lot-router');
 var v1ThreadSpecificationRouter = require('../src/routers/v1/master/thread-specification-router');
 var v1StepRouter = require('../src/routers/v1/master/step-router');
 var v1InstructionRouter = require('../src/routers/v1/master/instruction-router');
@@ -57,6 +57,10 @@ var v1BadOutputReasonRouter = require('../src/routers/v1/master/bad-output-reaso
 var v1DealTrackingReasonRouter = require('../src/routers/v1/master/deal-tracking-reason-router');
 var v1HolidayRouter = require('../src/routers/v1/master/holiday-router');
 var v1MigrationLogRouter = require('../src/routers/v1/migration-log/migration-log-router.js');
+var v1SpinningYarnRouter = require('../src/routers/v1/master/spinning-yarn-router');
+var v1KursBudgetRouter = require('../src/routers/v1/master/kurs-budget-router');
+var v1KursBudgetGetByCodeRouter = require('../src/routers/v1/master/kurs-budget-get-by-code-router');
+var v1UploadKursBudgetRouter = require('../src/routers/v1/master/upload-kurs-budget-router');
 
 module.exports = function (server) {
 
@@ -77,7 +81,7 @@ module.exports = function (server) {
     v1UnitNiRouter().applyRoutes(server, "/v1/master/divisions");
     v1MachineRouter().applyRoutes(server, "/v1/master/machines");
     v1UsterRouter().applyRoutes(server, "/v1/master/usters");
-    v1LotMachineRouter().applyRoutes(server, "/v1/master/lots");
+    v1SpinningProductionLotRouter().applyRoutes(server, "/v1/master/production-lots");
     v1ThreadSpecificationRouter().applyRoutes(server, "/v1/master/thread-specifications");
     v1StepRouter().applyRoutes(server, "/v1/master/steps");
     v1InstructionRouter().applyRoutes(server, "/v1/master/instructions");
@@ -117,7 +121,11 @@ module.exports = function (server) {
     v1BadOutputReasonRouter().applyRoutes(server, "/v1/master/bad-output-reasons");
     v1DealTrackingReasonRouter().applyRoutes(server, "/v1/master/deal-tracking-reasons");
     v1HolidayRouter().applyRoutes(server, "/v1/master/holidays");
+    v1SpinningYarnRouter().applyRoutes(server, "/v1/master/spinning-yarns");
+    v1KursBudgetGetByCodeRouter().applyRoutes(server, "/v1/master/kurs-budgets/by-code");
+    v1KursBudgetRouter().applyRoutes(server, "/v1/master/kurs-budgets");
+    v1UploadKursBudgetRouter().applyRoutes(server, "/v1/master/upload-kurs-budgets");
 
     v1PowerBiRouter().applyRoutes(server, "/v1/core/power-bi/reports");
-    v1MigrationLogRouter().applyRoutes(server,"/v1/migrationLog");
+    v1MigrationLogRouter().applyRoutes(server, "/v1/migrationLog");
 };
