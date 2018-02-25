@@ -25,7 +25,7 @@ before("#00. get security token", function (done) {
 it(`#01. should succes get data by code`, function (done) {
     request
         .get('/v1/master/kurs-budgets/by-code')
-        .set("authorization", `JWT ${jwt}`)
+        .set("authorization", `Bearer ${jwt}`)
         .set("Accept", "application/json")
         .expect(200)
         .expect("Content-Type", "application/json")
