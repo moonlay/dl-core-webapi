@@ -2,6 +2,7 @@ require("should");
 const host = `${process.env.IP}:${process.env.PORT}`;
 var Request = require("supertest");
 var server = require("../../../test-server");
+var getToken = require("../../../token");
 var ObjectId = require("mongodb").ObjectId;
 
 var request = Request(host);
