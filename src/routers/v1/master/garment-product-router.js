@@ -36,13 +36,6 @@ function getRouter() {
             .then((result) => {
                 response.send(result.statusCode, result);
             })
-            .catch((e) => {
-                var statusCode = 500;
-                if (e.name === "ValidationError")
-                    statusCode = 400;
-                var error = resultFormatter.fail(apiVersion, statusCode, e);
-                response.send(statusCode, error);
-            });
     })
 
     router.get("/read-single/product-by-name", passport, function (request, response, next) {
@@ -71,13 +64,6 @@ function getRouter() {
             .then((result) => {
                 response.send(result.statusCode, result);
             })
-            .catch((e) => {
-                var statusCode = 500;
-                if (e.name === "ValidationError")
-                    statusCode = 400;
-                var error = resultFormatter.fail(apiVersion, statusCode, e);
-                response.send(statusCode, error);
-            });
     })
     return router;
 }
