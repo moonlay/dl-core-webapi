@@ -8,9 +8,16 @@ var request = Request(host);
 var jwt;
 
 before("#00. init server", function (done) {
-    server().then(server => {
+    server().then((server) => {
         request = Request(server);
-        done();
+        getToken(request)
+            .then((token) => {
+                jwt = token;
+                done();
+            })
+            .catch((e) => {
+                done(e);
+            });
     });
 })
 
