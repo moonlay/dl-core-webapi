@@ -51,6 +51,7 @@ it(`#02. should succes when upload valid file`, function (done) {
         });
 });
 
+var createdData;
 it(`#03. should succes when get distinct data`, function (done) {
     request
         .get('/v1/master/garment-products/read/distinct-product-description')
@@ -63,9 +64,30 @@ it(`#03. should succes when get distinct data`, function (done) {
                 done(err);
             else {
                 var result = response.body;
+                createdData = result.data[0];
                 result.should.have.property("apiVersion");
                 result.should.have.property("data");
                 result.data.should.instanceOf(Array);
+                done();
+            }
+        });
+});
+
+it(`#04. get single data by name`, function (done) {
+    request
+        .get(`/v1/master/garment-products/read-single/product-by-name?name=${createdData.name}`)
+        .set("authorization", `Bearer ${jwt}`)
+        .set("Accept", "application/json")
+        .expect(200)
+        .expect("Content-Type", "application/json")
+        .end(function (err, response) {
+            if (err)
+                done(err);
+            else {
+                var result = response.body;
+                result.should.have.property("apiVersion");
+                result.should.have.property("data");
+                result.data.should.instanceOf(Object);
                 done();
             }
         });
