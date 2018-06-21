@@ -53,7 +53,7 @@ it(`#02. should succes when upload valid file`, function (done) {
 
 it(`#03. should succes when get distinct data`, function (done) {
     request
-        .get('/v1/master/read/distinct-product-description')
+        .get('/v1/master/garment-products/read/distinct-product-description')
         .set("authorization", `Bearer ${jwt}`)
         .set("Accept", "application/json")
         .expect(200)
