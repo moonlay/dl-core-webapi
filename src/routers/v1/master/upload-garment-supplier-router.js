@@ -29,7 +29,7 @@ function getRouter() {
                 })
                 .on('end', function (data) {
                     dataAll = dataCsv;
-                    if (dataAll[0][0] === "Kode" && dataAll[0][1] === "Nama Supplier" && dataAll[0][2] === "Alamat" && dataAll[0][3] === "Kontak" && dataAll[0][4] === "PIC" && dataAll[0][5] === "Import" && dataAll[0][6] === "NPWP" && dataAll[0][7] === "Serial Number") {
+                    if (dataAll[0][0] === "Kode" && dataAll[0][1] === "Nama Supplier" && dataAll[0][2] === "Alamat" && dataAll[0][3] === "Kontak" && dataAll[0][4] === "PIC" && dataAll[0][5] === "Import" && dataAll[0][6] === "NPWP" && dataAll[0][7] === "Serial Number" && dataAll[0][8] === "Pakai PPN") {
                         manager.insert(dataAll)
                             .then(doc => {
                                 if (doc[0]["Error"] === undefined) {
@@ -48,6 +48,7 @@ function getRouter() {
                                             "Import": item.import,
                                             "NPWP": item.NPWP,
                                             "Serial Number": item.serialNumber, 
+                                            "Pakai PPN": item.useIncoemTax,
                                             "Error": item.Error
                                         }
                                         supplier.push(_item);
@@ -61,6 +62,7 @@ function getRouter() {
                                         "Import": "string",
                                         "NPWP": "string",
                                         "Serial Number": "string",
+                                        "Pakai PPN": "string",
                                         "Error": "string"
                                     };
                                     response.xls(`Error Log-Garment Supplier ${moment(new Date()).format(dateFormat)}.xlsx`, supplier, options);
